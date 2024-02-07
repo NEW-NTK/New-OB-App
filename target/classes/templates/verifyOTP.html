@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>VerifyOTP</title>
+    <style>
+        .center-container {
+                     display: flex;
+                     justify-content: center;
+                     align-items: center;
+                     height: 100vh; /* This sets the container to take up the full height of the viewport */
+                 }
+
+                 .centered-image {
+                     max-width: 100%; /* Ensure the image doesn't exceed its container */
+                     max-height: 100%; /* Ensure the image doesn't exceed its container */
+                 }
+
+    </style>
+</head>
+<body>
+
+<div class="center-container">
+    <!-- Thymeleaf syntax to include an image -->
+    <img th:src="@{/images/verifyOTP.png}" class="centered-image" alt="Centered Image">
+    <!--        <input type="text" class="overlay-input" placeholder="Username">-->
+
+</div>
+
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+<!--</div>-->
+</body>
+
+</html>

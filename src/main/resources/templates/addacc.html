@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <title>AddAccount</title>
+    <style>
+        .center-container {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             height: 100vh; /* This sets the container to take up the full height of the viewport */
+         }
+
+         .centered-image {
+             max-width: 100%; /* Ensure the image doesn't exceed its container */
+             max-height: 100%; /* Ensure the image doesn't exceed its container */
+         }
+        .overlay-input {
+             position: fixed;
+             top: 30%; /* Adjust the top position as needed */
+             left: 47%;
+             transform: translate(-38%, -38%);
+             width: 304px; /* Adjust the width as needed */
+             padding: 27px;
+             box-sizing: border-box;
+             background-color: #F1F6FB;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border: none;
+         }
+         .overlay-inputPassword {
+             position: fixed;
+             top: 41%; /* Adjust the top position as needed */
+             left: 47%;
+             transform: translate(-38%, -38%);
+             width: 304px; /* Adjust the width as needed */
+             padding: 27px;
+             box-sizing: border-box;
+             background-color: #F1F6FB;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border: none;
+         }
+        .nextBtn{
+            position: fixed;
+             top: 93%; /* Adjust the top position as needed */
+             left: 47%;
+             transform: translate(-38%, -38%);
+             width: 318px; /* Adjust the width as needed */
+             padding: 12px;
+             box-sizing: border-box;
+             background-color: #bb1c1c;;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border: none;
+             border-radius:5px;
+             color:white;
+        }
+        .btn:hover{
+        color:white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="center-container">
+    <!-- Thymeleaf syntax to include an image -->
+    <img th:src="@{/images/addacc.png}" class="centered-image" alt="Centered Image">
+    <!--        <input type="text" class="overlay-input" placeholder="Username">-->
+    <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
+        <div class="form-group">
+            <!--            <label for="exampleInput">Your Label</label>-->
+            <input type="text"
+                   class="form-control overlay-input"
+                   id="username"
+                   th:field="*{username}"
+                   placeholder="Username">
+            <p th:errors="*{username}" class="text-danger"
+               th:if="${#fields.hasErrors('username')}">
+            </p>
+
+        </div>
+        <div class="form-group">
+            <input type="text"
+                   class="form-control overlay-inputPassword"
+                   th:field="*{password}"
+                   id="password"
+                   placeholder="Password">
+
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn nextBtn">Next</button>
+
+        </div>
+    </form>
+</div>
+
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+<!--</div>-->
+</body>
+
+</html>

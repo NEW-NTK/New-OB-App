@@ -1,0 +1,5 @@
+com/example/registrationlogindemo/controller/AuthController.class
+com/example/registrationlogindemo/RegistrationLoginDemoApplication.class
+com/example/registrationlogindemo/dto/AccountDto.class
+com/example/registrationlogindemo/service/AddAccountService.class
+com/example/registrationlogindemo/service/impl/AddAccountServiceImpl.class
