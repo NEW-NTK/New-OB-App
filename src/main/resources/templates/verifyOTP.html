@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <title>VerifyOTP</title>
     <style>
+        body{
+          margin:0;
+          padding:0;
+        }
         .center-container {
              display: flex;
              justify-content: center;
@@ -16,10 +20,26 @@
              max-width: 100%; /* Ensure the image doesn't exceed its container */
              max-height: 100%; /* Ensure the image doesn't exceed its container */
          }
-        .overlay-inputOTP {
+        .overlay-input1OTP {
              position: fixed;
              top: 25%; /* Adjust the top position as needed */
              left: 39%;
+             transform: translate(-38%, -38%);
+             width: 39px;
+             height: 52px;
+             box-sizing: border-box;
+             background-color: #F1F6FB;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border: none;
+             border-radius:9px;
+
+         }
+         .overlay-input2OTP {
+             position: fixed;
+             top: 25%; /* Adjust the top position as needed */
+             left: 43%;
              transform: translate(-38%, -38%);
              width: 39px;
              height: 52px;
@@ -54,8 +74,13 @@
         <div class="form-group">
 
             <input type="number"
-                   class="form-control overlay-inputOTP"
-                   id="OTP"
+                   class="form-control overlay-input1OTP"
+                   id="OTP1"
+                   th:field="*{username}"
+                   placeholder="">
+            <input type="number"
+                   class="form-control overlay-input2OTP"
+                   id="OTP2"
                    th:field="*{username}"
                    placeholder="">
 
