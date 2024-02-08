@@ -5,76 +5,64 @@
     <meta charset="UTF-8">
     <title>AddAccount</title>
     <style>
+        .center-container {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             height: 100vh; /* This sets the container to take up the full height of the viewport */
+         }
 
-       .center-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* This sets the container to take up the full height of the viewport */
-
+         .centered-image {
+             max-width: 100%; /* Ensure the image doesn't exceed its container */
+             max-height: 100%; /* Ensure the image doesn't exceed its container */
+         }
+        .overlay-input {
+             position: fixed;
+             top: 30%; /* Adjust the top position as needed */
+             left: 47%;
+             transform: translate(-38%, -38%);
+             width: 304px; /* Adjust the width as needed */
+             padding: 27px;
+             box-sizing: border-box;
+             background-color: #F1F6FB;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border: none;
+         }
+         .overlay-inputPassword {
+             position: fixed;
+             top: 41%; /* Adjust the top position as needed */
+             left: 47%;
+             transform: translate(-38%, -38%);
+             width: 304px; /* Adjust the width as needed */
+             padding: 27px;
+             box-sizing: border-box;
+             background-color: #F1F6FB;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border: none;
+         }
+        .nextBtn{
+             position: fixed;
+             top: 93%; /* Adjust the top position as needed */
+             left: 47%;
+             transform: translate(-38%, -38%);
+             width: 318px; /* Adjust the width as needed */
+             padding: 12px;
+             box-sizing: border-box;
+             background-color: #bb1c1c;;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border: none;
+             border-radius:5px;
+             color:white;
         }
-
-        .centered-image {
-            max-width: 100%; /* Ensure the image doesn't exceed its container */
-            max-height: 100%; /* Ensure the image doesn't exceed its container */
+        .btn:hover{
+        color:white;
         }
-       .overlay-input {
-            position: fixed;
-            top: 30%; /* Adjust the top position as needed */
-            left: 45%;
-            transform: translate(-38%, -38%);
-            width: 304px; /* Adjust the width as needed */
-            padding: 27px;
-            box-sizing: border-box;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            background-color:transparent;
-        }
-
-        .overlay-inputPassword {
-            position: fixed;
-            top: 44%; /* Adjust the top position as needed */
-            left: 45%;
-            transform: translate(-38%, -38%);
-            width: 304px; /* Adjust the width as needed */
-            padding: 27px;
-            box-sizing: border-box;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            background-color:transparent;
-        }
-
-        .form-control:focus  {
-            box-shadow: 0 0 0 0 transparent;
-
-        }
-       .nextBtn{
-            position: fixed;
-            top: 93%; /* Adjust the top position as needed */
-            left: 47%;
-            transform: translate(-38%, -38%);
-            width: 318px; /* Adjust the width as needed */
-            padding: 12px;
-            box-sizing: border-box;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            border-radius:5px;
-            color:white;
-            opacity:0;
-
-       }
-       .btn:hover{
-       color:white;
-       }
 
     </style>
 </head>
@@ -91,8 +79,7 @@
                    class="form-control overlay-input"
                    id="username"
                    th:field="*{username}"
-                   onclick="toggleTransparency('username')"
-                  >
+                   placeholder="Username">
             <p th:errors="*{username}" class="text-danger"
                th:if="${#fields.hasErrors('username')}">
             </p>
@@ -103,8 +90,7 @@
                    class="form-control overlay-inputPassword"
                    th:field="*{password}"
                    id="password"
-                   onclick="toggleTransparency('password')"
-                   >
+                   placeholder="Password">
 
         </div>
         <div class="form-group">
@@ -120,17 +106,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-<script>
-    function toggleTransparency(elementId) {
-    var element = document.getElementById(elementId);
-    element.style.backgroundColor = 'transparent';
 
-}
-
-</script>
 
 <!--</div>-->
 </body>
 
 </html>
-
