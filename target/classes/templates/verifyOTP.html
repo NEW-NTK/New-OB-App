@@ -6,16 +6,41 @@
     <title>VerifyOTP</title>
     <style>
         .center-container {
-                     display: flex;
-                     justify-content: center;
-                     align-items: center;
-                     height: 100vh; /* This sets the container to take up the full height of the viewport */
-                 }
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             height: 100vh; /* This sets the container to take up the full height of the viewport */
+         }
 
-                 .centered-image {
-                     max-width: 100%; /* Ensure the image doesn't exceed its container */
-                     max-height: 100%; /* Ensure the image doesn't exceed its container */
-                 }
+        .centered-image {
+             max-width: 100%; /* Ensure the image doesn't exceed its container */
+             max-height: 100%; /* Ensure the image doesn't exceed its container */
+         }
+        .overlay-inputOTP {
+             position: fixed;
+             top: 25%; /* Adjust the top position as needed */
+             left: 39%;
+             transform: translate(-38%, -38%);
+             width: 39px;
+             height: 52px;
+             box-sizing: border-box;
+             background-color: #F1F6FB;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             border: none;
+             border-radius:9px;
+
+         }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+             -webkit-appearance: none;
+             margin: 0;
+    }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+    }
 
     </style>
 </head>
@@ -25,7 +50,18 @@
     <!-- Thymeleaf syntax to include an image -->
     <img th:src="@{/images/verifyOTP.png}" class="centered-image" alt="Centered Image">
     <!--        <input type="text" class="overlay-input" placeholder="Username">-->
+    <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
+        <div class="form-group">
 
+            <input type="number"
+                   class="form-control overlay-inputOTP"
+                   id="OTP"
+                   th:field="*{username}"
+                   placeholder="">
+
+        </div>
+
+    </form>
 </div>
 
 
