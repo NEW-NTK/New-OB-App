@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANK Wallet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background-color: #eee9e9;
+            border: 16px solid #333;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+
+        }
+
+        .ui-container {
+            padding: 12px 8px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: black;
+            padding: 8px;
+            margin-left: -6px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: medium;
+            font-weight: bold;
+            color: blue;
+        }
+        .card1 {
+            width: 255px;
+            border: 1px solid #ccc;
+            border-radius: 11px;
+            padding: 15px;
+            margin: 2px 1px;
+            position: relative;
+            background-color: #d72614;
+            color: white;
+        }
+        .card1 p{
+            margin:1px;
+        }
+        .card1 .accname{
+            font-size: 12px;
+        }
+        .card1 .balance{
+            font-size: 27px;
+            font-weight: bold;
+        }
+        .arrow-btn {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 14px;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+        .button:focus {
+            outline: none;
+        }
+        .card2 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: white;
+            width: 255px;
+            border-radius: 11px;
+            margin-top: 16px;
+        }
+
+       .row{
+            display: flex;
+            margin-right: 4px;
+            margin-left: 4px;
+        }
+
+        .icon-wrapper {
+            margin: 12px 10px;
+            width: 89px;
+            height: 28px;
+        }
+
+        .icon {
+            width: 33px;
+            height: 27px;
+            margin-bottom: 5px;
+        }
+
+        .icon-btn {
+            margin-top: 5px;
+            border: none;
+            background: none;
+            color: #333;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 0;
+            font-weight: bold;
+        }
+        .horizontal-rectangle{
+            width: 255px;
+            height:2px;
+            background-color: #e1d4d4;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer {
+            background-color: white;
+            color: black; /* Change text color to improve visibility */
+            padding: 10px;
+            text-align: center;
+            bottom: 0; /* Stick the footer to the bottom of the viewport */
+            margin-top: 3px;
+            width: 277px;
+        }
+
+        .appfooter {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color:black;
+
+        }
+
+        .appfooter img {
+            width: 20px;
+            height: 19px;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+            border-radius: 5%;
+        }
+
+        .appfooter img:hover {
+            filter: brightness(0.7);
+        }
+
+
+        .appfooter p {
+            margin-top: 3px;
+            font-size: 10px;
+        }
+        .card3 {
+            position: relative;
+            background-color: white;
+            padding: 10px 10px;
+            height:230px;
+        }
+        .card3 h1{
+            color:black;
+
+           
+        }
+        .card3 p{
+            color:gray;
+            margin-top: 5px;
+            font-size: smaller;
+        }
+        .card3 .icon-wrapper {
+            margin: 12px 10px;
+            width: 140px;
+            height: 28px;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+<div class="center-container">
+    <div class="mobile-frame">
+        <div class="ui-container">
+            <!-- Your mobile UI content goes here -->
+            <div class="header">
+                <h1>XYZ BANK</h1>
+            </div>
+            <div class="card1">
+                <p class="accname">Account Name<p>
+                <p class="balance">$1,000.00</p>
+                <button class="arrow-btn">&#9654;</button>
+            </div>
+
+            <div class="card2">
+                <div class="row">
+                    <div class="icon-wrapper">
+                        <img th:src="@{/images/send.png}" alt="Send" class="icon">
+                        <button class="icon-btn">Send</button>
+                    </div>
+                    <div class="icon-wrapper">
+                        <img th:src="@{/images/Recieve.png}" alt="Receive" class="icon">
+                        <button class="icon-btn">Receive</button>
+                    </div>
+
+
+                </div>
+                    <div class="horizontal-rectangle"></div>
+
+                <div class="row">
+                    <div class="icon-wrapper">
+                        <img th:src="@{/images/QR.png}" alt="QR Pay" class="icon">
+                        <button class="icon-btn">QR Pay</button>
+                    </div>
+
+                    <div class="icon-wrapper">
+                        <img th:src="@{/images/deposit.png}" alt="Deposit" class="icon">
+                        <button class="icon-btn">Deposit</button>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+        <div class="card3">
+
+            <h1>Bank Accounts</h1>
+            <p>Add your bank accounts to make tranfers</p>
+            <div class="icon-wrapper">
+                <img th:src="@{/images/plus.png}" alt="Send" class="icon">
+                <button class="icon-btn">Add Account</button>
+            </div>
+        </div>
+        <footer>
+            <div class="appfooter">
+                <div>
+                    <img th:src="@{/images/wallet.png}" alt="Wallet Icon" c>
+                    <p>Wallet</p>
+                </div>
+                <div>
+                    <img th:src="@{/images/user.png}" alt="User Icon" >
+                    <p>Profile</p>
+                </div>
+                <div>
+                    <img th:src="@{/images/settings.png}" alt="Setting Icon" >
+                    <p>Settings</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

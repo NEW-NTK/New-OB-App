@@ -21,6 +21,13 @@ public class AuthController {
         this.addAccountService = addAccountService;
     }
 
+    @GetMapping("/bankwallet")
+    public String showBankWallet(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "bankwallet";
+    }
     @GetMapping("/addacc")
     public String showAddAccountForm(Model model){
         AccountDto acc = new AccountDto();
