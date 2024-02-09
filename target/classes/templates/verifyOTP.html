@@ -145,8 +145,8 @@
 
         .mobile-frame {
             position: relative;
-            width: 300px; /* Adjust the width as needed */
-            height: 600px; /* Adjust the height as needed */
+            width: 300px;
+            height: 600px;
             background-color: #ffffff;
             border: 16px solid #333;
             border-radius: 20px;
@@ -173,18 +173,10 @@
             color:red;
         }
 
-        /* Add your mobile UI styling here */
+
         h1 {
             margin: 0;
-            font-size: 14px; /* Adjust the font size as needed */
-        }
-
-         input,
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
+            font-size: 14px;
         }
 
 
@@ -199,17 +191,6 @@
         margin-top: 10px;
         font-size: 20px;
           font-weight: bold;
-        }
-         /* Submit button styling */
-       .submit-button {
-            width: 100%;
-            padding: 15px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 206px; /* Adjust the margin-top as needed */
         }
 
         .form-group input {
@@ -238,11 +219,10 @@
 <div class="center-container">
     <div class="mobile-frame">
         <div class="ui-container">
-            <!-- Your mobile UI content goes here -->
+
             <div class="header">
                 <span class="back-icon">&#9665;</span>
-<!--                <h1>Add Account</h1>-->
-<!--                <span class="info-icon">&#9432;</span>-->
+
             </div>
 
             <!-- Bank Account Verification Section -->
@@ -253,18 +233,20 @@
 
             </div>
 
-            <!-- Additional message -->
-            <h4>To Verify We've send an sms with code to +855-58 567 8786</h4>
 
+            <h4>To Verify We've send an sms with code to +855-58 567 8786</h4>
+            <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
             <!-- OTP Input Fields -->
-            <div class="otp-inputs">
-                <input type="text" maxlength="1" class="otp-input" id="otp1" />
-                <input type="text" maxlength="1" class="otp-input" id="otp2" />
-                <input type="text" maxlength="1" class="otp-input" id="otp3" />
-                <input type="text" maxlength="1" class="otp-input" id="otp4" />
-                <input type="text" maxlength="1" class="otp-input" id="otp5" />
-                <input type="text" maxlength="1" class="otp-input" id="otp6" />
-            </div>
+                <div class="otp-inputs form-group">
+                    <input type="text" maxlength="1" class="otp-input" id="otp1" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp2" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp3" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp4" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp5" />
+                    <input type="text" maxlength="1" class="otp-input" id="otp6" />
+                </div>
+
+            </form>
 
 
             <h4>You can request another code in 1.00</h4>

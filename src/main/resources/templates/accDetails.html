@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANK Wallet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background-color: #ffffff;
+            border: 16px solid #333;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .ui-container {
+            padding: 20px;
+        }
+
+        .back-icon {
+            font-size: 14px;
+            cursor: pointer;
+            color: red;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: black;
+            padding: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: medium;
+            font-weight: bold;
+            color: black;
+        }
+
+
+
+
+        .arrow-btn {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 14px;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .arrow-btn:focus {
+            outline: none;
+        }
+
+
+
+        h5 {
+            font-size: small;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="center-container">
+    <div class="mobile-frame">
+        <div class="ui-container">
+
+            <div class="header">
+                <span class="back-icon">&#9665;</span>
+                <h1>Account Details</h1>
+                <span></span>
+            </div>
+
+            <!-- Displaying 10 cards for account numbers and details vertically down -->
+            <div class="card">
+                <div class="card-body">
+
+                    <div>
+                        <p class="accname">Account Number: XXXXXXXX01</p>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <div>
+                        <p class="accname">Account Number: XXXXXXXX02</p>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Repeat the above card structure for additional accounts -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

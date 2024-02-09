@@ -43,5 +43,19 @@ public class AuthController {
         System.out.println(acc.getUsername());
         return "verifyOTP";
     }
+    @GetMapping("/accOverview")
+    public String showAccountOverview(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "accOverview";
+    }
+    @GetMapping("/accDetails")
+    public String showAccountDetails(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "accDetails";
+    }
 
 }
