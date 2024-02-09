@@ -1,69 +1,276 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>VerifyOTP</title>-->
+<!--    <style>-->
+<!--        .center-container {-->
+<!--             display: flex;-->
+<!--             justify-content: center;-->
+<!--             align-items: center;-->
+<!--             height: 100vh; /* This sets the container to take up the full height of the viewport */-->
+<!--         }-->
+
+<!--        .centered-image {-->
+<!--             max-width: 100%; /* Ensure the image doesn't exceed its container */-->
+<!--             max-height: 100%; /* Ensure the image doesn't exceed its container */-->
+<!--         }-->
+<!--        .overlay-inputOTP {-->
+<!--             position: fixed;-->
+<!--             top: 25%; /* Adjust the top position as needed */-->
+<!--             left: 39%;-->
+<!--             transform: translate(-38%, -38%);-->
+<!--             width: 39px;-->
+<!--             height: 52px;-->
+<!--             box-sizing: border-box;-->
+<!--             background-color: #F1F6FB;-->
+<!--             display: flex;-->
+<!--             justify-content: center;-->
+<!--             align-items: center;-->
+<!--             border: none;-->
+<!--             border-radius:9px;-->
+
+<!--         }-->
+<!--          .overlay-input2OTP {-->
+<!--             position: fixed;-->
+<!--             top: 25%; /* Adjust the top position as needed */-->
+<!--             left: 43%;-->
+<!--             transform: translate(-38%, -38%);-->
+<!--             width: 39px;-->
+<!--             height: 52px;-->
+<!--             box-sizing: border-box;-->
+<!--             background-color: #F1F6FB;-->
+<!--             display: flex;-->
+<!--             justify-content: center;-->
+<!--             align-items: center;-->
+<!--             border: none;-->
+<!--             border-radius:9px;-->
+
+<!--         }-->
+<!--          .overlay-input3OTP {-->
+<!--             position: fixed;-->
+<!--             top: 25%; /* Adjust the top position as needed */-->
+<!--             left: 47%;-->
+<!--             transform: translate(-38%, -38%);-->
+<!--             width: 39px;-->
+<!--             height: 52px;-->
+<!--             box-sizing: border-box;-->
+<!--             background-color: #F1F6FB;-->
+<!--             display: flex;-->
+<!--             justify-content: center;-->
+<!--             align-items: center;-->
+<!--             border: none;-->
+<!--             border-radius:9px;-->
+
+<!--         }-->
+<!--        input[type="number"]::-webkit-inner-spin-button,-->
+<!--        input[type="number"]::-webkit-outer-spin-button {-->
+<!--             -webkit-appearance: none;-->
+<!--             margin: 0;-->
+<!--    }-->
+
+<!--        input[type="number"] {-->
+<!--            -moz-appearance: textfield; /* Firefox */-->
+<!--    }-->
+
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="center-container">-->
+<!--    &lt;!&ndash; Thymeleaf syntax to include an image &ndash;&gt;-->
+<!--    <img th:src="@{/images/verifyOTP.png}" class="centered-image" alt="Centered Image">-->
+<!--    &lt;!&ndash;        <input type="text" class="overlay-input" placeholder="Username">&ndash;&gt;-->
+<!--    <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">-->
+<!--        <div class="form-group">-->
+
+<!--            <input type="number"-->
+<!--                   class="form-control overlay-inputOTP"-->
+<!--                   id="OTP"-->
+<!--                   th:field="*{username}"-->
+<!--                   placeholder="">-->
+<!--            <input type="number"-->
+<!--                   class="form-control overlay-input2OTP"-->
+<!--                   id="OTP2"-->
+<!--                   th:field="*{username}"-->
+<!--                   placeholder="">-->
+<!--            <input type="number"-->
+<!--                   class="form-control overlay-input3OTP"-->
+<!--                   id="OTP3"-->
+<!--                   th:field="*{username}"-->
+<!--                   placeholder="">-->
+
+<!--        </div>-->
+
+<!--    </form>-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash; Bootstrap JavaScript and dependencies (jQuery and Popper.js) &ndash;&gt;-->
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>-->
+
+
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</body>-->
+
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+
 <head>
     <meta charset="UTF-8">
-    <title>VerifyOTP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile UI with Frame</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
         .center-container {
-             display: flex;
-             justify-content: center;
-             align-items: center;
-             height: 100vh; /* This sets the container to take up the full height of the viewport */
-         }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-        .centered-image {
-             max-width: 100%; /* Ensure the image doesn't exceed its container */
-             max-height: 100%; /* Ensure the image doesn't exceed its container */
-         }
-        .overlay-inputOTP {
-             position: fixed;
-             top: 25%; /* Adjust the top position as needed */
-             left: 39%;
-             transform: translate(-38%, -38%);
-             width: 39px;
-             height: 52px;
-             box-sizing: border-box;
-             background-color: #F1F6FB;
-             display: flex;
-             justify-content: center;
-             align-items: center;
-             border: none;
-             border-radius:9px;
+        .mobile-frame {
+            position: relative;
+            width: 300px; /* Adjust the width as needed */
+            height: 600px; /* Adjust the height as needed */
+            background-color: #ffffff;
+            border: 16px solid #333;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
 
-         }
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-             -webkit-appearance: none;
-             margin: 0;
-    }
+        .ui-container {
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-        input[type="number"] {
-            -moz-appearance: textfield; /* Firefox */
-    }
+            color: black;
+            padding: 10px;
 
+        }
+
+        .back-icon {
+            font-size: 14px;
+            cursor: pointer;
+            color:red;
+        }
+
+        /* Add your mobile UI styling here */
+        h1 {
+            margin: 0;
+            font-size: 14px; /* Adjust the font size as needed */
+        }
+
+         input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+
+
+
+         h4 {
+            color: lightgrey;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        h3{
+        margin-top: 10px;
+        font-size: 20px;
+          font-weight: bold;
+        }
+         /* Submit button styling */
+       .submit-button {
+            width: 100%;
+            padding: 15px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 206px; /* Adjust the margin-top as needed */
+        }
+
+        .form-group input {
+            background-color: #f7f4f4;
+        }
+        .otp-inputs{
+            margin-top: 20px;
+        }
+
+        .otp-input {
+            flex: 1;
+            width: 29px;
+            height: 40px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #f2efef;
+            border-radius: 8px;
+            margin-right: 5px;
+            background-color: #f2efef;
+        }
     </style>
 </head>
+
 <body>
 
 <div class="center-container">
-    <!-- Thymeleaf syntax to include an image -->
-    <img th:src="@{/images/verifyOTP.png}" class="centered-image" alt="Centered Image">
-    <!--        <input type="text" class="overlay-input" placeholder="Username">-->
-    <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
-        <div class="form-group">
+    <div class="mobile-frame">
+        <div class="ui-container">
+            <!-- Your mobile UI content goes here -->
+            <div class="header">
+                <span class="back-icon">&#9665;</span>
+<!--                <h1>Add Account</h1>-->
+<!--                <span class="info-icon">&#9432;</span>-->
+            </div>
 
-            <input type="number"
-                   class="form-control overlay-inputOTP"
-                   id="OTP"
-                   th:field="*{username}"
-                   placeholder="">
+            <!-- Bank Account Verification Section -->
+            <div class="verification-section">
+                <h3>Enter the Code</h3>
 
+
+
+            </div>
+
+            <!-- Additional message -->
+            <h4>To Verify We've send an sms with code to +855-58 567 8786</h4>
+
+            <!-- OTP Input Fields -->
+            <div class="otp-inputs">
+                <input type="text" maxlength="1" class="otp-input" id="otp1" />
+                <input type="text" maxlength="1" class="otp-input" id="otp2" />
+                <input type="text" maxlength="1" class="otp-input" id="otp3" />
+                <input type="text" maxlength="1" class="otp-input" id="otp4" />
+                <input type="text" maxlength="1" class="otp-input" id="otp5" />
+                <input type="text" maxlength="1" class="otp-input" id="otp6" />
+            </div>
+
+
+            <h4>You can request another code in 1.00</h4>
         </div>
-
-    </form>
+    </div>
 </div>
-
 
 <!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -71,8 +278,26 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 
+<script>
 
-<!--</div>-->
+    function getOtpString() {
+        var otp1 = document.getElementById("otp1").value;
+        var otp2 = document.getElementById("otp2").value;
+        var otp3 = document.getElementById("otp3").value;
+        var otp4 = document.getElementById("otp4").value;
+        var otp5 = document.getElementById("otp5").value;
+        var otp6 = document.getElementById("otp6").value;
+
+        var otpString = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
+        console.log(otpString); // Display the concatenated string in the console
+    }
+      // Add event listeners to each OTP input
+    var otpInputs = document.getElementsByClassName("otp-input");
+    for (var i = 0; i < otpInputs.length; i++) {
+        otpInputs[i].addEventListener("input", getOtpString);
+    }
+</script>
+
 </body>
 
 </html>

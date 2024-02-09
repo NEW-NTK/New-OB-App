@@ -1,136 +1,319 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>AddAccount</title>-->
+<!--    <style>-->
+
+<!--       .center-container {-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            height: 100vh; /* This sets the container to take up the full height of the viewport */-->
+
+<!--        }-->
+
+<!--        .centered-image {-->
+<!--            max-width: 100%; /* Ensure the image doesn't exceed its container */-->
+<!--            max-height: 100%; /* Ensure the image doesn't exceed its container */-->
+<!--        }-->
+<!--       .overlay-input {-->
+<!--            position: fixed;-->
+<!--            top: 31%; /* Adjust the top position as needed */-->
+<!--            left: 46%;-->
+<!--            transform: translate(-38%, -38%);-->
+<!--            width: 304px; /* Adjust the width as needed */-->
+<!--            padding: 27px;-->
+<!--            box-sizing: border-box;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            border: none;-->
+<!--            background-color:transparent;-->
+<!--        }-->
+
+<!--        .overlay-inputPassword {-->
+<!--            position: fixed;-->
+<!--            top: 44%; /* Adjust the top position as needed */-->
+<!--            left: 46%;-->
+<!--            transform: translate(-38%, -38%);-->
+<!--            width: 304px; /* Adjust the width as needed */-->
+<!--            padding: 27px;-->
+<!--            box-sizing: border-box;-->
+
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            border: none;-->
+<!--            background-color:transparent;-->
+<!--        }-->
+
+<!--        .form-control:focus  {-->
+<!--            box-shadow: 0 0 0 0 transparent;-->
+
+<!--        }-->
+<!--       .nextBtn{-->
+<!--            position: fixed;-->
+<!--            top: 93%; /* Adjust the top position as needed */-->
+<!--            left: 47%;-->
+<!--            transform: translate(-38%, -38%);-->
+<!--            width: 318px; /* Adjust the width as needed */-->
+<!--            padding: 12px;-->
+<!--            box-sizing: border-box;-->
+
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            border: none;-->
+<!--            border-radius:5px;-->
+<!--            color:white;-->
+<!--            opacity:0;-->
+
+<!--       }-->
+<!--       .btn:hover{-->
+<!--       color:white;-->
+<!--       }-->
+
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="center-container">-->
+<!--    &lt;!&ndash; Thymeleaf syntax to include an image &ndash;&gt;-->
+<!--    <img th:src="@{/images/addacc.png}" class="centered-image" alt="Centered Image">-->
+<!--    &lt;!&ndash;        <input type="text" class="overlay-input" placeholder="Username">&ndash;&gt;-->
+<!--    <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">-->
+<!--        <div class="form-group">-->
+<!--            &lt;!&ndash;            <label for="exampleInput">Your Label</label>&ndash;&gt;-->
+<!--            <input type="text"-->
+<!--                   class="form-control overlay-input"-->
+<!--                   id="username"-->
+<!--                   th:field="*{username}"-->
+<!--                   onclick="toggleTransparency('username')"-->
+<!--                  >-->
+<!--            <p th:errors="*{username}" class="text-danger"-->
+<!--               th:if="${#fields.hasErrors('username')}">-->
+<!--            </p>-->
+
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <input type="text"-->
+<!--                   class="form-control overlay-inputPassword"-->
+<!--                   th:field="*{password}"-->
+<!--                   id="password"-->
+<!--                   onclick="toggleTransparency('password')"-->
+<!--                   >-->
+
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <button type="submit" class="btn nextBtn">Next</button>-->
+
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+
+
+<!--&lt;!&ndash; Bootstrap JavaScript and dependencies (jQuery and Popper.js) &ndash;&gt;-->
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>-->
+
+<!--<script>-->
+<!--    function toggleTransparency(elementId) {-->
+<!--    var element = document.getElementById(elementId);-->
+<!--    element.style.backgroundColor = 'transparent';-->
+
+<!--}-->
+
+<!--</script>-->
+
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</body>-->
+
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+
 <head>
     <meta charset="UTF-8">
-    <title>AddAccount</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile UI with Frame</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
 
-       .center-container {
+        .center-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* This sets the container to take up the full height of the viewport */
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px; /* Adjust the width as needed */
+            height: 600px; /* Adjust the height as needed */
+            background-color: #ffffff;
+            border: 16px solid #333;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .ui-container {
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            color: black;
+            padding: 10px;
 
         }
 
-        .centered-image {
-            max-width: 100%; /* Ensure the image doesn't exceed its container */
-            max-height: 100%; /* Ensure the image doesn't exceed its container */
+        .back-icon {
+            font-size: 14px;
+            cursor: pointer;
+            color:red;
         }
-       .overlay-input {
-            position: fixed;
-            top: 30%; /* Adjust the top position as needed */
-            left: 45%;
-            transform: translate(-38%, -38%);
-            width: 304px; /* Adjust the width as needed */
-            padding: 27px;
+        .info-icon {
+            font-size: 14px;
+            color: black;
+            cursor: pointer;
+        }
+        /* Add your mobile UI styling here */
+        h1 {
+            margin: 0;
+            font-size: 14px; /* Adjust the font size as needed */
+        }
+
+         input,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
             box-sizing: border-box;
+        }
+       .verification-section {
 
             display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            background-color:transparent;
+            flex-direction: row;
+            align-items: left;
+            justify-content: space-between;
         }
 
-        .overlay-inputPassword {
-            position: fixed;
-            top: 44%; /* Adjust the top position as needed */
-            left: 45%;
-            transform: translate(-38%, -38%);
-            width: 304px; /* Adjust the width as needed */
-            padding: 27px;
-            box-sizing: border-box;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            background-color:transparent;
+       .progress-circle {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #000;
+            line-height: 36px;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 15px;
+            border: 2px solid;
+<!--            border-image: conic-gradient(black 50%, red 50%);-->
+<!--            border-image-slice: 1;-->
+<!--            border-image-source: linear-gradient(to right, black 50%, red 50%);-->
         }
 
-        .form-control:focus  {
-            box-shadow: 0 0 0 0 transparent;
-
+         h4 {
+            color: lightgrey;
+            margin-top: 10px;
+            font-size: 12px;
         }
-       .nextBtn{
-            position: fixed;
-            top: 93%; /* Adjust the top position as needed */
-            left: 47%;
-            transform: translate(-38%, -38%);
-            width: 318px; /* Adjust the width as needed */
-            padding: 12px;
-            box-sizing: border-box;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        h3{
+        margin-top: 10px;
+        font-size: 20px;
+          font-weight: bold;
+        }
+         /* Submit button styling */
+       .submit-button {
+            width: 100%;
+            padding: 15px;
+            background-color: red;
+            color: white;
             border: none;
-            border-radius:5px;
-            color:white;
-            opacity:0;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 206px; /* Adjust the margin-top as needed */
+        }
 
-       }
-       .btn:hover{
-       color:white;
-       }
-
+        .form-group input {
+            background-color: #f7f4f4;
+        }
+        .form{
+        margin-top: 20px;
+        }
     </style>
 </head>
+
 <body>
 
 <div class="center-container">
-    <!-- Thymeleaf syntax to include an image -->
-    <img th:src="@{/images/addacc.png}" class="centered-image" alt="Centered Image">
-    <!--        <input type="text" class="overlay-input" placeholder="Username">-->
-    <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
-        <div class="form-group">
-            <!--            <label for="exampleInput">Your Label</label>-->
-            <input type="text"
-                   class="form-control overlay-input"
-                   id="username"
-                   th:field="*{username}"
-                   onclick="toggleTransparency('username')"
-                  >
-            <p th:errors="*{username}" class="text-danger"
-               th:if="${#fields.hasErrors('username')}">
-            </p>
+    <div class="mobile-frame">
+        <div class="ui-container">
+            <!-- Your mobile UI content goes here -->
+            <div class="header">
+                <span class="back-icon">&#9665;</span>
+                <h1>Add Account</h1>
+                <span class="info-icon">&#9432;</span>
+            </div>
 
-        </div>
-        <div class="form-group">
-            <input type="text"
-                   class="form-control overlay-inputPassword"
-                   th:field="*{password}"
-                   id="password"
-                   onclick="toggleTransparency('password')"
-                   >
+            <!-- Bank Account Verification Section -->
+            <div class="verification-section">
+                <h3>Bank account verification</h3>
 
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn nextBtn">Next</button>
 
+                <div class="progress-circle">2<span style="color: grey;">/4</span></div>
+            </div>
+
+            <!-- Additional message -->
+            <h4>Enter the bank account credentials that XYZ Bank provided you</h4>
+
+            <div class="form">
+                <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
+                    <div class="form-group">
+                        <input type="text"
+                               class="form-control"
+                               id="username"
+                               th:field="*{username}"
+                               placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password"
+                               class="form-control"
+                               id="password"
+                               th:field="*{password}"
+                               placeholder="Password">
+                    </div>
+                    <button type="submit" class="submit-button">Next</button>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
-
 
 <!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-<script>
-    function toggleTransparency(elementId) {
-    var element = document.getElementById(elementId);
-    element.style.backgroundColor = 'transparent';
 
-}
 
-</script>
 
-<!--</div>-->
 </body>
 
 </html>
-
