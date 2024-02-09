@@ -138,7 +138,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
     <title>Mobile UI with Frame</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
@@ -155,12 +157,14 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+             min-height: 100vh;
         }
 
         .mobile-frame {
             position: relative;
-            width: 300px; /* Adjust the width as needed */
-            height: 600px; /* Adjust the height as needed */
+            width: 300px;
+            max-width: 400px;
+            height: 600px;
             background-color: #ffffff;
             border: 16px solid #333;
             border-radius: 20px;
@@ -191,10 +195,10 @@
             color: black;
             cursor: pointer;
         }
-        /* Add your mobile UI styling here */
+
         h1 {
             margin: 0;
-            font-size: 14px; /* Adjust the font size as needed */
+            font-size: 14px;
         }
 
          input,
@@ -248,7 +252,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 206px; /* Adjust the margin-top as needed */
+            margin-top: 206px;
         }
 
         .form-group input {
@@ -257,6 +261,8 @@
         .form{
         margin-top: 20px;
         }
+
+
     </style>
 </head>
 
@@ -280,7 +286,7 @@
                 <div class="progress-circle">2<span style="color: grey;">/4</span></div>
             </div>
 
-            <!-- Additional message -->
+
             <h4>Enter the bank account credentials that XYZ Bank provided you</h4>
 
             <div class="form">
