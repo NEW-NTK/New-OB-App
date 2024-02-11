@@ -1,5 +1,5 @@
-/home/kdulanga/Documents/Mitra Works/Open Banking/OBpractice/New-OB-App/src/main/java/com/example/registrationlogindemo/service/AddAccountService.java
-/home/kdulanga/Documents/Mitra Works/Open Banking/OBpractice/New-OB-App/src/main/java/com/example/registrationlogindemo/RegistrationLoginDemoApplication.java
-/home/kdulanga/Documents/Mitra Works/Open Banking/OBpractice/New-OB-App/src/main/java/com/example/registrationlogindemo/controller/AuthController.java
-/home/kdulanga/Documents/Mitra Works/Open Banking/OBpractice/New-OB-App/src/main/java/com/example/registrationlogindemo/service/impl/AddAccountServiceImpl.java
-/home/kdulanga/Documents/Mitra Works/Open Banking/OBpractice/New-OB-App/src/main/java/com/example/registrationlogindemo/dto/AccountDto.java
+/home/tdilshara/Documents/NEW_NTK/New-OB-App/src/main/java/com/example/registrationlogindemo/service/AddAccountService.java
+/home/tdilshara/Documents/NEW_NTK/New-OB-App/src/main/java/com/example/registrationlogindemo/dto/AccountDto.java
+/home/tdilshara/Documents/NEW_NTK/New-OB-App/src/main/java/com/example/registrationlogindemo/controller/AuthController.java
+/home/tdilshara/Documents/NEW_NTK/New-OB-App/src/main/java/com/example/registrationlogindemo/service/impl/AddAccountServiceImpl.java
+/home/tdilshara/Documents/NEW_NTK/New-OB-App/src/main/java/com/example/registrationlogindemo/RegistrationLoginDemoApplication.java

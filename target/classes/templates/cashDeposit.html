@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile UI with Frame</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;padding: 20px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px; /* Adjust the width as needed */
+            height: 600px; /* Adjust the height as needed */
+            background-color: #eef8f9;
+            border: 16px solid #333;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .ui-container {
+            padding: 10px 20px 0.5px 10px;
+            background-color: #ffffff;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: black;
+            padding: 5px;
+
+        }
+        h1{
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .cross-icon {
+            font-size: 30px;
+            cursor: pointer;
+            color: black;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .search-container input[type=text] {
+            padding: 5px;
+            width: 300px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            outline: none;
+            background-color: #eef8f9;
+        }
+        h2{
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .bank-list-item{
+            height: 60px;
+        }
+        .bank-section{
+            background-color: #eef8f9;
+        }
+        .listOfBanks{
+            padding-left: 10px;
+            padding-top: 8px;
+        }
+        .bank-image{
+            height: 30px;
+            width: 30px;
+            background-color: #eef8f9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="center-container">
+    <div class="mobile-frame">
+        <div class="ui-container">
+            <!-- Your mobile UI content goes here -->
+            <div class="header">
+                <h1>Deposit</h1>
+                <span class="cross-icon">&#x2DF;</span>
+            </div>
+            <!-- Search Section -->
+            <div class="search-container">
+                    <input type="text" id="searchInput" onkeyup="filterBanks()" placeholder="Search">
+            </div>
+
+<!--            <h2>Banks</h2>-->
+        </div>
+
+        <div class="bank-section"></div>
+            <div class="listOfBanks" id="banksContainer">
+                <h2>Banks</h2>
+                <div class="bank-list-item">
+                    <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
+                    <span>Taiwan Cooperative Bank</span>
+                </div>
+                <div class="bank-list-item">
+                    <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
+                    <span>TrueMoney Cambodia</span>
+                </div>
+                <div class="bank-list-item">
+                    <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
+                    <span>Union Commercial Bank Plc.</span>
+                </div>
+                <div class="bank-list-item">
+                    <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
+                    <span>Upay</span>
+                </div>
+                <div class="bank-list-item">
+                    <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
+                    <span>XYZ Bank</span>
+                </div>
+                <div class="bank-list-item">
+                    <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
+                    <span>Wing(Cambodia) Bank</span>
+                </div>
+                <div class="bank-list-item">
+                    <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
+                    <span>ABA Bank</span>
+                </div>
+            </div>
+
+            <script>
+                function filterBanks() {
+                    var input, filter, ul, li, i, txtValue;
+                    input = document.getElementById('searchInput');
+                    filter = input.value.toUpperCase();
+                    ul = document.getElementById("banksContainer");
+                    li = ul.getElementsByClassName('bank-list-item');
+
+                    for (i = 0; i < li.length; i++) {
+                        txtValue = li[i].textContent || li[i].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            li[i].style.display = "";
+                        } else {
+                            li[i].style.display = "none";
+                        }
+                    }
+                }
+            </script>
+
+
+    </div>
+</div>
+
+</body>
+</html>

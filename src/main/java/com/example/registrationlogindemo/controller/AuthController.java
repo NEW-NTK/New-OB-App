@@ -28,6 +28,23 @@ public class AuthController {
 
         return "addacc";
     }
+
+    @GetMapping("/selectBank")
+    public String showSelectBank(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "selectBank";
+    }
+
+    @GetMapping("/cashDeposit")
+    public String showBankToDeposit(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "cashDeposit";
+    }
+
     // handler method to handle register user form submit request
     @PostMapping("/addacc/save")
     public String registration(@Valid @ModelAttribute("user") AccountDto acc,
@@ -41,7 +58,8 @@ public class AuthController {
         }
         addAccountService.addAccount(acc);
         System.out.println(acc.getUsername());
-        return "verifyOTP";
+        return "selectBank";
+
     }
 
 }
