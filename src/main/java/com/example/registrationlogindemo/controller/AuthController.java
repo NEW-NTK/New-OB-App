@@ -64,5 +64,26 @@ public class AuthController {
 
         return "accDetails";
     }
+    @GetMapping("/addAccNumber")
+    public String addAccountNumber(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "addAccNumber";
+    }
+    @GetMapping("/confirmation")
+    public String confirmation(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "confirmation";
+    }
+    @GetMapping("/moneyTransfered")
+    public String moneyTransfered(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "moneyTransfered";
+    }
 
 }
