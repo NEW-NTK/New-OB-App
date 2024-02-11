@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANK Wallet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background-color: #ffffff;
+            border: 9px solid #333;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .ui-container {
+            padding: 20px;
+        }
+
+        .back-icon {
+            font-size: 14px;
+            cursor: pointer;
+            color: red;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: black;
+            padding: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: medium;
+            font-weight: bold;
+            color: black;
+        }
+
+        .card1 {
+            width: 236px;
+            border: 1px solid #ccc;
+            border-radius: 11px;
+            padding: 15px;
+            margin: 2px 1px;
+            position: relative;
+            background-color: orange;
+            color: white;
+        }
+
+        .card1 p {
+            margin: 1px;
+        }
+
+        .card1 .accname {
+            font-size: 12px;
+        }
+
+        .card1 .balance {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .arrow-btn {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 14px;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .arrow-btn:focus {
+            outline: none;
+        }
+
+        .action-cards {
+            margin-top: 15px;
+            padding: 0;
+        }
+
+        .card2 .card-body {
+            display: flex;
+            align-items: center;
+        }
+        .card3 .card-body {
+            display: flex;
+            align-items: center;
+        }
+
+        .card2 img {
+            max-width: 50px;
+
+        }
+        .card3 img {
+            max-width: 50px;
+
+        }
+
+        .card2 .card-title {
+            margin-bottom: 0;
+        }
+        .card3 .card-title {
+              margin-bottom: 0;
+        }
+        h5 {
+            font-size: small;
+        }
+
+        .card2 .card-body{
+            min-height: 21px;
+            padding: 0.45rem;
+        }
+        .card3 .card-body{
+            min-height: 21px;
+            padding: 0.55rem;
+        }
+        .card-col{
+            padding-right:8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="center-container">
+    <div class="mobile-frame">
+        <div class="ui-container">
+
+            <div class="header">
+                <span class="back-icon">&#9665;</span>
+                <h1>Account Overview</h1>
+                <span></span>
+            </div>
+            <div class="card card1">
+                <p class="accname">Dollar Account</p>
+                <p class="balance">$25,473.25</p>
+                <button class="arrow-btn">&#9654;</button>
+            </div>
+
+            <div class="row action-cards">
+                <div class="col-md-6 card-col">
+                    <div class="card card2">
+                        <div class="card-body">
+                            <img th:src="@{/images/send1.png}" alt="Centered Image">
+                            <h5 class="card-title">Send</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 card-col">
+                    <div class="card card3">
+                        <div class="card-body">
+                            <img th:src="@{/images/delete1.png}" alt="Centered Image">
+                            <h5 class="card-title">Delete</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

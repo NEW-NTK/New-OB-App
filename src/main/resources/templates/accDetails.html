@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANK Wallet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background-color: #ffffff;
+            border: 9px solid #333;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .ui-container {
+            padding: 6px;
+        }
+
+        .back-icon {
+            font-size: 14px;
+            cursor: pointer;
+            color: red;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: black;
+            padding: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: medium;
+            font-weight: bold;
+            color: black;
+        }
+
+        .cardDetails {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 11px;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f0efee;
+            color: black;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .col {
+            flex: 1;
+            text-align: center;
+        }
+
+        .card p {
+            margin: 1px;
+        }
+
+        .arrow-btn {
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 14px;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .arrow-btn:focus {
+            outline: none;
+        }
+
+        p {
+            font-size: small;
+        }
+        .right{
+            text-align: right;
+        }
+        .left{
+            text-align: left;
+        }
+        .cardDetails-container {
+            height: 478px; /* Set the desired height for the container */
+            overflow-y: auto; /* Enable vertical scrolling */
+              scrollbar-width: thin; /* For Firefox */
+            scrollbar-color: transparent transparent; /* For Firefox */
+            -ms-overflow-style: none; /* For Internet Explorer and Edge */
+            background-color: #f0efee;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="center-container">
+    <div class="mobile-frame">
+        <div class="ui-container">
+
+            <div class="header">
+                <span class="back-icon">&#9665;</span>
+                <h1>Account Details</h1>
+                <span></span>
+            </div>
+
+            <!-- Displaying 10 smaller cards for account numbers -->
+            <div class="cardDetails-container">
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Account No</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Name</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Phone No</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Type</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Currency</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Account status</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">KYC Status</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Country</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Balance</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Limit</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
