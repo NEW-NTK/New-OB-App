@@ -44,7 +44,7 @@ public class AuthController {
         return "addacc";
     }
     // handler method to handle register user form submit request
-    @PostMapping("/addacc/save")
+    @PostMapping("/addacc/verifyOTP")
     public String registration(@Valid @ModelAttribute("user") AccountDto acc,
                                BindingResult result,
                                Model model){
@@ -58,6 +58,21 @@ public class AuthController {
         System.out.println(acc.getUsername());
         return "verifyOTP";
     }
+//    @PostMapping("/addacc/verifyOTP")
+//    public String otpValidation(@Valid @ModelAttribute("user") AccountDto acc,
+//                               BindingResult result,
+//                               Model model){
+//
+//
+//        if (result.hasErrors()) {
+//            model.addAttribute("user", acc);
+//            return "addacc";
+//        }
+//        addAccountService.addAccount(acc);
+//        System.out.println(acc.getUsername());
+//        return "verifyOTP";
+//    }
+
     @GetMapping("/accOverview")
     public String showAccountOverview(Model model){
         AccountDto acc = new AccountDto();

@@ -1,123 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
-<!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>VerifyOTP</title>-->
-<!--    <style>-->
-<!--        .center-container {-->
-<!--             display: flex;-->
-<!--             justify-content: center;-->
-<!--             align-items: center;-->
-<!--             height: 100vh; /* This sets the container to take up the full height of the viewport */-->
-<!--         }-->
-
-<!--        .centered-image {-->
-<!--             max-width: 100%; /* Ensure the image doesn't exceed its container */-->
-<!--             max-height: 100%; /* Ensure the image doesn't exceed its container */-->
-<!--         }-->
-<!--        .overlay-inputOTP {-->
-<!--             position: fixed;-->
-<!--             top: 25%; /* Adjust the top position as needed */-->
-<!--             left: 39%;-->
-<!--             transform: translate(-38%, -38%);-->
-<!--             width: 39px;-->
-<!--             height: 52px;-->
-<!--             box-sizing: border-box;-->
-<!--             background-color: #F1F6FB;-->
-<!--             display: flex;-->
-<!--             justify-content: center;-->
-<!--             align-items: center;-->
-<!--             border: none;-->
-<!--             border-radius:9px;-->
-
-<!--         }-->
-<!--          .overlay-input2OTP {-->
-<!--             position: fixed;-->
-<!--             top: 25%; /* Adjust the top position as needed */-->
-<!--             left: 43%;-->
-<!--             transform: translate(-38%, -38%);-->
-<!--             width: 39px;-->
-<!--             height: 52px;-->
-<!--             box-sizing: border-box;-->
-<!--             background-color: #F1F6FB;-->
-<!--             display: flex;-->
-<!--             justify-content: center;-->
-<!--             align-items: center;-->
-<!--             border: none;-->
-<!--             border-radius:9px;-->
-
-<!--         }-->
-<!--          .overlay-input3OTP {-->
-<!--             position: fixed;-->
-<!--             top: 25%; /* Adjust the top position as needed */-->
-<!--             left: 47%;-->
-<!--             transform: translate(-38%, -38%);-->
-<!--             width: 39px;-->
-<!--             height: 52px;-->
-<!--             box-sizing: border-box;-->
-<!--             background-color: #F1F6FB;-->
-<!--             display: flex;-->
-<!--             justify-content: center;-->
-<!--             align-items: center;-->
-<!--             border: none;-->
-<!--             border-radius:9px;-->
-
-<!--         }-->
-<!--        input[type="number"]::-webkit-inner-spin-button,-->
-<!--        input[type="number"]::-webkit-outer-spin-button {-->
-<!--             -webkit-appearance: none;-->
-<!--             margin: 0;-->
-<!--    }-->
-
-<!--        input[type="number"] {-->
-<!--            -moz-appearance: textfield; /* Firefox */-->
-<!--    }-->
-
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<div class="center-container">-->
-<!--    &lt;!&ndash; Thymeleaf syntax to include an image &ndash;&gt;-->
-<!--    <img th:src="@{/images/verifyOTP.png}" class="centered-image" alt="Centered Image">-->
-<!--    &lt;!&ndash;        <input type="text" class="overlay-input" placeholder="Username">&ndash;&gt;-->
-<!--    <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">-->
-<!--        <div class="form-group">-->
-
-<!--            <input type="number"-->
-<!--                   class="form-control overlay-inputOTP"-->
-<!--                   id="OTP"-->
-<!--                   th:field="*{username}"-->
-<!--                   placeholder="">-->
-<!--            <input type="number"-->
-<!--                   class="form-control overlay-input2OTP"-->
-<!--                   id="OTP2"-->
-<!--                   th:field="*{username}"-->
-<!--                   placeholder="">-->
-<!--            <input type="number"-->
-<!--                   class="form-control overlay-input3OTP"-->
-<!--                   id="OTP3"-->
-<!--                   th:field="*{username}"-->
-<!--                   placeholder="">-->
-
-<!--        </div>-->
-
-<!--    </form>-->
-<!--</div>-->
-
-
-<!--&lt;!&ndash; Bootstrap JavaScript and dependencies (jQuery and Popper.js) &ndash;&gt;-->
-<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>-->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>-->
-
-
-
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--</body>-->
-
-<!--</html>-->
 
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
@@ -211,6 +91,16 @@
             margin-right: 5px;
             background-color: #f2efef;
         }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+        }
     </style>
 </head>
 
@@ -238,12 +128,12 @@
             <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
             <!-- OTP Input Fields -->
                 <div class="otp-inputs form-group">
-                    <input type="text" maxlength="1" class="otp-input" id="otp1" />
-                    <input type="text" maxlength="1" class="otp-input" id="otp2" />
-                    <input type="text" maxlength="1" class="otp-input" id="otp3" />
-                    <input type="text" maxlength="1" class="otp-input" id="otp4" />
-                    <input type="text" maxlength="1" class="otp-input" id="otp5" />
-                    <input type="text" maxlength="1" class="otp-input" id="otp6" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp1" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp2" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp3" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp4" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp5" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp6" />
                 </div>
 
             </form>
@@ -272,12 +162,29 @@
 
         var otpString = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
         console.log(otpString); // Display the concatenated string in the console
+
+        return otpString;
     }
-      // Add event listeners to each OTP input
+
+    function checkAndRedirect(event) {
+        if (event.key === "Enter") {
+            var otpString = getOtpString();
+
+            // Check if all OTP input fields are filled
+            if (otpString.length === 6) {
+                // Redirect to another page (replace "your_destination_page.html" with the actual page URL)
+                window.location.href = "/bankwallet";
+            }
+        }
+    }
+
+    // Add event listeners to each OTP input
     var otpInputs = document.getElementsByClassName("otp-input");
     for (var i = 0; i < otpInputs.length; i++) {
         otpInputs[i].addEventListener("input", getOtpString);
+        otpInputs[i].addEventListener("keydown", checkAndRedirect);
     }
+
 </script>
 
 </body>

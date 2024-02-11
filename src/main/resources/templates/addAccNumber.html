@@ -100,19 +100,17 @@
         }
 
         #nextButton {
-            cursor: pointer;
-            background-color: red;
-            color: #fff;
-            padding: 10px 15px;
+            width: 100%;
+            padding: 8px 115px;
+            background-color: #e10909;
+            color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 14px;
-            width:90%;
-            margin-top: 239px;
+            border-radius: 10px;
+            margin-top: 248px;
         }
 
         #nextButton:disabled {
-            background-color: red;
+            background-color: #e10909;
             cursor: not-allowed;
         }
 
@@ -155,6 +153,9 @@
         input[type="number"] {
             -moz-appearance: textfield; /* Firefox */
         }
+        .formbtn{
+            padding: 8px;
+        }
 
     </style>
 </head>
@@ -191,11 +192,12 @@
             <div class="account-section">
                 <div class="form-group">
                     <label for="accountNumber">Account Number:</label>
-
                     <input type="number" class="form-control" id="accountNumber" placeholder="|" oninput="toggleNextButton()">
-                </div>
-                    <button id="nextButton" disabled>Next</button>
 
+                </div>
+                <div class="formbtn">
+                    <button id="nextButton" disabled>Next</button>
+                </div>
             </div>
         </form>
 
