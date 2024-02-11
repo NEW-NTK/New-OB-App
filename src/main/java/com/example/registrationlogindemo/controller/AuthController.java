@@ -28,6 +28,14 @@ public class AuthController {
 
         return "bankwallet";
     }
+
+    @GetMapping("/selectbank")
+    public String showSelectBank(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "selectbank";
+    }
     @GetMapping("/addacc")
     public String showAddAccountForm(Model model){
         AccountDto acc = new AccountDto();
@@ -71,6 +79,13 @@ public class AuthController {
 
         return "addAccNumber";
     }
+    @GetMapping("/setamount")
+    public String setAmount(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "setamount";
+    }
     @GetMapping("/confirmation")
     public String confirmation(Model model){
         AccountDto acc = new AccountDto();
@@ -78,6 +93,7 @@ public class AuthController {
 
         return "confirmation";
     }
+
     @GetMapping("/moneyTransfered")
     public String moneyTransfered(Model model){
         AccountDto acc = new AccountDto();
