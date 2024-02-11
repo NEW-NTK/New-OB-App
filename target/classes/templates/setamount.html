@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Set Amount</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background-color: #eee9e9;
+            border: 9px solid #333;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .ui-container {
+            padding: 9px;
+            background-color: #ffffff;
+        }
+        .bankNamecontainer{
+            padding: 5px;
+            background-color: #ffffff;
+            margin-top:2px;
+        }
+
+        .bankCardContainer{
+            display: flex;
+            align-items: center;
+
+            color: black;
+
+        }
+        .bankCardContainer h2{
+            font-size: 15px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: black;
+            padding: 10px;
+            
+
+        }
+
+        .back-icon {
+            font-size: 14px;
+            cursor: pointer;
+            color:red;
+        }
+        .info-icon {
+            font-size: 14px;
+            color: black;
+            cursor: pointer;
+        }
+        h1 {
+            margin: 0;
+            font-size: 14px; 
+        }
+        .card1{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: #eee9e9;
+            width: 255px;
+            border-radius: 11px;
+            margin-top: 16px;
+        }
+
+       .card1 .row{
+            display: flex;
+            margin-right: 4px;
+            margin-left: 31px;
+        }
+
+        .icon-wrapper {
+            margin: 8px 7px;
+            width: 99px;
+            height: 28px;
+            border-color: gray;
+            border: solid;
+            border-width: thin;
+            border-radius: 20px;
+        }
+
+        .icon {
+            width: 26px;
+            height: 22px;
+            padding: 3px;
+        }
+
+       .card1 p {
+            border: none;
+            background: none;
+            color: #333;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: -26px 42px;
+            width: 50px;
+        }
+        .selected {
+            background-color: white !important;
+            color: white;
+            box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
+        }
+        .selected p{
+            color: rgb(204, 136, 10);
+        }
+        .selected img {
+             filter: invert(67%) sepia(83%) saturate(2472%) hue-rotate(342deg) brightness(91%) contrast(91%);
+         }
+        .card2{
+            margin-top: 25px;
+
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+        input {
+            background-color: transparent;
+            border: transparent;
+            font-size: x-large;
+            width: 60px;
+            font-weight: bolder;
+        }
+        input:focus{
+            outline: none;
+        }
+        .card2curr{
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+        }
+        .card2curr h1{
+            margin: 10px;
+            font-size: 24px;
+        }
+        img {
+            max-width: 50px;
+            margin-right:5px;
+
+        }
+        
+        .nextbtncontainer{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: #ffffff;
+            width: 303px;
+            margin-top: 158px;
+            height: 145px;
+
+        }
+        .nextbtncontainer .row{
+            display: flex;
+            margin-right: 4px;
+            margin-left: 31px;
+
+        }
+        .nextcontainer button{
+            background-color: rgb(217 13 13);
+            padding: 10px 19px;
+            border-radius: 51px;
+            border: solid;
+            margin: 19px 43px;
+            color: white;
+            border-color: #3f3939;
+            border-width: thin;
+        }
+
+        .namecontainer{
+            display: flex;
+            flex-wrap: nowrap;;
+        }
+        .namecontainer p{
+            font-size: small;
+            width: 100px;
+            margin-top: 9px;
+            margin-bottom: 2px;
+        }
+        .namecontainer a{
+            color: red;
+            font-size: 10px;
+            text-decoration: none;
+        }
+        .namecontainer img{
+            width: 35px;
+            height: 38px;
+            margin: 9px -26px;
+        }
+        .username{
+            margin: 4px 33px;
+        }
+
+
+
+</style>
+</head>
+<body>
+<div class="center-container">
+    <div class="mobile-frame">
+        <div class="ui-container">
+            <!-- Your mobile UI content goes here -->
+            <div class="header">
+                <span class="back-icon">&#9665;</span>
+                <h1>Set Amount</h1>
+                <span class="info-icon">&#10006;</span>
+            </div>
+
+        </div>
+        <div class="bankNamecontainer">
+
+            <div class="bankCardContainer">
+                <img th:src="@{/images/banklogo.png}" alt="Centered Image">
+                <h2>XYZ Bank</h2>
+                <span></span>
+            </div>
+
+        </div>
+        <div class="card1">
+            <div class="row">
+                <div class="icon-wrapper" onclick="toggleSelection(this)">
+                    <img th:src="@{/images/riel.png}" alt="" class="icon">
+                    <p class="btn">753 499</p>
+                </div>
+                <div class="icon-wrapper" onclick="toggleSelection(this)">
+                    <img th:src="@{/images/dollar.png}" alt="" class="icon">
+                    <p class="btn">25 473</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card2">
+            <form method="post" role="form" th:action="@{/}" th:object="${user}">
+
+                <div class="form-group">
+                    <p class="amount">Amount</p>
+                    <div class="card2curr">
+                        <h1 >$</h1>
+                        <input type="number" id="numericInput" name="numericInput">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="nextbtncontainer">
+            <div class="row">
+                <div class="namecontainer">
+                    <img th:src="@{/images/banklogo.png}" alt="Centered Image">
+                    
+                    <div class="username">
+                        <p class="name">KIM CHAN</p>
+                        <a href="" class="detail">details</a>
+                    </div>
+                </div>
+                <div class="nextcontainer">
+                    <a href=""><button type="submit" class="submit-button">Next</button></a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+            
+</body>
+<script>
+    function toggleSelection(element) {
+        // Remove 'selected' class from all other icon wrappers
+        var iconWrappers = document.querySelectorAll('.icon-wrapper');
+        iconWrappers.forEach(function (wrapper) {
+            if (wrapper !== element) {
+                wrapper.classList.remove('selected');
+            }
+        });
+
+        // Toggle 'selected' class for the clicked icon wrapper
+        element.classList.toggle('selected');
+    }
+</script>
+</html>
