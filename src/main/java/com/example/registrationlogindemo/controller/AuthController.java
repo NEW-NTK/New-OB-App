@@ -117,4 +117,20 @@ public class AuthController {
         return "moneyTransfered";
     }
 
+    @GetMapping("/selectBank")
+    public String showSearchBank(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "selectBank";
+    }
+
+    @GetMapping("/cashDeposit")
+    public String showBankToDeposit(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "cashDeposit";
+    }
+
 }
