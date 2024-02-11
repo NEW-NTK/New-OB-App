@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANK Wallet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background-color: #f2f2f2;
+            border: 9px solid #333;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .ui-container {
+            padding: 9px;
+            background-color: #ffffff;
+        }
+
+        .bankNamecontainer{
+            padding: 5px;
+            background-color: #ffffff;
+            margin-top:2px;
+        }
+        .back-icon {
+            font-size: 14px;
+            cursor: pointer;
+            color: red;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: black;
+            padding: 10px;
+        }
+        .bankCardContainer{
+            display: flex;
+            align-items: center;
+
+            color: black;
+
+        }
+        h1 {
+            margin: 0;
+            font-size: medium;
+            font-weight: bold;
+            color: black;
+        }
+        h2{
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+
+        img {
+            max-width: 50px;
+            margin-right:5px;
+
+        }
+       .account-section {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        #accountNumber {
+            width: 100%;
+            margin-bottom: 30px;
+            background-color: transparent;
+            padding: 5px;
+            border:none;
+        }
+
+        #nextButton {
+            cursor: pointer;
+            background-color: red;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            width:90%;
+            margin-top: 239px;
+        }
+
+        #nextButton:disabled {
+            background-color: red;
+            cursor: not-allowed;
+        }
+
+        .form-group input {
+            background-color: #f7f4f4;
+        }
+        .form{
+        margin-top: 20px;
+        text-align:center;
+        }
+        .form-group {
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+        input:focus{
+            outline: none;
+            box-shadow: 0 0 0 0 transparent;
+        }
+        input {
+            background-color: transparent;
+            border: transparent;
+            font-size: x-large;
+            width: 60px;
+            font-weight: bolder;
+        }
+
+        .form-control:focus {
+          color: #495057;
+
+
+          outline: 0;
+          box-shadow: 0 0 0 0 transparent;
+        }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="center-container">
+    <div class="mobile-frame">
+        <div class="ui-container">
+
+            <div class="header">
+                <span class="back-icon">&#9665;</span>
+                <h1>Account Number</h1>
+                <span class="close-icon">&#10006;</span>
+            </div>
+
+
+
+
+        </div>
+        <div class="bankNamecontainer">
+
+            <div class="bankCardContainer">
+                <img th:src="@{/images/bank.png}" alt="Centered Image">
+                <h2>XYZ Bank</h2>
+                <span></span>
+            </div>
+
+
+
+
+        </div>
+        <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
+            <div class="account-section">
+                <div class="form-group">
+                    <label for="accountNumber">Account Number:</label>
+
+                    <input type="number" class="form-control" id="accountNumber" placeholder="|" oninput="toggleNextButton()">
+                </div>
+                    <button id="nextButton" disabled>Next</button>
+
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script>
+    function toggleNextButton() {
+        var accountNumberInput = document.getElementById("accountNumber");
+        var nextButton = document.getElementById("nextButton");
+
+        nextButton.disabled = accountNumberInput.value.trim() === "";
+    }
+
+    function nextButtonClick() {
+        // Handle the logic for the "Next" button click here
+        alert("Next button clicked!");
+    }
+</script>
+
+</body>
+
+</html>

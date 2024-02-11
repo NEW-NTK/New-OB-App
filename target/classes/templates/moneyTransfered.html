@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANK Wallet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background-color: #f2f2f2;
+            border: 9px solid #333;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            overflow-y: auto;
+              scrollbar-width: thin;
+              scrollbar-color: transparent transparent;
+        }
+
+        .ui-container {
+            padding: 5px;
+            background-color: #ffffff;
+
+            text-align: center;
+        }
+
+
+        .back-icon {
+            font-size: 14px;
+            cursor: pointer;
+            color: red;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center the content */
+            flex-direction: column; /* Stack items vertically */
+            color: black;
+            padding: 10px;
+        }
+        .bankCardContainer{
+            display: flex;
+            align-items: center;
+
+            color: black;
+
+        }
+        h1 {
+            margin: 0;
+            font-size: medium;
+            font-weight: bold;
+            color: black;
+        }
+        h2{
+            font-size: small;
+            color: #757171;
+        }
+
+
+        .centeredImage {
+            max-width: 70px;
+            margin-right:5px;
+            margin-bottom: 20px;
+
+        }
+       .account-section {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        #accountNumber {
+            width: 100%;
+            margin-bottom: 10px;
+            background-color: transparent;
+            padding: 5px;
+            border:none;
+        }
+
+        #nextButton {
+            cursor: pointer;
+            background-color: red;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            width:90%;
+            margin-top: 239px;
+        }
+
+        #nextButton:disabled {
+            background-color: red;
+            cursor: not-allowed;
+        }
+            .submit-button {
+            width: 100%;
+            padding: 15px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 206px;
+        }
+
+        .form-group input {
+            background-color: #f7f4f4;
+        }
+        .form{
+        margin-top: 20px;
+        text-align:center;
+        }
+        .form-group {
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+      input:focus{
+        outline: none;
+    }
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+        }
+        h4 {
+            color: #a8a3a3;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+          .right{
+            text-align: right;
+        }
+        .left{
+            text-align: left;
+
+        }
+        .cardDetails-container {
+            height: 478px; /* Set the desired height for the container */
+            overflow-y: auto; /* Enable vertical scrolling */
+              scrollbar-width: thin; /* For Firefox */
+            scrollbar-color: transparent transparent; /* For Firefox */
+            -ms-overflow-style: none; /* For Internet Explorer and Edge */
+            background-color: #f0efee;
+        }
+        .cardDetails {
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 11px;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f0efee;
+            color: black;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .col {
+            flex: 1;
+            text-align: center;
+        }
+
+        .card p {
+            margin: 1px;
+            font-size:12px;
+        }
+          .submit-button {
+            width: 75%;
+            padding: 7px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 45px;
+            cursor: pointer;
+            margin-top: 90px;
+        }
+        .btnConfirm{
+          text-align: center;
+        }
+
+        .bankNamecontainer{
+            padding: 5px;
+            background-color: #f2f2f2;
+            margin-top:2px;
+        }
+        .bankCardContainer{
+            display: flex;
+            align-items: center;
+
+            color: black;
+
+        }
+        .bankImg {
+            max-width: 50px;
+            margin-right:10px;
+            border: none;
+            border-radius: 45px;
+        }
+        .starImg {
+            max-width: 20px;
+            margin-right:10px;
+
+        }
+        .actionCardcontainer{
+            padding: 15px;
+            background-color: #ffffff;
+            margin-top:2px;
+        }
+          .actionCards{
+            display: flex;
+            align-items: center;
+
+            color: black;
+
+                }
+    </style>
+</head>
+
+<body>
+
+<div class="center-container">
+    <div class="mobile-frame">
+        <div class="ui-container">
+
+            <div class="header">
+                <img th:src="@{/images/bankTransfer.png}" class="centeredImage" alt="Centered Image">
+                <h1>Money is being transferred</h1>
+                <h4>Funds are on the way</h4>
+            </div>
+
+
+
+
+
+
+        </div>
+
+        <div class="bankNamecontainer">
+
+            <div class="bankCardContainer">
+                <img th:src="@{/images/bank.png}" class="bankImg" alt="Centered Image">
+                <h2>XYZ Bank</h2>
+                <span></span>
+            </div>
+
+
+
+
+        </div>
+
+        <div class="actionCardcontainer">
+
+            <div class="actionCards">
+                <img th:src="@{/images/star.png}" class="starImg" alt="Centered Image">
+                <h2>Save to Favorites</h2>
+                <span></span>
+            </div>
+
+
+
+
+        </div>
+        <div class="actionCardcontainer">
+
+            <div class="actionCards">
+                <img th:src="@{/images/star.png}" class="starImg" alt="Centered Image">
+                <h2>Recepient</h2>
+                <span></span>
+            </div>
+
+
+
+
+        </div>
+
+        <div class="cardDetails-container">
+            <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Receiver Name</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">Kim Chan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Transaction Amount</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">$15</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Account No</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">XXXXXXXX03</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Date and Time</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">11/01/2024 08:22</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Description</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">Funds</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card cardDetails">
+                    <div class="row">
+                        <div class="col">
+                            <p class="left">Transaction Hash</p>
+                        </div>
+                        <div class="col">
+                            <p class="right">f61029ba</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="btnConfirm">
+                    <button type="submit" class="submit-button">Done</button>
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script>
+
+</script>
+
+</body>
+
+</html>
