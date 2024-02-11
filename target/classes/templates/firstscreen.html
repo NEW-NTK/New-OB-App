@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Bakong</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background-color: #ffffff;
+            border: 9px solid #333;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        img{
+            width: 306px;
+            height: 608px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="center-container">
+        <div class="mobile-frame">
+
+            <img th:src="@{/images/Bakong.png}" alt="">
+
+        </div>
+    </div>
+    <script>
+        function checkAndRedirect(event) {
+            if (event.key === "Enter") {
+                // Redirect to another page (replace "/authorize" with the actual page URL)
+                window.location.href = "/authorize";
+            }
+
+        }
+
+        document.addEventListener("keydown", checkAndRedirect);
+    </script>
+</body>
+
+</html>

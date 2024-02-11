@@ -1,6 +1,7 @@
 package com.example.registrationlogindemo.controller;
 
 import com.example.registrationlogindemo.dto.AccountDto;
+import com.example.registrationlogindemo.dto.BankNameDto;
 import com.example.registrationlogindemo.service.AddAccountService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -21,6 +23,16 @@ public class AuthController {
         this.addAccountService = addAccountService;
     }
 
+    @GetMapping("/bakong")
+    public String showFirstScreen(){
+        return "firstscreen";
+    }
+
+    @GetMapping("/authorize")
+    public String showFingerPrint(){
+        return "fingerprint";
+    }
+
     @GetMapping("/bankwallet")
     public String showBankWallet(Model model){
         AccountDto acc = new AccountDto();
@@ -31,11 +43,31 @@ public class AuthController {
 
     @GetMapping("/selectbank")
     public String showSelectBank(Model model){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
-
+        BankNameDto bankname = new BankNameDto();
+        model.addAttribute("bank", bankname);
         return "selectbank";
     }
+//    @PostMapping("/selectbank/bank")
+//    public String selectBank(@Valid @ModelAttribute("bank") BankNameDto bank,BindingResult result,Model model){
+//
+//        System.out.println(bank.getBankname());
+//         if (result.hasErrors()) {
+//             model.addAttribute("bank", bank);
+//             return "selectbank";
+//         }
+//
+//
+//        return "add";
+//    }
+
+    @PostMapping("/selectbank/bank")
+    public String selectBank(@RequestBody BankNameDto bank) {
+        System.out.println("Received Bank Object: " + bank.getBankname());
+        // Your logic here
+
+        return "firstscreen";
+    }
+
     @GetMapping("/addacc")
     public String showAddAccountForm(Model model){
         AccountDto acc = new AccountDto();
@@ -80,6 +112,8 @@ public class AuthController {
 
         return "accOverview";
     }
+
+
     @GetMapping("/accDetails")
     public String showAccountDetails(Model model){
         AccountDto acc = new AccountDto();

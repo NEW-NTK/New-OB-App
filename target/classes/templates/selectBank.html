@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile UI with Frame</title>
+    <title>Add Bank</title>
 <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -59,13 +59,7 @@
             font-weight: bold;
             font-size: 14px; /* Adjust the font size as needed */
         }
-<!--         input,-->
-<!--        button {-->
-<!--            width: 100%;-->
-<!--            padding: 10px;-->
-<!--            margin-bottom: 10px;-->
-<!--            box-sizing: border-box;-->
-<!--        }-->
+
        .bank-section {
 
             display: flex;
@@ -86,9 +80,7 @@
             font-size: 16px;
             margin-top: 15px;
             border: 2px solid;
-    <!--            border-image: conic-gradient(black 50%, red 50%);-->
-    <!--            border-image-slice: 1;-->
-    <!--            border-image-source: linear-gradient(to right, black 50%, red 50%);-->
+
         }
 
          h4 {
@@ -104,19 +96,6 @@
         .bank-search-section{
             margin-top: 22px;
         }
-<!--        .form-group input {-->
-<!--            background-color: #f7f4f4;-->
-<!--            border-radius: 20px;-->
-<!--        }-->
-<!--        .form {-->
-<!--          background-color: #4654e1;-->
-<!--          width: 200px;-->
-<!--          height: 44px;-->
-<!--          border-radius: 5px;-->
-<!--          display: flex;-->
-<!--          flex-direction: row;-->
-<!--          align-items: center;-->
-<!--        }-->
         .search-container {
             display: flex;
             justify-content: center;
@@ -150,20 +129,19 @@
 <div class="center-container">
     <div class="mobile-frame">
         <div class="ui-container">
-            <!-- Your mobile UI content goes here -->
+
             <div class="header">
                 <span class="back-icon">&#9665;</span>
                 <h1>Add account</h1>
                 <span class="info-icon">&#9432;</span>
             </div>
 
-            <!-- Bank List Section -->
             <div class="bank-section">
                 <h3>Bank</h3>
                 <div class="progress-circle">1<span style="color: grey;">/4</span></div>
             </div>
 
-            <!-- Additional message -->
+
             <h4>Select your bank accounts below </h4>
 
             <div class="search-container">
@@ -172,54 +150,93 @@
 
             <!-- List of banks -->
             <div class="listOfBanks" id="banksContainer">
-                <div class="bank-list-item">
+                <div class="bank-list-item" onclick="selectBank('Taiwan Cooperative Bank')">
                     <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
                     <span>Taiwan Cooperative Bank</span>
                 </div>
-                <div class="bank-list-item">
+                <div class="bank-list-item" onclick="selectBank('Taiwan Cooperative Bank')" >
                     <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
                     <span>TrueMoney Cambodia</span>
                 </div>
-                <div class="bank-list-item">
+                <div class="bank-list-item" onclick="selectBank('Taiwan Cooperative Bank')">
                     <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
                     <span>Union Commercial Bank Plc.</span>
                 </div>
-                <div class="bank-list-item">
+                <div class="bank-list-item" onclick="selectBank('Taiwan Cooperative Bank')">
                     <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
                     <span>Upay</span>
                 </div>
-                <div class="bank-list-item">
+                <div class="bank-list-item" onclick="selectBank('Taiwan Cooperative Bank')">
                     <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
                     <span>XYZ Bank</span>
                 </div>
-                <div class="bank-list-item">
+                <div class="bank-list-item" onclick="selectBank('Taiwan Cooperative Bank')">
                     <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
                     <span>Wing(Cambodia) Bank</span>
                 </div>
-                <div class="bank-list-item">
+                <div class="bank-list-item" onclick="selectBank('Taiwan Cooperative Bank')"> 
                     <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
                     <span>ABA Bank</span>
                 </div>
             </div>
 
-            <script>
-                function filterBanks() {
-                    var input, filter, ul, li, i, txtValue;
-                    input = document.getElementById('searchInput');
-                    filter = input.value.toUpperCase();
-                    ul = document.getElementById("banksContainer");
-                    li = ul.getElementsByClassName('bank-list-item');
+    <script>
+//     function selectBank(bankName) {
+//        // Create a form dynamically
+//        var form = document.createElement('form');
+//        form.setAttribute('method', 'post');
+//        form.setAttribute('action', '/selectbank/bank');
 
-                    for (i = 0; i < li.length; i++) {
-                        txtValue = li[i].textContent || li[i].innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            li[i].style.display = "";
-                        } else {
-                            li[i].style.display = "none";
-                        }
-                    }
-                }
-            </script>
+//        // Create an input field for bankname
+//        var input = document.createElement('input');
+//        input.setAttribute('type', 'hidden');
+//        input.setAttribute('name', 'bankname');
+//        input.setAttribute('value', bankName);
+
+//        // Append the input field to the form
+//        form.appendChild(input);
+
+//        // Append the form to the body and submit it
+//        document.body.appendChild(form);
+//        form.submit();
+//    }
+        function selectBank(bankName) {
+            // Create an object with bankname
+            var bankObject = { bankname: bankName };
+
+            // Make an asynchronous request to the backend
+            fetch('/selectbank/bank', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(bankObject),
+            })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Response from server:', data);
+            //     // Perform additional client-side logic if needed
+            // })
+            // .catch(error => console.error('Error:', error));
+        }
+
+    function filterBanks() {
+        var input, filter, ul, li, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("banksContainer");
+        li = ul.getElementsByClassName('bank-list-item');
+
+        for (i = 0; i < li.length; i++) {
+            txtValue = li[i].textContent || li[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+     </script>
 
         </div>
     </div>
