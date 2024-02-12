@@ -4,9 +4,13 @@ import com.example.registrationlogindemo.dto.AccountDto;
 import com.example.registrationlogindemo.dto.BankNameDto;
 import com.example.registrationlogindemo.service.AddAccountService;
 import jakarta.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+@CrossOrigin
 @Controller
 public class AuthController {
 
@@ -47,25 +52,13 @@ public class AuthController {
         model.addAttribute("bank", bankname);
         return "selectbank";
     }
-//    @PostMapping("/selectbank/bank")
-//    public String selectBank(@Valid @ModelAttribute("bank") BankNameDto bank,BindingResult result,Model model){
-//
-//        System.out.println(bank.getBankname());
-//         if (result.hasErrors()) {
-//             model.addAttribute("bank", bank);
-//             return "selectbank";
-//         }
-//
-//
-//        return "add";
-//    }
+
 
     @PostMapping("/selectbank/bank")
-    public String selectBank(@RequestBody BankNameDto bank) {
+    public ResponseEntity<String> selectBank(@RequestBody BankNameDto bank) {
         System.out.println("Received Bank Object: " + bank.getBankname());
-        // Your logic here
-
-        return "firstscreen";
+    
+        return ResponseEntity.ok("addacc");
     }
 
     @GetMapping("/addacc")

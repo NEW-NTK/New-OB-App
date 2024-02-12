@@ -181,44 +181,35 @@
             </div>
 
     <script>
-//     function selectBank(bankName) {
-//        // Create a form dynamically
-//        var form = document.createElement('form');
-//        form.setAttribute('method', 'post');
-//        form.setAttribute('action', '/selectbank/bank');
 
-//        // Create an input field for bankname
-//        var input = document.createElement('input');
-//        input.setAttribute('type', 'hidden');
-//        input.setAttribute('name', 'bankname');
-//        input.setAttribute('value', bankName);
+function selectBank(bankName) {
 
-//        // Append the input field to the form
-//        form.appendChild(input);
+    var bankObject = { bankname: bankName };
 
-//        // Append the form to the body and submit it
-//        document.body.appendChild(form);
-//        form.submit();
-//    }
-        function selectBank(bankName) {
-            // Create an object with bankname
-            var bankObject = { bankname: bankName };
+ 
+    fetch('/selectbank/bank', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bankObject),
+    })
+    .then(response => {
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.text();
+})// Change here to read text instead of JSON
+    .then(data => {
+        // 'data' contains the response body as a simple string
+        // Perform any actions needed with the response
+        console.log('data',data);
+        // For example, if 'data' is "addacc", you can redirect like this:
+        window.location.href = '/' + data;
+    })
+    .catch(error => console.error('Error:', error));
+}
 
-            // Make an asynchronous request to the backend
-            fetch('/selectbank/bank', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(bankObject),
-            })
-            // .then(response => response.json())
-            // .then(data => {
-            //     console.log('Response from server:', data);
-            //     // Perform additional client-side logic if needed
-            // })
-            // .catch(error => console.error('Error:', error));
-        }
 
     function filterBanks() {
         var input, filter, ul, li, i, txtValue;
