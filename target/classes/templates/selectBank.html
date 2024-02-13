@@ -199,12 +199,9 @@ function selectBank(bankName) {
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
     return response.text();
-})// Change here to read text instead of JSON
+})
     .then(data => {
-        // 'data' contains the response body as a simple string
-        // Perform any actions needed with the response
         console.log('data',data);
-        // For example, if 'data' is "addacc", you can redirect like this:
         window.location.href = '/' + data;
     })
     .catch(error => console.error('Error:', error));
