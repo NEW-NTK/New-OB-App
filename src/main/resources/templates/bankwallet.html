@@ -35,7 +35,7 @@
         }
 
         .ui-container {
-            padding: 12px 8px;
+            padding: 12px 14px;
         }
         .header {
             display: flex;
@@ -140,7 +140,7 @@
             text-align: center;
             bottom: 0; /* Stick the footer to the bottom of the viewport */
             margin-top: 3px;
-            width: 277px;
+            width: 300px;
         }
 
         .appfooter {
@@ -177,7 +177,7 @@
         .card3 h1{
             color:black;
 
-           
+
         }
         .card3 p{
             color:gray;
@@ -189,6 +189,28 @@
             width: 140px;
             height: 28px;
         }
+        .After-hidden-card3{
+            position: relative;
+            background-color: white;
+            padding: 30px 15px;
+            height: 505px;
+        }
+        .After-hidden-card3 h1{
+            color:black;
+
+
+        }
+        .After-hidden-card3 p{
+            color:gray;
+            margin-top: 5px;
+            font-size: smaller;
+        }
+
+        .After-hidden-card3 .icon-wrapper{
+            margin: 12px 10px;
+            width: 500px;
+            height: 28px;
+        }
         
     </style>
 </head>
@@ -197,7 +219,7 @@
 
 <div class="center-container">
     <div class="mobile-frame">
-        <div class="ui-container">
+        <div class="ui-container" th:style="${hideUIContainer ? 'display: none;' : ''}">
             <!-- Your mobile UI content goes here -->
             <div class="header">
                 <h1>XYZ BANK</h1>
@@ -240,7 +262,7 @@
 
 
         </div>
-        <div class="card3">
+        <div class="card3" th:class="${hideUIContainer} ? 'After-hidden-card3' : 'card3'">
 
             <h1>Bank Accounts</h1>
             <p>Add your bank accounts to make tranfers</p>

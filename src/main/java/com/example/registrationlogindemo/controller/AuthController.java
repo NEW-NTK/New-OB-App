@@ -13,13 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @Controller
@@ -46,22 +44,24 @@ public class AuthController {
     }
 
     @PostMapping("/authorize")
-    public ResponseEntity<String> userHasBankAccount(@RequestBody BakongUser user) {
+    public ResponseEntity<Map<String, String>> userHasBankAccount(@RequestBody BakongUser user) {
         System.out.println("Received Bank user: " + user.getStatus());
         boolean checked = checkBakongUserHasBankService.checkUserHasBank(user);
         System.out.println(checked);
-        if(checked == true){
-            
-            return ResponseEntity.ok("bankwallet");
-        }
-        return ResponseEntity.ok("bakong");
-    }
 
-    @GetMapping("/bankwallet")
-    public String showBankWallet(Model model){
+        Map<String, String> response = new HashMap<>();
+        response.put("page", "bankwallet");
+        response.put("status", String.valueOf(checked));
+
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/bankwallet/{status}")
+    public String showBankWallet(@PathVariable String status, Model model){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
 
+        boolean hideUIContainer = "nobankaccount".equals(status);
+        model.addAttribute("hideUIContainer", hideUIContainer);
         return "bankwallet";
     }
 
