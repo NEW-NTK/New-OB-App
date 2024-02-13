@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <title>Bakong</title>
@@ -28,13 +29,15 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
-        img{
+
+        img {
             width: 306px;
             height: 608px;
         }
     </style>
 
 </head>
+
 <body>
 <div class="center-container">
     <div class="mobile-frame">
@@ -44,12 +47,30 @@
 <script>
     function checkAndRedirect(event) {
         if (event.key === "Enter") {
-                // Redirect to another page (replace "/authorize" with the actual page URL)
-                window.location.href = "/bankwallet";
+            var bankObject = { bakongID: 2, status: "yes" };
 
+            fetch('/authorize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(bankObject),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('data', data);
+                    window.location.href = '/' + data;
+                })
+                .catch(error => console.error('Error:', error));
         }
     }
     document.addEventListener("keydown", checkAndRedirect);
-    </script>
+</script>
 </body>
+
 </html>

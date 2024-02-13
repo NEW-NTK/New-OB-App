@@ -1,10 +1,13 @@
 package com.example.registrationlogindemo.controller;
 
 import com.example.registrationlogindemo.dto.AccountDto;
+import com.example.registrationlogindemo.dto.BakongUser;
 import com.example.registrationlogindemo.dto.BankNameDto;
 import com.example.registrationlogindemo.service.AddAccountService;
+import com.example.registrationlogindemo.service.CheckBakongUserHasBankService;
 import jakarta.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,7 +25,11 @@ import java.util.List;
 @Controller
 public class AuthController {
 
+    @Autowired
     private AddAccountService addAccountService;
+
+    @Autowired
+    private CheckBakongUserHasBankService checkBakongUserHasBankService;
 
     public AuthController(AddAccountService addAccountService) {
         this.addAccountService = addAccountService;
@@ -36,6 +43,18 @@ public class AuthController {
     @GetMapping("/authorize")
     public String showFingerPrint(){
         return "fingerprint";
+    }
+
+    @PostMapping("/authorize")
+    public ResponseEntity<String> userHasBankAccount(@RequestBody BakongUser user) {
+        System.out.println("Received Bank user: " + user.getStatus());
+        boolean checked = checkBakongUserHasBankService.checkUserHasBank(user);
+        System.out.println(checked);
+        if(checked == true){
+            
+            return ResponseEntity.ok("bankwallet");
+        }
+        return ResponseEntity.ok("bakong");
     }
 
     @GetMapping("/bankwallet")
