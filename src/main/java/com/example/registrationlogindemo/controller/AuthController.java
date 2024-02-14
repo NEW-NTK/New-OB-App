@@ -102,20 +102,6 @@ public class AuthController {
         System.out.println(acc.getUsername());
         return "verifyOTP";
     }
-//    @PostMapping("/addacc/verifyOTP")
-//    public String otpValidation(@Valid @ModelAttribute("user") AccountDto acc,
-//                               BindingResult result,
-//                               Model model){
-//
-//
-//        if (result.hasErrors()) {
-//            model.addAttribute("user", acc);
-//            return "addacc";
-//        }
-//        addAccountService.addAccount(acc);
-//        System.out.println(acc.getUsername());
-//        return "verifyOTP";
-//    }
 
     @GetMapping("/accOverview")
     public String showAccountOverview(Model model){
@@ -133,11 +119,30 @@ public class AuthController {
 
         return "accDetails";
     }
-    @GetMapping("/addAccNumber")
-    public String addAccountNumber(Model model){
+
+    @GetMapping("/cashDeposit")
+    public String showBankToDeposit(Model model){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
 
+        return "cashDeposit";
+    }
+
+    @PostMapping("/cashDeposit/bank")
+    public ResponseEntity<Map<String, String>> selectCashDepositBank(@RequestBody BankNameDto bank) {
+        System.out.println("Received Deposit Bank Object: " + bank.getBankname());
+
+        Map<String, String> response = new HashMap<>();
+        response.put("page", "addAccNumber");
+        response.put("bankname", bank.getBankname());
+
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/addAccNumber/{bankname}")
+    public String addAccountNumber(@PathVariable String bankname, Model model){
+
+        System.out.println("Received Deposit Bank Object in addaccount page: " +bankname);
+        model.addAttribute("bankname", bankname);
         return "addAccNumber";
     }
     @GetMapping("/setamount")
@@ -171,12 +176,6 @@ public class AuthController {
         return "selectBank";
     }
 
-    @GetMapping("/cashDeposit")
-    public String showBankToDeposit(Model model){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
 
-        return "cashDeposit";
-    }
 
 }

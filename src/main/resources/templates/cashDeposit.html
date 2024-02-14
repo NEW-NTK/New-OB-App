@@ -113,11 +113,11 @@
         <div class="bank-section"></div>
             <div class="listOfBanks" id="banksContainer">
                 <h2>Banks</h2>
-                <div class="bank-list-item">
+                <div class="bank-list-item" onclick="selectBank('Taiwan Cooperative Bank')">
                     <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
                     <span>Taiwan Cooperative Bank</span>
                 </div>
-                <div class="bank-list-item">
+                <div class="bank-list-item" onclick="selectBank('TrueMoney Cambodia')">
                     <img th:src="@{/images/BankSymbol.png}" class="bank-image" alt="Image">
                     <span>TrueMoney Cambodia</span>
                 </div>
@@ -144,6 +144,31 @@
             </div>
 
             <script>
+                function selectBank(bankName) {
+
+                    var bankObject = { bankname: bankName };
+
+
+                    fetch('/cashDeposit/bank', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(bankObject),
+                    })
+                    .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                    .then(data => {
+                        console.log('data',data);
+                        window.location.href = '/' + data.page + '/' + data.bankname;
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+
                 function filterBanks() {
                     var input, filter, ul, li, i, txtValue;
                     input = document.getElementById('searchInput');
