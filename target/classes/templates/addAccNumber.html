@@ -93,10 +93,12 @@
 
         #accountNumber {
             width: 100%;
-            margin-bottom: 30px;
+            margin-bottom: 12px;
             background-color: transparent;
-            padding: 5px;
-            border:none;
+            border: none;
+            color: black;
+            font-size: xx-large;
+            margin-left: 26px;
         }
 
         #nextButton {
@@ -180,7 +182,7 @@
 
             <div class="bankCardContainer">
                 <img th:src="@{/images/bank.png}" alt="Centered Image">
-                <h2>XYZ Bank</h2>
+                <h2 th:text="${bankname}"></h2>
                 <span></span>
             </div>
 
@@ -192,11 +194,11 @@
             <div class="account-section">
                 <div class="form-group">
                     <label for="accountNumber">Account Number:</label>
-                    <input type="number" class="form-control" id="accountNumber" placeholder="|" oninput="toggleNextButton()">
-
+                    <input type="text" class="form-control" id="accountNumber" maxlength="12" oninput="handleInput()">
+                    <small class="text-danger" id="error-message"></small>
                 </div>
                 <div class="formbtn">
-                    <button id="nextButton" disabled>Next</button>
+                    <button id="nextButton" disabled onclick="nextButtonClick()">Next</button>
                 </div>
             </div>
         </form>
@@ -210,17 +212,24 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <script>
-    function toggleNextButton() {
-        var accountNumberInput = document.getElementById("accountNumber");
-        var nextButton = document.getElementById("nextButton");
+    function handleInput() {
+      var accountNumberInput = document.getElementById("accountNumber");
+      var nextButton = document.getElementById("nextButton");
 
-        nextButton.disabled = accountNumberInput.value.trim() === "";
-    }
+      var cleanedValue = accountNumberInput.value.replace(/\D/g, ''); // Remove non-digit characters
+      accountNumberInput.value = cleanedValue; // Update the input value
 
-    function nextButtonClick() {
-        // Handle the logic for the "Next" button click here
-        alert("Next button clicked!");
-    }
+      nextButton.disabled = cleanedValue.length !== 12;
+  }
+
+  function nextButtonClick() {
+      var accountNumberInput = document.getElementById("accountNumber");
+      var nextButton = document.getElementById("nextButton");
+
+      nextButton.disabled = accountNumberInput.value.trim() === "";
+  }
+
+
 </script>
 
 </body>
