@@ -245,7 +245,7 @@
 
             <div class="bankCardContainer">
                 <img th:src="@{/images/banklogo.png}" alt="Centered Image">
-                <h2>XYZ Bank</h2>
+                <h2 th:text="${bankname}"></h2>
                 <span></span>
             </div>
 
@@ -265,17 +265,21 @@
         </div>
 
         <div class="card2">
-            <form method="post" role="form" th:action="@{/}" th:object="${user}">
+            <form method="post" role="form" th:action="@{/setDepositAmount}" th:object="${transaction}">
 
                 <div class="form-group">
                     <p class="amount">Amount</p>
                     <div class="card2curr">
                         <h1 >$</h1>
-                        <input type="number" id="numericInput" name="numericInput">
+                        <input type="number"
+                               id="numericInput"
+                               name="numericInput"
+                               th:field="*{amount}"
+                        >
                     </div>
                 </div>
 
-            </form>
+<!--            </form>-->
         </div>
         <div class="nextbtncontainer">
             <div class="row">
@@ -288,12 +292,13 @@
                     </div>
                 </div>
                 <div class="nextcontainer">
-                    <a href=""><button type="submit" class="submit-button">Next</button></a>
+                   <button type="submit" class="submit-button">Next</button>
                 </div>
 
             </div>
 
         </div>
+        </form>
     </div>
 </div>
             

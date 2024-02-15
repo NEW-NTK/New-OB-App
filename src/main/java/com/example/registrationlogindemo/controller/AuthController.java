@@ -3,6 +3,7 @@ package com.example.registrationlogindemo.controller;
 import com.example.registrationlogindemo.dto.AccountDto;
 import com.example.registrationlogindemo.dto.BakongUser;
 import com.example.registrationlogindemo.dto.BankNameDto;
+import com.example.registrationlogindemo.dto.TransactionDto;
 import com.example.registrationlogindemo.service.AddAccountService;
 import com.example.registrationlogindemo.service.CheckBakongUserHasBankService;
 import jakarta.validation.Valid;
@@ -69,8 +70,15 @@ public class AuthController {
     public String showSelectBank(Model model){
         BankNameDto bankname = new BankNameDto();
         model.addAttribute("bank", bankname);
-        return "selectbank";
+        return "selectBank";
     }
+//    @GetMapping("/selectBank")
+//    public String showSearchBank(Model model){
+//        AccountDto acc = new AccountDto();
+//        model.addAttribute("user", acc);
+//
+//        return "selectBank";
+//    }
 
 
     @PostMapping("/selectbank/bank")
@@ -140,11 +148,43 @@ public class AuthController {
     }
     @GetMapping("/addAccNumber/{bankname}")
     public String addAccountNumber(@PathVariable String bankname, Model model){
+        TransactionDto transaction= new TransactionDto();
+        model.addAttribute("transaction", transaction);
 
         System.out.println("Received Deposit Bank Object in addaccount page: " +bankname);
         model.addAttribute("bankname", bankname);
         return "addAccNumber";
     }
+
+    @PostMapping("/addAccNumber/setamount")
+    public String addaccountNumber(@ModelAttribute("transaction") TransactionDto trans, @RequestParam String bankname,
+                                   BindingResult result,
+                                   Model model){
+        System.out.println("Transaction:"+trans.getAmount());
+        System.out.println("Transaction:"+trans.getDestinationAccNumber());
+        model.addAttribute("trans", trans);
+        System.out.println("bank name in setamount:"+bankname);
+        model.addAttribute("bankname", bankname);
+
+
+        return "setamount";
+    }
+
+    @PostMapping("/setDepositAmount")
+    public String setDepositAmount(@ModelAttribute("trans") TransactionDto trans,
+                                   BindingResult result,
+                                   Model model){
+        System.out.println("Transactions:"+trans.getAmount());
+        System.out.println("Transactions:"+trans.getDestinationAccNumber());
+        model.addAttribute("trans", trans);
+//        System.out.println("bank name in setamount:"+bankname);
+//        model.addAttribute("bankname", bankname);
+
+
+        return "verifyOTP";
+    }
+
+
     @GetMapping("/setamount")
     public String setAmount(Model model){
         AccountDto acc = new AccountDto();
@@ -168,13 +208,6 @@ public class AuthController {
         return "moneyTransfered";
     }
 
-    @GetMapping("/selectBank")
-    public String showSearchBank(Model model){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
-
-        return "selectBank";
-    }
 
 
 

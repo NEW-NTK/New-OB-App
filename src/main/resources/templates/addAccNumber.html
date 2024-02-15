@@ -190,11 +190,17 @@
 
 
         </div>
-        <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
+        <form method="post" role="form" th:action="@{/addAccNumber/setamount}" th:object="${transaction}">
+            <input type="hidden" th:name="bankname" th:value="${bankname}" />
             <div class="account-section">
                 <div class="form-group">
                     <label for="accountNumber">Account Number:</label>
-                    <input type="text" class="form-control" id="accountNumber" maxlength="12" oninput="handleInput()">
+                    <input type="text"
+                           class="form-control"
+                           id="accountNumber"
+                           th:field="*{destinationAccNumber}"
+                           maxlength="12"
+                           oninput="handleInput()">
                     <small class="text-danger" id="error-message"></small>
                 </div>
                 <div class="formbtn">
