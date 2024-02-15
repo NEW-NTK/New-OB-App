@@ -152,9 +152,9 @@
         input {
             background-color: transparent;
             border: transparent;
-            font-size: x-large;
+            font-size: xxx-large;
             width: 60px;
-            font-weight: bolder;
+            font-weight: normal;
         }
         input:focus{
             outline: none;
@@ -166,7 +166,19 @@
         }
         .card2curr h1{
             margin: 10px;
-            font-size: 24px;
+            font-size: xxx-large;
+            font-weight: normal;
+
+        }
+        .card2Description{
+            margin-top: 104px;
+        }
+        .card2Description #textInput{
+            width: 100px;
+            font-size: small;
+        }
+        .card2Description #textInput::placeholder {
+            color: #999;
         }
         img {
             max-width: 50px;
@@ -180,7 +192,7 @@
             justify-content: space-between;
             background-color: #ffffff;
             width: 303px;
-            margin-top: 158px;
+            margin-top: 57px;
             height: 145px;
 
         }
@@ -277,7 +289,17 @@
                                name="numericInput"
                                th:field="*{amount}"
                         >
+
                     </div>
+                    <div class="card2Description">
+                        <input type="text"
+                               id="textInput"
+                               name="textInput"
+                               placeholder="Add Description"
+                               th:field="*{Description}"
+                        >
+                    </div>
+
                 </div>
 
 <!--            </form>-->
