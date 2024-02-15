@@ -153,7 +153,7 @@ public class AuthController {
                                    BindingResult result,
                                    Model model){
 
-        System.out.println("\nTransaction details after adding Acc no\n" +
+        System.out.println("\nTransaction details after adding Account Number\n" +
                 "RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
         model.addAttribute("trans", trans);
         model.addAttribute("bankname", trans.getRecepientBank());
