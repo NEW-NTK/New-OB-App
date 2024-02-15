@@ -148,42 +148,42 @@ public class AuthController {
         return "addAccNumber";
     }
 
-    @PostMapping("/setAccNumber")
+    @PostMapping("/setDepositAmount")
     public String addaccountNumber(@ModelAttribute("transaction") TransactionDto trans,
                                    BindingResult result,
                                    Model model){
 
         System.out.println("\nTransaction details after adding Account Number\n" +
                 "RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
-        model.addAttribute("trans", trans);
+
         model.addAttribute("bankname", trans.getRecepientBank());
 
         return "setamount";
     }
 
-    @PostMapping("/setDepositAmount")
+    @PostMapping("/depositVerifyOTP")
     public String setDepositAmount(@ModelAttribute("transaction") TransactionDto trans,
                                    BindingResult result,
                                    Model model){
         System.out.println("\nTransaction details after adding amount \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+        model.addAttribute("transaction", trans );
         model.addAttribute("bankname", trans.getRecepientBank());
         return "DepositVerifyOTP";
     }
 
 
-    @GetMapping("/confirmation")
-    public String confirmation(Model model){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
-
+    @PostMapping("/confirmation")
+    public String doneConfirm(@ModelAttribute("transaction") TransactionDto trans,
+                                   BindingResult result,
+                                   Model model){
+        System.out.println("\nTransaction details after done confirmation \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
         return "confirmation";
     }
-
-    @GetMapping("/moneyTransfered")
-    public String moneyTransfered(Model model){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
-
+    @PostMapping("/moneyTransfered")
+    public String moneyTransfered(@ModelAttribute("transaction") TransactionDto trans,
+                              BindingResult result,
+                              Model model){
+        System.out.println("\nTransaction details after done confirmation \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
         return "moneyTransfered";
     }
 

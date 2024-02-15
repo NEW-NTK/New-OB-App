@@ -190,7 +190,7 @@
 
 
         </div>
-        <form method="post" role="form" th:action="@{/setAccNumber}" th:object="${transaction}">
+        <form method="post" role="form" th:action="@{/setDepositAmount}" th:object="${transaction}">
             <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />
             <div class="account-section">
                 <div class="form-group">
