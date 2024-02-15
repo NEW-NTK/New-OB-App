@@ -11,6 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TransactionDto {
 
+    private String recepientBank;
+    private String recieverName;
     private long destinationAccNumber;
     private int amount;
+    private String Description;
 }

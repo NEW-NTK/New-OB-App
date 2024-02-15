@@ -266,9 +266,10 @@
 
         <div class="card2">
             <form method="post" role="form" th:action="@{/setDepositAmount}" th:object="${transaction}">
-
+                <input type="hidden" th:name="destinationAccNumber" th:value="${transaction.destinationAccNumber}" />
+                <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />
                 <div class="form-group">
-                    <p class="amount">Amount</p>
+                    <p class="amount" >Amount</p>
                     <div class="card2curr">
                         <h1 >$</h1>
                         <input type="number"
@@ -280,8 +281,7 @@
                 </div>
 
 <!--            </form>-->
-        </div>
-        <div class="nextbtncontainer">
+            <div class="nextbtncontainer">
             <div class="row">
                 <div class="namecontainer">
                     <img th:src="@{/images/banklogo.png}" alt="Centered Image">
@@ -301,8 +301,8 @@
         </form>
     </div>
 </div>
-            
-</body>
+</div>
+
 <script>
     function toggleSelection(element) {
         // Remove 'selected' class from all other icon wrappers
@@ -316,5 +316,9 @@
         // Toggle 'selected' class for the clicked icon wrapper
         element.classList.toggle('selected');
     }
+
+
+
 </script>
+</body>
 </html>

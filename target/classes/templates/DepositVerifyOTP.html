@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .mobile-frame {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background-color: #ffffff;
+            border: 9px solid #333;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .ui-container {
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            color: black;
+            padding: 10px;
+
+        }
+
+        .back-icon {
+            font-size: 14px;
+            cursor: pointer;
+            color:red;
+        }
+
+
+        h1 {
+            margin: 0;
+            font-size: 14px;
+        }
+
+
+
+
+         h4 {
+            color: #a8a3a3;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        h3{
+        margin-top: 10px;
+        font-size: 20px;
+          font-weight: bold;
+        }
+
+        .form-group input {
+            background-color: #f7f4f4;
+        }
+        .otp-inputs{
+            margin-top: 20px;
+        }
+
+        .otp-input {
+            flex: 1;
+            width: 29px;
+            height: 40px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #f2efef;
+            border-radius: 8px;
+            margin-right: 5px;
+            background-color: #f2efef;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="center-container">
+    <div class="mobile-frame">
+        <div class="ui-container">
+
+            <div class="header">
+                <span class="back-icon">&#9665;</span>
+
+            </div>
+
+            <!-- Bank Account Verification Section -->
+            <div class="verification-section">
+                <h3>Enter the Code</h3>
+
+
+
+            </div>
+
+
+            <h4>To Verify We've send an sms with code to +855-58 567 8786</h4>
+            <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
+                <!-- OTP Input Fields -->
+                <div class="otp-inputs form-group">
+                    <input type="number" maxlength="1" class="otp-input" id="otp1" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp2" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp3" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp4" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp5" />
+                    <input type="number" maxlength="1" class="otp-input" id="otp6" />
+                </div>
+
+            </form>
+
+
+            <h4>You can request another code in 1.00</h4>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+<script>
+
+    function getOtpString() {
+        var otp1 = document.getElementById("otp1").value;
+        var otp2 = document.getElementById("otp2").value;
+        var otp3 = document.getElementById("otp3").value;
+        var otp4 = document.getElementById("otp4").value;
+        var otp5 = document.getElementById("otp5").value;
+        var otp6 = document.getElementById("otp6").value;
+
+        var otpString = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
+        console.log(otpString); // Display the concatenated string in the console
+
+        return otpString;
+    }
+
+    function checkAndRedirect(event) {
+        if (event.key === "Enter") {
+            var otpString = getOtpString();
+
+            // Check if all OTP input fields are filled
+            if (otpString.length === 6) {
+                // Redirect to another page (replace "your_destination_page.html" with the actual page URL)
+                window.location.href = "/confirmation";
+            }
+        }
+    }
+
+    // Add event listeners to each OTP input
+    var otpInputs = document.getElementsByClassName("otp-input");
+    for (var i = 0; i < otpInputs.length; i++) {
+        otpInputs[i].addEventListener("input", getOtpString);
+        otpInputs[i].addEventListener("keydown", checkAndRedirect);
+    }
+
+</script>
+
+</body>
+
+</html>

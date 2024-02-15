@@ -72,14 +72,6 @@ public class AuthController {
         model.addAttribute("bank", bankname);
         return "selectBank";
     }
-//    @GetMapping("/selectBank")
-//    public String showSearchBank(Model model){
-//        AccountDto acc = new AccountDto();
-//        model.addAttribute("user", acc);
-//
-//        return "selectBank";
-//    }
-
 
     @PostMapping("/selectbank/bank")
     public ResponseEntity<String> selectBank(@RequestBody BankNameDto bank) {
@@ -129,26 +121,26 @@ public class AuthController {
     }
 
     @GetMapping("/cashDeposit")
-    public String showBankToDeposit(Model model){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
-
+    public String showBankToDeposit(){
         return "cashDeposit";
     }
 
-    @PostMapping("/cashDeposit/bank")
-    public ResponseEntity<Map<String, String>> selectCashDepositBank(@RequestBody BankNameDto bank) {
-        System.out.println("Received Deposit Bank Object: " + bank.getBankname());
+    @PostMapping("/cashDeposit")
+    public ResponseEntity<Map<String, String>> selectCashDepositBank(Model model, @RequestBody TransactionDto trans) {
+
+        model.addAttribute("transaction", trans);
+        System.out.println("Received Deposit Bank Object: " + trans.getRecepientBank());
 
         Map<String, String> response = new HashMap<>();
         response.put("page", "addAccNumber");
-        response.put("bankname", bank.getBankname());
+        response.put("bankname", trans.getRecepientBank());
 
         return ResponseEntity.ok(response);
     }
     @GetMapping("/addAccNumber/{bankname}")
     public String addAccountNumber(@PathVariable String bankname, Model model){
         TransactionDto transaction= new TransactionDto();
+        transaction.setRecepientBank(bankname);
         model.addAttribute("transaction", transaction);
 
         System.out.println("Received Deposit Bank Object in addaccount page: " +bankname);
@@ -156,42 +148,29 @@ public class AuthController {
         return "addAccNumber";
     }
 
-    @PostMapping("/addAccNumber/setamount")
-    public String addaccountNumber(@ModelAttribute("transaction") TransactionDto trans, @RequestParam String bankname,
+    @PostMapping("/setAccNumber")
+    public String addaccountNumber(@ModelAttribute("transaction") TransactionDto trans,
                                    BindingResult result,
                                    Model model){
-        System.out.println("Transaction:"+trans.getAmount());
-        System.out.println("Transaction:"+trans.getDestinationAccNumber());
-        model.addAttribute("trans", trans);
-        System.out.println("bank name in setamount:"+bankname);
-        model.addAttribute("bankname", bankname);
 
+        System.out.println("\nTransaction details after adding Acc no\n" +
+                "RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+        model.addAttribute("trans", trans);
+        model.addAttribute("bankname", trans.getRecepientBank());
 
         return "setamount";
     }
 
     @PostMapping("/setDepositAmount")
-    public String setDepositAmount(@ModelAttribute("trans") TransactionDto trans,
+    public String setDepositAmount(@ModelAttribute("transaction") TransactionDto trans,
                                    BindingResult result,
                                    Model model){
-        System.out.println("Transactions:"+trans.getAmount());
-        System.out.println("Transactions:"+trans.getDestinationAccNumber());
-        model.addAttribute("trans", trans);
-//        System.out.println("bank name in setamount:"+bankname);
-//        model.addAttribute("bankname", bankname);
-
-
-        return "verifyOTP";
+        System.out.println("\nTransaction details after adding amount \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+        model.addAttribute("bankname", trans.getRecepientBank());
+        return "DepositVerifyOTP";
     }
 
 
-    @GetMapping("/setamount")
-    public String setAmount(Model model){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
-
-        return "setamount";
-    }
     @GetMapping("/confirmation")
     public String confirmation(Model model){
         AccountDto acc = new AccountDto();

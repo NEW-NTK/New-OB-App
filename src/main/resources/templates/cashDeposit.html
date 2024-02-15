@@ -146,15 +146,21 @@
             <script>
                 function selectBank(bankName) {
 
-                    var bankObject = { bankname: bankName };
+                     var transactionObject = {
+                        recepientBank: bankName,
+                        recieverName: "",
+                        destinationAccNumber: 0,
+                        amount: 0,
+                        Description: ""
+                    };
 
 
-                    fetch('/cashDeposit/bank', {
+                    fetch('/cashDeposit', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify(bankObject),
+                        body: JSON.stringify(transactionObject),
                     })
                     .then(response => {
                     if (!response.ok) {
