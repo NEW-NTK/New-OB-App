@@ -152,7 +152,10 @@ public class AuthController {
     public String addaccountNumber(@ModelAttribute("transaction") TransactionDto trans,
                                    BindingResult result,
                                    Model model){
-
+        if (123456789101L == trans.getDestinationAccNumber()) {
+            // Set the receiver name as "Kim Chan"
+            trans.setRecieverName("Kim Chan");
+        }
         System.out.println("\nTransaction details after adding Account Number\n" +
                 "RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
 
@@ -177,6 +180,7 @@ public class AuthController {
                                    BindingResult result,
                                    Model model){
         System.out.println("\nTransaction details after done confirmation \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+        model.addAttribute("transaction", trans );
         return "confirmation";
     }
     @PostMapping("/moneyTransfered")
@@ -184,7 +188,18 @@ public class AuthController {
                               BindingResult result,
                               Model model){
         System.out.println("\nTransaction details after done confirmation \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+        model.addAttribute("bankname", trans.getRecepientBank());
+        model.addAttribute("transaction", trans );
         return "moneyTransfered";
+    }
+
+    @PostMapping("/bankwallet/hasbankaccount")
+    public String bankWalletAfterTransaction(@ModelAttribute("transaction") TransactionDto trans,
+                                  BindingResult result,
+                                  Model model){
+        System.out.println("\nTransaction details after done confirmation \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+        model.addAttribute("bankname", trans.getRecepientBank());
+        return "bankwallet";
     }
 
 
