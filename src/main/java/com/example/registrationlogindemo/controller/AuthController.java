@@ -187,9 +187,11 @@ public class AuthController {
     public String moneyTransfered(@ModelAttribute("transaction") TransactionDto trans,
                               BindingResult result,
                               Model model){
-        System.out.println("\nTransaction details after done confirmation \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
-        model.addAttribute("bankname", trans.getRecepientBank());
         model.addAttribute("transaction", trans );
+        model.addAttribute("bankname", trans.getRecepientBank());
+
+        System.out.println("\nTransaction details after moneytranfered \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+
         return "moneyTransfered";
     }
 
@@ -197,7 +199,7 @@ public class AuthController {
     public String bankWalletAfterTransaction(@ModelAttribute("transaction") TransactionDto trans,
                                   BindingResult result,
                                   Model model){
-        System.out.println("\nTransaction details after done confirmation \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+        System.out.println("\nTransaction details after go to bankwallet \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
         model.addAttribute("bankname", trans.getRecepientBank());
         return "bankwallet";
     }
