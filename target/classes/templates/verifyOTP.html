@@ -124,9 +124,12 @@
             </div>
 
 
-            <h4>To Verify We've send an sms with code to +855-58 567 8786</h4>
-            <form method="post" role="form" th:action="@{/addacc/save}" th:object="${user}">
+            <h4>To Verify We've send an sms with code to</h4>
+            <h4 th:text="${phoneNo}"></h4>
+            <form method="post" role="form" th:action="@{/checkPhnNo}" th:object="${user}">
             <!-- OTP Input Fields -->
+                <input type="hidden" id="username" th:name="username" th:value="${user.username}" />
+                <input type="hidden" id="password" th:name="password" th:value="${user.password}" />
                 <div class="otp-inputs form-group">
                     <input type="number" maxlength="1" class="otp-input" id="otp1" />
                     <input type="number" maxlength="1" class="otp-input" id="otp2" />
@@ -169,11 +172,49 @@
     function checkAndRedirect(event) {
         if (event.key === "Enter") {
             var otpString = getOtpString();
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
 
             // Check if all OTP input fields are filled
             if (otpString.length === 6) {
+
                 // Redirect to another page (replace "your_destination_page.html" with the actual page URL)
-                window.location.href = "/bankwallet" + "/hasbankaccount";
+<!--                window.location.href = "/bankwallet" + "/hasbankaccount";-->
+
+                     var loginObject = {
+                        username: username,
+                        password: password,
+
+                    };
+
+
+                    fetch('/checkPhnNo', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(loginObject),
+                    })
+                    .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                    .then(data => {
+                        console.log('data',data);
+
+                       window.location.href = '/' + data;
+
+
+                    })
+                    .catch(error => console.error('Error:', error));
+
+
+
+
+
+
             }
         }
     }

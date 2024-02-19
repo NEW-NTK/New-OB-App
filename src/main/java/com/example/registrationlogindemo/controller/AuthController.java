@@ -56,6 +56,7 @@ public class AuthController {
 
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/bankwallet/{status}")
     public String showBankWallet(@PathVariable String status, Model model){
         AccountDto acc = new AccountDto();
@@ -76,7 +77,7 @@ public class AuthController {
     @PostMapping("/selectbank/bank")
     public ResponseEntity<String> selectBank(@RequestBody BankNameDto bank) {
         System.out.println("Received Bank Object: " + bank.getBankname());
-    
+
         return ResponseEntity.ok("addacc");
     }
 
@@ -100,7 +101,27 @@ public class AuthController {
         }
         addAccountService.addAccount(acc);
         System.out.println(acc.getUsername());
+        model.addAttribute("phoneNo", acc.getUsername());
         return "verifyOTP";
+    }
+    @PostMapping("/checkPhnNo")
+    public ResponseEntity<String> checkPhnNo(@RequestBody AccountDto loginObject,
+                               BindingResult result,
+                               Model model){
+
+        System.out.println("login Details " +loginObject.getUsername());
+        System.out.println("login Details "+loginObject.getPassword());
+//        Map<String, String> response = new HashMap<>();
+//        response.put("redirect page","bakong");
+//        return "bakong";
+          return ResponseEntity.ok("addBankAccount");
+    }
+    @GetMapping("/addBankAccount")
+    public String showAddBankAccount(Model model){
+        AccountDto acc = new AccountDto();
+        model.addAttribute("user", acc);
+
+        return "addBankAccount";
     }
 
     @GetMapping("/accOverview")

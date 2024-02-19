@@ -15,7 +15,6 @@ public class AccountDto
 {
 
     @NotEmpty(message = "Username should not be empty")
-    @Email
     private String username;
     @NotEmpty(message = "Password should not be empty")
     private String password;
