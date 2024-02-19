@@ -201,6 +201,8 @@ public class AuthController {
                                   Model model){
         System.out.println("\nTransaction details after go to bankwallet \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
         model.addAttribute("bankname", trans.getRecepientBank());
+        boolean hideUIContainer = false;
+        model.addAttribute("hideUIContainer", hideUIContainer);
         return "bankwallet";
     }
 

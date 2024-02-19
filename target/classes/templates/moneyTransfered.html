@@ -309,9 +309,11 @@
         <div class="cardDetails-container">
             <form method="post" role="form" th:action="@{/bankwallet/hasbankaccount}" th:object="${transaction}">
 
-<!--                <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />-->
-<!--                <input type="hidden" th:name="recieverName" th:value="${transaction.recieverName}" />-->
-<!--                <input type="hidden" th:name="destinationAccNumber" th:value="${transaction.destinationAccNumber}" />-->
+                <input type="hidden" th:name="recieverName" th:value="${transaction.recieverName}" />
+                <input type="hidden" th:name="destinationAccNumber" th:value="${transaction.destinationAccNumber}" />
+                <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />
+                <input type="hidden" th:name="amount" th:value="${transaction.amount}" />
+                <input type="hidden" th:name="Description" th:value="${transaction.Description}" />
 
                 <div class="card cardDetails">
                     <div class="row">
