@@ -149,8 +149,11 @@
                 <div class="progress-circle">2<span style="color: grey;">/4</span></div>
             </div>
 
+            <h4>Enter the bank account credentials that
+                <span style="font-weight: bold;" th:text="${bankname}">
+                </span> provided you
+            </h4>
 
-            <h4>Enter the bank account credentials that XYZ Bank provided you</h4>
 
             <div class="form">
                 <form method="post" role="form" th:action="@{/addacc/verifyOTP}" th:object="${user}">
