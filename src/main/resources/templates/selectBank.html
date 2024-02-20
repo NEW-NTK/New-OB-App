@@ -198,11 +198,11 @@ function selectBank(bankName) {
     if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    return response.text();
+    return response.json();
 })
     .then(data => {
         console.log('data',data);
-        window.location.href = '/' + data;
+        window.location.href = '/' + data.page + '/' + data.bankname;
     })
     .catch(error => console.error('Error:', error));
 }

@@ -1,9 +1,6 @@
 package com.example.registrationlogindemo.controller;
 
-import com.example.registrationlogindemo.dto.AccountDto;
-import com.example.registrationlogindemo.dto.BakongUser;
-import com.example.registrationlogindemo.dto.BankNameDto;
-import com.example.registrationlogindemo.dto.TransactionDto;
+import com.example.registrationlogindemo.dto.*;
 import com.example.registrationlogindemo.service.AddAccountService;
 import com.example.registrationlogindemo.service.CheckBakongUserHasBankService;
 import jakarta.validation.Valid;
@@ -69,23 +66,25 @@ public class AuthController {
 
     @GetMapping("/selectbank")
     public String showSelectBank(Model model){
-        BankNameDto bankname = new BankNameDto();
+        AddAccountBankNameDto bankname = new AddAccountBankNameDto();
         model.addAttribute("bank", bankname);
         return "selectBank";
     }
 
     @PostMapping("/selectbank/bank")
-    public ResponseEntity<String> selectBank(@RequestBody BankNameDto bank) {
+    public ResponseEntity<Map<String, String>>  selectBank(@RequestBody AddAccountBankNameDto bank) {
         System.out.println("Received Bank Object: " + bank.getBankname());
-
-        return ResponseEntity.ok("addacc");
+        Map<String, String> response = new HashMap<>();
+        response.put("page", "addacc");
+        response.put("bankname", bank.getBankname());
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/addacc")
-    public String showAddAccountForm(Model model){
+    @GetMapping("/addacc/{bankname}")
+    public String showAddAccountForm(@PathVariable String bankname,Model model){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
-
+        model.addAttribute("bankname", bankname );
         return "addacc";
     }
     // handler method to handle register user form submit request
@@ -109,8 +108,8 @@ public class AuthController {
                                BindingResult result,
                                Model model){
 
-        System.out.println("login Details " +loginObject.getUsername());
-        System.out.println("login Details "+loginObject.getPassword());
+        System.out.println("login username " +loginObject.getUsername());
+        System.out.println("login password "+loginObject.getPassword());
 //        Map<String, String> response = new HashMap<>();
 //        response.put("redirect page","bakong");
 //        return "bakong";
