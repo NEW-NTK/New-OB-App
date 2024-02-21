@@ -113,10 +113,7 @@ public class AuthController {
         System.out.println("login username " +loginObject.getUsername());
         System.out.println("login password "+loginObject.getPassword());
         System.out.println("bank name from verifyotp page "+bankname);
-//        model.addAttribute("bankname", bankname );
-//        Map<String, String> response = new HashMap<>();
-//        response.put("redirect page","bakong");
-//        return "bakong";String,String
+
         Map<String, String> response = new HashMap<>();
         response.put("page", "addBankAccount");
         response.put("bankname", bankname);
