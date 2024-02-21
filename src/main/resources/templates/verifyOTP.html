@@ -128,6 +128,7 @@
             <h4 th:text="${phoneNo}"></h4>
             <form method="post" role="form" th:action="@{/checkPhnNo}" th:object="${user}">
             <!-- OTP Input Fields -->
+                <input type="hidden" id="bankname" th:name="bankname" th:value="${bankname}" />
                 <input type="hidden" id="username" th:name="username" th:value="${user.username}" />
                 <input type="hidden" id="password" th:name="password" th:value="${user.password}" />
                 <div class="otp-inputs form-group">
@@ -163,6 +164,7 @@
         var otp5 = document.getElementById("otp5").value;
         var otp6 = document.getElementById("otp6").value;
 
+
         var otpString = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
         console.log(otpString); // Display the concatenated string in the console
 
@@ -174,6 +176,7 @@
             var otpString = getOtpString();
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
+            var bankname= document.getElementById("bankname").value;
 
             // Check if all OTP input fields are filled
             if (otpString.length === 6) {
@@ -188,7 +191,7 @@
                     };
 
 
-                    fetch('/checkPhnNo', {
+                    fetch(`/checkPhnNo?bankname=${bankname}`,{
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -199,13 +202,13 @@
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
-                    return response.text();
+                    return response.json();
                 })
                     .then(data => {
                         console.log('data',data);
 
-                       window.location.href = '/' + data;
-
+<!--                       window.location.href = '/' + data;-->
+                        window.location.href = '/' + data.page + '/' + data.bankname;
 
                     })
                     .catch(error => console.error('Error:', error));

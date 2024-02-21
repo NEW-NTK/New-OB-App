@@ -182,7 +182,7 @@
 
             <div class="bankCardContainer">
                 <img th:src="@{/images/bank.png}" alt="Centered Image">
-                <h2>xyz</h2>
+                <h2 th:text="${bankname}"></h2>
                 <span></span>
             </div>
 
@@ -190,7 +190,7 @@
 
 
         </div>
-        <form method="post" role="form" th:action="@{/setDepositAmount}">
+        <form method="post" role="form" th:action="@{/bankwallet/hasbankaccount}">
 
             <div class="account-section">
                 <div class="form-group">

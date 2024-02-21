@@ -89,7 +89,7 @@ public class AuthController {
     }
     // handler method to handle register user form submit request
     @PostMapping("/addacc/verifyOTP")
-    public String registration(@Valid @ModelAttribute("user") AccountDto acc,
+    public String registration(@Valid @ModelAttribute("user") AccountDto acc,@RequestParam String bankname,
                                BindingResult result,
                                Model model){
 
@@ -101,25 +101,33 @@ public class AuthController {
         addAccountService.addAccount(acc);
         System.out.println(acc.getUsername());
         model.addAttribute("phoneNo", acc.getUsername());
+        model.addAttribute("bankname", bankname );
+        System.out.println("bank name:verify otpp:"+bankname);
         return "verifyOTP";
     }
     @PostMapping("/checkPhnNo")
-    public ResponseEntity<String> checkPhnNo(@RequestBody AccountDto loginObject,
+    public ResponseEntity<Map<String, String>> checkPhnNo(@RequestBody AccountDto loginObject,@RequestParam String bankname,
                                BindingResult result,
                                Model model){
 
         System.out.println("login username " +loginObject.getUsername());
         System.out.println("login password "+loginObject.getPassword());
+        System.out.println("bank name from verifyotp page "+bankname);
+//        model.addAttribute("bankname", bankname );
 //        Map<String, String> response = new HashMap<>();
 //        response.put("redirect page","bakong");
-//        return "bakong";
-          return ResponseEntity.ok("addBankAccount");
+//        return "bakong";String,String
+        Map<String, String> response = new HashMap<>();
+        response.put("page", "addBankAccount");
+        response.put("bankname", bankname);
+        return ResponseEntity.ok(response);
+//          return ResponseEntity.ok("addBankAccount");
     }
-    @GetMapping("/addBankAccount")
-    public String showAddBankAccount(Model model){
+    @GetMapping("/addBankAccount/{bankname}")
+    public String showAddBankAccount(@PathVariable String bankname,Model model){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
-
+        model.addAttribute("bankname", bankname );
         return "addBankAccount";
     }
 
