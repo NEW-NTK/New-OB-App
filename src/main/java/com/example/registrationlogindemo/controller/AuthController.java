@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class AuthController {
     }
 
     @GetMapping("/bankwallet/{status}")
-    public String showBankWallet(@PathVariable String status, Model model){
+    public String showBankWallet(@PathVariable String status, Model model,@ModelAttribute("accountDetails") AccountDetailsDto accountDetails){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
 
@@ -124,6 +125,11 @@ public class AuthController {
     public String showAddBankAccount(@PathVariable String bankname,Model model){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
+        AccountDetailsDto accountDetails= new AccountDetailsDto();
+//        transaction.setRecepientBank(bankname);
+        model.addAttribute("accountDetails", accountDetails);
+
+
         model.addAttribute("bankname", bankname );
         return "addBankAccount";
     }
@@ -138,10 +144,16 @@ public class AuthController {
 
 
     @GetMapping("/accDetails")
-    public String showAccountDetails(Model model){
+    public String showAccountDetails(@ModelAttribute("accountDetails") AccountDetailsDto accountDetails,Model model){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
-
+        accountDetails.setPhoneNo("0719219659");
+        accountDetails.setName("Kim Chan");
+        accountDetails.setCurrency("USD");
+        accountDetails.setAccountStatus("Active");
+        accountDetails.setKycStatus("---");
+        accountDetails.setCountry("Cambodia");
+        accountDetails.setLimit("---");
         return "accDetails";
     }
 
@@ -221,16 +233,24 @@ public class AuthController {
     }
 
     @PostMapping("/bankwallet/hasbankaccount")
-    public String bankWalletAfterTransaction(@ModelAttribute("transaction") TransactionDto trans,
+    public String bankWalletAfterTransaction(@ModelAttribute("transaction") TransactionDto trans,@ModelAttribute("accountDetails") AccountDetailsDto accountDetails,@RequestParam String bankname,
                                   BindingResult result,
                                   Model model){
+        // Assuming you have some logic to retrieve account details from the backend
+//        List<AccountDetailsDto> accountDetailsList = getAccountDetailsList();
+        accountDetails.setType("Dollar Account");
+        accountDetails.setBalance("$1,000.00");
+        // Pass the accountDetailsList and bankname to the Thymeleaf template
+//        model.addAttribute("accountDetailsList", accountDetailsList);
+        System.out.println("\nAccount details after go to bankwallet \n" +"AccountNo:" + accountDetails.getAccountNo() +"\n" +"name :"+ accountDetails.getName() +"\n"+ "phoneNo :"+ accountDetails.getPhoneNo() +"\n"+ "type :"+ accountDetails.getType()  +"\n"+ "currency :"+ accountDetails.getCurrency() +"\n"+ "accountStatus :"+ accountDetails.getAccountStatus()+"\n"+ "kycStatus :"+ accountDetails.getKycStatus()+"\n"+ "country :"+ accountDetails.getCountry()+"\n"+ "balance :"+ accountDetails.getBalance()+"\n"+ "limit :"+ accountDetails.getLimit()  );
+        model.addAttribute("bankName", bankname);
         System.out.println("\nTransaction details after go to bankwallet \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
         model.addAttribute("bankname", trans.getRecepientBank());
+        model.addAttribute("accountDetails", accountDetails);
         boolean hideUIContainer = false;
         model.addAttribute("hideUIContainer", hideUIContainer);
         return "bankwallet";
     }
-
 
 
 
