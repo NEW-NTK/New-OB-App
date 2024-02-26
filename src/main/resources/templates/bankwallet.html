@@ -242,11 +242,12 @@
         <div class="ui-container" th:style="${hideUIContainer ? 'display: none;' : ''}">
             <!-- Your mobile UI content goes here -->
             <div class="header">
-                <h1 th:text="${bankName}"></h1>
+                <h1 id="bankname" th:text="${bankName}"></h1>
             </div>
             <div class="card1" id="accountCard">
-                <p class="accname" th:text="${accountDetails.type}"><p>
-                <p class="balance"th:text="${accountDetails.balance}"></p>
+                <p  id="type" class="accname" th:text="${accountDetails.type}"><p>
+                <p id="balance" class="balance"th:text="${accountDetails.balance}"></p>
+                <p id="accountNo" class="accountNo" th:text="${accountDetails.accountNo}" style="display: none;"></p>
                 <button class="arrow-btn">&#9654;</button>
             </div>
 <!--            <div class="card1" style="background-color:orange">-->
@@ -331,13 +332,46 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var accountCard = document.getElementById("accountCard");
+     var accountCard = document.getElementById("accountCard");
+     accountCard.addEventListener("click", function () {
+         var type = document.getElementById("type").innerText;
+         var balance = document.getElementById("balance").innerText;
+         var bankname = document.getElementById("bankname").innerText;
+         var accountNo = document.getElementById("accountNo").innerText;
 
-        accountCard.addEventListener("click", function () {
-            // Redirect to accountDetails.html
-            window.location.href = "/accDetails";
-        });
-    });
+
+         var accDetailsObject = {
+             type: type,
+             balance: balance,
+             accountNo: accountNo,
+         };
+
+         console.log("Type:", type);
+         console.log("Balance:", balance);
+         console.log("Bankname:", bankname);
+         console.log("AccountNo:", accountNo);
+         console.log("accDetailsObject:", accDetailsObject);
+         fetch(`/accDetails?bankname=${bankname}`, {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json',
+             },
+             body: JSON.stringify(accDetailsObject),
+         })
+         .then(response => {
+             if (!response.ok) {
+                 throw new Error(`HTTP error! Status: ${response.status}`);
+             }
+             return response.json();
+         })
+         .then(data => {
+             console.log('data', data);
+             window.location.href = '/' + data.page + '/' + data.bankname;
+         })
+         .catch(error => console.error('Error:', error));
+     });
+ });
+
 </script>
 
 </body>

@@ -2,6 +2,7 @@ package com.example.registrationlogindemo.controller;
 
 import com.example.registrationlogindemo.dto.*;
 import com.example.registrationlogindemo.service.AddAccountService;
+import com.example.registrationlogindemo.service.AddBankAccountService;
 import com.example.registrationlogindemo.service.CheckBakongUserHasBankService;
 import jakarta.validation.Valid;
 
@@ -27,6 +28,9 @@ public class AuthController {
 
     @Autowired
     private CheckBakongUserHasBankService checkBakongUserHasBankService;
+
+    @Autowired
+    private  AddBankAccountService addBankAccountService;
 
     public AuthController(AddAccountService addAccountService) {
         this.addAccountService = addAccountService;
@@ -143,20 +147,36 @@ public class AuthController {
     }
 
 
-    @GetMapping("/accDetails")
-    public String showAccountDetails(@ModelAttribute("accountDetails") AccountDetailsDto accountDetails,Model model){
+    @GetMapping("/accDetails/{bankname}")
+    public String showAccountDetails(@ModelAttribute("accountDetails") AccountDetailsDto accDetailsObject,Model model){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
-        accountDetails.setPhoneNo("0719219659");
-        accountDetails.setName("Kim Chan");
-        accountDetails.setCurrency("USD");
-        accountDetails.setAccountStatus("Active");
-        accountDetails.setKycStatus("---");
-        accountDetails.setCountry("Cambodia");
-        accountDetails.setLimit("---");
+        accDetailsObject.setPhoneNo("0719219659");
+        accDetailsObject.setName("Kim Chan");
+        accDetailsObject.setCurrency("USD");
+        accDetailsObject.setAccountStatus("Active");
+        accDetailsObject.setKycStatus("---");
+        accDetailsObject.setCountry("Cambodia");
+        accDetailsObject.setLimit("---");
+        System.out.println("account details"+ accDetailsObject.getAccountNo());
         return "accDetails";
     }
+    @PostMapping("/accDetails")
+    public ResponseEntity<Map<String, String>> accDetails(@RequestBody AccountDetailsDto accDetailsObject,@RequestParam String bankname,
+                                                          BindingResult result,
+                                                          Model model){
 
+        System.out.println("account no :"+accDetailsObject.getAccountNo());
+        System.out.println("type :"+accDetailsObject.getType());
+        System.out.println("balance :"+accDetailsObject.getBalance());
+//        System.out.println("bank name from verifyotp page "+accDetailsObject);
+        model.addAttribute("accountDetails",accDetailsObject);
+        Map<String, String> response = new HashMap<>();
+        response.put("page", "accDetails");
+        response.put("bankname", bankname);
+        return ResponseEntity.ok(response);
+//          return ResponseEntity.ok("addBankAccount");
+    }
     @GetMapping("/cashDeposit")
     public String showBankToDeposit(){
         return "cashDeposit";
@@ -240,6 +260,8 @@ public class AuthController {
 //        List<AccountDetailsDto> accountDetailsList = getAccountDetailsList();
         accountDetails.setType("Dollar Account");
         accountDetails.setBalance("$1,000.00");
+
+        addBankAccountService.addBankAccount(accountDetails,bankname);
         // Pass the accountDetailsList and bankname to the Thymeleaf template
 //        model.addAttribute("accountDetailsList", accountDetailsList);
         System.out.println("\nAccount details after go to bankwallet \n" +"AccountNo:" + accountDetails.getAccountNo() +"\n" +"name :"+ accountDetails.getName() +"\n"+ "phoneNo :"+ accountDetails.getPhoneNo() +"\n"+ "type :"+ accountDetails.getType()  +"\n"+ "currency :"+ accountDetails.getCurrency() +"\n"+ "accountStatus :"+ accountDetails.getAccountStatus()+"\n"+ "kycStatus :"+ accountDetails.getKycStatus()+"\n"+ "country :"+ accountDetails.getCountry()+"\n"+ "balance :"+ accountDetails.getBalance()+"\n"+ "limit :"+ accountDetails.getLimit()  );
