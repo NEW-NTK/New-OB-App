@@ -1,8 +1,9 @@
 package com.example.registrationlogindemo.service;
 
 import com.example.registrationlogindemo.dto.AccountDto;
+import com.example.registrationlogindemo.dto.AuthenticateResponseDto;
 
 public interface AddAccountService {
 
-    void addAccount(AccountDto acc);
+    AuthenticateResponseDto checkUsernamePassword(AccountDto acc);
 }

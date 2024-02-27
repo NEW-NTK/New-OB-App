@@ -125,12 +125,12 @@
 
 
             <h4>To Verify We've send an sms with code to</h4>
-            <h4 th:text="${phoneNo}"></h4>
-            <form method="post" role="form" th:action="@{/checkPhnNo}" th:object="${user}">
+            <h4 th:text="${username}"></h4>
+            <form method="post" role="form" th:action="@{/verifyOtp}" th:object="${user}">
             <!-- OTP Input Fields -->
                 <input type="hidden" id="bankname" th:name="bankname" th:value="${bankname}" />
-                <input type="hidden" id="username" th:name="username" th:value="${user.username}" />
-                <input type="hidden" id="password" th:name="password" th:value="${user.password}" />
+<!--                <input type="hidden" id="username" th:name="username" th:value="${user.username}" />-->
+<!--                <input type="hidden" id="password" th:name="password" th:value="${user.password}" />-->
                 <div class="otp-inputs form-group">
                     <input type="number" maxlength="1" class="otp-input" id="otp1" />
                     <input type="number" maxlength="1" class="otp-input" id="otp2" />
@@ -143,7 +143,8 @@
             </form>
 
 
-            <h4>You can request another code in 1.00</h4>
+            <h4 >You can request another code in 1.00</h4>
+
         </div>
     </div>
 </div>
@@ -174,8 +175,8 @@
     function checkAndRedirect(event) {
         if (event.key === "Enter") {
             var otpString = getOtpString();
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
+<!--            var username = document.getElementById("username").value;-->
+<!--            var password = document.getElementById("password").value;-->
             var bankname= document.getElementById("bankname").value;
 
             // Check if all OTP input fields are filled
@@ -191,7 +192,7 @@
                     };
 
 
-                    fetch(`/checkPhnNo?bankname=${bankname}`,{
+                    fetch(`/verifyOtp?bankname=${bankname}`,{
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

@@ -4,8 +4,10 @@ import com.example.registrationlogindemo.dto.*;
 import com.example.registrationlogindemo.service.AddAccountService;
 import com.example.registrationlogindemo.service.AddBankAccountService;
 import com.example.registrationlogindemo.service.CheckBakongUserHasBankService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -93,27 +95,25 @@ public class AuthController {
         return "addacc";
     }
     // handler method to handle register user form submit request
-    @PostMapping("/addacc/verifyOTP")
-    public String registration(@Valid @ModelAttribute("user") AccountDto acc,@RequestParam String bankname,
-                               BindingResult result,
-                               Model model){
+    @PostMapping("/addacc/checkuser")
+    public ResponseEntity<AuthenticateResponseDto> registration(@Valid @RequestBody AccountDto acct, HttpSession session){
 
+        session.setAttribute("username", acct.getUsername());
+        session.setAttribute("password", acct.getPassword());
+        System.out.println("login username " +acct.getUsername());
+        AuthenticateResponseDto authenticateResponseDto =addAccountService.checkUsernamePassword(acct);
+        // Return ResponseEntity with headers and body
+        return new ResponseEntity<>(authenticateResponseDto, HttpStatus.FOUND);
 
-        if (result.hasErrors()) {
-            model.addAttribute("user", acc);
-            return "addacc";
-        }
-        addAccountService.addAccount(acc);
-        System.out.println(acc.getUsername());
-        model.addAttribute("phoneNo", acc.getUsername());
-        model.addAttribute("bankname", bankname );
-        System.out.println("bank name:verify otpp:"+bankname);
+    }
+    @GetMapping("/verifyOtp")
+    public String showVerifyOtp(Model model, HttpSession session) {
+        model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("password", session.getAttribute("password"));
         return "verifyOTP";
     }
-    @PostMapping("/checkPhnNo")
-    public ResponseEntity<Map<String, String>> checkPhnNo(@RequestBody AccountDto loginObject,@RequestParam String bankname,
-                               BindingResult result,
-                               Model model){
+    @PostMapping("/verifyOtp")
+    public ResponseEntity<Map<String, String>> checkPhnNo(@RequestBody AccountDto loginObject,@RequestParam String bankname){
 
         System.out.println("login username " +loginObject.getUsername());
         System.out.println("login password "+loginObject.getPassword());
