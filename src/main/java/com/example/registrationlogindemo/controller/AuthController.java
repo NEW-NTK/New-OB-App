@@ -116,9 +116,9 @@ public class AuthController {
         return "verifyOTP";
     }
     @PostMapping("/verifyOtp")
-    public ResponseEntity<AuthenticateResponseDto> checkPhnNo(@RequestBody String otp,HttpSession session){
+    public ResponseEntity<VerifyOtpResponseDto> checkPhnNo(@RequestBody String otp,HttpSession session){
 
-        AuthenticateResponseDto authenticateResponseDto =addAccountService.checkOtp(otp);
+        VerifyOtpResponseDto authenticateResponseDto =addAccountService.checkOtp(otp);
         System.out.println("OTP :"+ otp);
         return new ResponseEntity<>(authenticateResponseDto, HttpStatus.FOUND);
     }
