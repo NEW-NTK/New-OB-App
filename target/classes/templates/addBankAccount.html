@@ -204,7 +204,7 @@
                     <small class="text-danger" id="error-message"></small>
                 </div>
                 <div class="formbtn">
-                    <button id="nextButton" disabled onclick="nextButtonClick()">Next</button>
+                    <button type="submit" id="nextButton" disabled onclick="nextButtonClick()">Next</button>
                 </div>
             </div>
         </form>
@@ -234,6 +234,36 @@
 
       nextButton.disabled = accountNumberInput.value.trim() === "";
   }
+    document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var accountNumber = document.getElementById("accountNumber").value;
+
+
+
+
+        fetch(`/VerifyAccountNo`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+            body: accountNumber,
+        })
+        .then(response => {
+            if (response.ok) {
+            return response.json();
+        } else if (response.status === 302) {
+            // Handle the redirect manually
+             window.location.href = '/bankwallet/hasbankaccount' ;
+        } else {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        })
+        .then(data => {
+
+        })
+        .catch(error => console.error('Error:', error));
+    });
 
 
 

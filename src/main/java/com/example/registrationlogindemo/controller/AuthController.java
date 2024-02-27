@@ -124,15 +124,21 @@ public class AuthController {
     }
     @GetMapping("/addBankAccount")
     public String showAddBankAccount(Model model,HttpSession session){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
+
         AccountDetailsDto accountDetails= new AccountDetailsDto();
 //        transaction.setRecepientBank(bankname);
         model.addAttribute("accountDetails", accountDetails);
 
-
         model.addAttribute("bankname", session.getAttribute("bankname"));
         return "addBankAccount";
+    }
+
+    @PostMapping("/VerifyAccountNo")
+    public ResponseEntity<CheckAccountNoResponseDto> VerifyAccountNo(@RequestBody String AccNo,HttpSession session){
+        session.setAttribute("Account No", AccNo);
+        CheckAccountNoResponseDto authenticateResponseDto =addAccountService.checkAccountNo(Long.parseLong(AccNo));
+        System.out.println("Account No :"+ AccNo);
+        return new ResponseEntity<>(authenticateResponseDto, HttpStatus.FOUND);
     }
 
     @GetMapping("/accOverview")

@@ -1,7 +1,9 @@
 package com.example.registrationlogindemo.service.impl;
 
 import com.example.registrationlogindemo.dto.*;
+import com.example.registrationlogindemo.entity.BankAccount;
 import com.example.registrationlogindemo.entity.User;
+import com.example.registrationlogindemo.repository.BankAccountRepository;
 import com.example.registrationlogindemo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,9 @@ public class AddAccountServiceImpl implements AddAccountService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private BankAccountRepository bankAccountRepo;
 
     @Override
     public AuthenticateResponseDto checkUsernamePassword(AccountDto acc) {
@@ -66,6 +71,30 @@ public class AddAccountServiceImpl implements AddAccountService {
 
             VerifyOtpData data = new VerifyOtpData();
             data.setIsValid(true);
+            authenticateduser.setData(data);
+        }
+        return authenticateduser;
+    }
+
+    @Override
+    public CheckAccountNoResponseDto checkAccountNo(long accNo) {
+        BankAccount checkAccount = bankAccountRepo.findByAccNo(accNo);
+        CheckAccountNoResponseDto authenticateduser = new CheckAccountNoResponseDto();
+
+        if (checkAccount == null) {
+            CheckAccountNoStatus status = new CheckAccountNoStatus(4,"9","Invalid OTP");
+            authenticateduser.setStatus(status);
+
+            CheckAccountNoData data = new CheckAccountNoData();
+            data.setRequireChangePassword(true);
+            authenticateduser.setData(data);
+        } else {
+            CheckAccountNoStatus status = new CheckAccountNoStatus();
+            status.setCode(0);
+            authenticateduser.setStatus(status);
+
+            CheckAccountNoData data = new CheckAccountNoData();
+            data.setRequireChangePassword(true);
             authenticateduser.setData(data);
         }
         return authenticateduser;
