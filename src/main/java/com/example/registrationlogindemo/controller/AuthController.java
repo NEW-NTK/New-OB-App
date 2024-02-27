@@ -79,22 +79,23 @@ public class AuthController {
     }
 
     @PostMapping("/selectbank/bank")
-    public ResponseEntity<Map<String, String>>  selectBank(@RequestBody AddAccountBankNameDto bank) {
+    public ResponseEntity<Map<String, String>>  selectBank(@RequestBody AddAccountBankNameDto bank, HttpSession session) {
         System.out.println("Received Bank Object: " + bank.getBankname());
         Map<String, String> response = new HashMap<>();
         response.put("page", "addacc");
-        response.put("bankname", bank.getBankname());
+        session.setAttribute("bankname", bank.getBankname());
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/addacc/{bankname}")
-    public String showAddAccountForm(@PathVariable String bankname,Model model){
+    @GetMapping("/addacc")
+    public String showAddAccountForm(Model model,HttpSession session){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
-        model.addAttribute("bankname", bankname );
+//        model.addAttribute("bankname", bankname );
+        model.addAttribute("bankname", session.getAttribute("bankname"));
         return "addacc";
     }
-    // handler method to handle register user form submit request
+
     @PostMapping("/addacc/checkuser")
     public ResponseEntity<AuthenticateResponseDto> registration(@Valid @RequestBody AccountDto acct, HttpSession session){
 
@@ -110,23 +111,19 @@ public class AuthController {
     public String showVerifyOtp(Model model, HttpSession session) {
         model.addAttribute("username", session.getAttribute("username"));
         model.addAttribute("password", session.getAttribute("password"));
+        model.addAttribute("bankname", session.getAttribute("bankname"));
+
         return "verifyOTP";
     }
     @PostMapping("/verifyOtp")
-    public ResponseEntity<Map<String, String>> checkPhnNo(@RequestBody AccountDto loginObject,@RequestParam String bankname){
+    public ResponseEntity<AuthenticateResponseDto> checkPhnNo(@RequestBody String otp,HttpSession session){
 
-        System.out.println("login username " +loginObject.getUsername());
-        System.out.println("login password "+loginObject.getPassword());
-        System.out.println("bank name from verifyotp page "+bankname);
-
-        Map<String, String> response = new HashMap<>();
-        response.put("page", "addBankAccount");
-        response.put("bankname", bankname);
-        return ResponseEntity.ok(response);
-//          return ResponseEntity.ok("addBankAccount");
+        AuthenticateResponseDto authenticateResponseDto =addAccountService.checkOtp(otp);
+        System.out.println("OTP :"+ otp);
+        return new ResponseEntity<>(authenticateResponseDto, HttpStatus.FOUND);
     }
-    @GetMapping("/addBankAccount/{bankname}")
-    public String showAddBankAccount(@PathVariable String bankname,Model model){
+    @GetMapping("/addBankAccount")
+    public String showAddBankAccount(Model model,HttpSession session){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
         AccountDetailsDto accountDetails= new AccountDetailsDto();
@@ -134,7 +131,7 @@ public class AuthController {
         model.addAttribute("accountDetails", accountDetails);
 
 
-        model.addAttribute("bankname", bankname );
+        model.addAttribute("bankname", session.getAttribute("bankname"));
         return "addBankAccount";
     }
 
