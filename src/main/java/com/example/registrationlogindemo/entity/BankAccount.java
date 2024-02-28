@@ -26,6 +26,15 @@ public class BankAccount implements Serializable {
     private long accNo;
 
     @Column(nullable = false)
+    private String accountName;
+
+    @Column(nullable = false)
+    private String accountId;
+
+    @Column(nullable = false)
+    private boolean frozen;
+
+    @Column(nullable = false)
     private String type;
 
     @Column(nullable = false)

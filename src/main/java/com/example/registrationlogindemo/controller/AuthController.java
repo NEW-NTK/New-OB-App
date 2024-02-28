@@ -2,12 +2,10 @@ package com.example.registrationlogindemo.controller;
 
 import com.example.registrationlogindemo.dto.*;
 import com.example.registrationlogindemo.service.AddAccountService;
-import com.example.registrationlogindemo.service.AddBankAccountService;
 import com.example.registrationlogindemo.service.CheckBakongUserHasBankService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -31,8 +27,6 @@ public class AuthController {
     @Autowired
     private CheckBakongUserHasBankService checkBakongUserHasBankService;
 
-    @Autowired
-    private  AddBankAccountService addBankAccountService;
 
     public AuthController(AddAccountService addAccountService) {
         this.addAccountService = addAccountService;
@@ -62,7 +56,7 @@ public class AuthController {
     }
 
     @GetMapping("/bankwallet/{status}")
-    public String showBankWallet(@PathVariable String status, Model model,@ModelAttribute("accountDetails") AccountDetailsDto accountDetails){
+    public String showBankWallet(@ModelAttribute("accountDetails") AccountDetailsDto accountDetails,@PathVariable String status, Model model){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
 
@@ -133,6 +127,7 @@ public class AuthController {
         return "addBankAccount";
     }
 
+
     @PostMapping("/VerifyAccountNo")
     public ResponseEntity<CheckAccountNoResponseDto> VerifyAccountNo(@RequestBody String AccNo,HttpSession session){
         session.setAttribute("Account No", AccNo);
@@ -140,6 +135,8 @@ public class AuthController {
         System.out.println("Account No :"+ AccNo);
         return new ResponseEntity<>(authenticateResponseDto, HttpStatus.FOUND);
     }
+
+
 //***********************************************************
     @GetMapping("/accOverview")
     public String showAccountOverview(Model model){
@@ -151,35 +148,35 @@ public class AuthController {
 
 
     @GetMapping("/accDetails/{bankname}")
-    public String showAccountDetails(@ModelAttribute("accountDetails") AccountDetailsDto accDetailsObject,Model model){
+    public String showAccountDetails(Model model){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
-        accDetailsObject.setPhoneNo("0719219659");
-        accDetailsObject.setName("Kim Chan");
-        accDetailsObject.setCurrency("USD");
-        accDetailsObject.setAccountStatus("Active");
-        accDetailsObject.setKycStatus("---");
-        accDetailsObject.setCountry("Cambodia");
-        accDetailsObject.setLimit("---");
-        System.out.println("account details"+ accDetailsObject.getAccountNo());
+//        accDetailsObject.setPhoneNo("0719219659");
+//        accDetailsObject.setName("Kim Chan");
+//        accDetailsObject.setCurrency("USD");
+//        accDetailsObject.setAccountStatus("Active");
+//        accDetailsObject.setKycStatus("---");
+//        accDetailsObject.setCountry("Cambodia");
+//        accDetailsObject.setLimit("---");
+//        System.out.println("account details"+ accDetailsObject.getAccountNo());
         return "accDetails";
     }
-    @PostMapping("/accDetails")
-    public ResponseEntity<Map<String, String>> accDetails(@RequestBody AccountDetailsDto accDetailsObject,@RequestParam String bankname,
-                                                          BindingResult result,
-                                                          Model model){
-
-        System.out.println("account no :"+accDetailsObject.getAccountNo());
-        System.out.println("type :"+accDetailsObject.getType());
-        System.out.println("balance :"+accDetailsObject.getBalance());
-//        System.out.println("bank name from verifyotp page "+accDetailsObject);
-        model.addAttribute("accountDetails",accDetailsObject);
-        Map<String, String> response = new HashMap<>();
-        response.put("page", "accDetails");
-        response.put("bankname", bankname);
-        return ResponseEntity.ok(response);
-//          return ResponseEntity.ok("addBankAccount");
-    }
+//    @PostMapping("/accDetails")
+//    public ResponseEntity<Map<String, String>> accDetails(@RequestBody AccountDetailsDto accDetailsObject,@RequestParam String bankname,
+//                                                          BindingResult result,
+//                                                          Model model){
+//
+////        System.out.println("account no :"+accDetailsObject.getAccountNo());
+////        System.out.println("type :"+accDetailsObject.getType());
+////        System.out.println("balance :"+accDetailsObject.getBalance());
+////        System.out.println("bank name from verifyotp page "+accDetailsObject);
+//        model.addAttribute("accountDetails",accDetailsObject);
+//        Map<String, String> response = new HashMap<>();
+//        response.put("page", "accDetails");
+//        response.put("bankname", bankname);
+//        return ResponseEntity.ok(response);
+////          return ResponseEntity.ok("addBankAccount");
+//    }
     @GetMapping("/cashDeposit")
     public String showBankToDeposit(){
         return "cashDeposit";
@@ -255,27 +252,80 @@ public class AuthController {
         return "moneyTransfered";
     }
 
-    @PostMapping("/bankwallet/hasbankaccount")
-    public String bankWalletAfterTransaction(@ModelAttribute("transaction") TransactionDto trans,@ModelAttribute("accountDetails") AccountDetailsDto accountDetails,@RequestParam String bankname,
-                                  BindingResult result,
-                                  Model model){
-        // Assuming you have some logic to retrieve account details from the backend
-//        List<AccountDetailsDto> accountDetailsList = getAccountDetailsList();
-        accountDetails.setType("Dollar Account");
-        accountDetails.setBalance("$1,000.00");
+//    @PostMapping("/bankwallet/hasbankaccount")
+//    public String bankWalletAfterTransaction(@ModelAttribute("transaction") TransactionDto trans,@ModelAttribute("accountDetails") AccountDetailsDto accountDetails,@RequestParam String bankname,
+//                                             BindingResult result,
+//                                             Model model){
+//        // Assuming you have some logic to retrieve account details from the backend
+////        List<AccountDetailsDto> accountDetailsList = getAccountDetailsList();
+//        accountDetails.setType("Dollar Account");
+//        accountDetails.setBalance("$1,000.00");
+//
+//        addBankAccountService.addBankAccount(accountDetails,bankname);
+//        // Pass the accountDetailsList and bankname to the Thymeleaf template
+////        model.addAttribute("accountDetailsList", accountDetailsList);
+//        System.out.println("\nAccount details after go to bankwallet \n" +"AccountNo:" + accountDetails.getAccountNo() +"\n" +"name :"+ accountDetails.getName() +"\n"+ "phoneNo :"+ accountDetails.getPhoneNo() +"\n"+ "type :"+ accountDetails.getType()  +"\n"+ "currency :"+ accountDetails.getCurrency() +"\n"+ "accountStatus :"+ accountDetails.getAccountStatus()+"\n"+ "kycStatus :"+ accountDetails.getKycStatus()+"\n"+ "country :"+ accountDetails.getCountry()+"\n"+ "balance :"+ accountDetails.getBalance()+"\n"+ "limit :"+ accountDetails.getLimit()  );
+//        model.addAttribute("bankName", bankname);
+//        System.out.println("\nTransaction details after go to bankwallet \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+//        model.addAttribute("bankname", trans.getRecepientBank());
+//        model.addAttribute("accountDetails", accountDetails);
+//        boolean hideUIContainer = false;
+//        model.addAttribute("hideUIContainer", hideUIContainer);
+//        return "bankwallet";
+//    }
+    @GetMapping ("/bankwallet/hasbankaccount")
+    public String bankWalletAfterTransaction(Model model, HttpSession session){
 
-        addBankAccountService.addBankAccount(accountDetails,bankname);
-        // Pass the accountDetailsList and bankname to the Thymeleaf template
-//        model.addAttribute("accountDetailsList", accountDetailsList);
-        System.out.println("\nAccount details after go to bankwallet \n" +"AccountNo:" + accountDetails.getAccountNo() +"\n" +"name :"+ accountDetails.getName() +"\n"+ "phoneNo :"+ accountDetails.getPhoneNo() +"\n"+ "type :"+ accountDetails.getType()  +"\n"+ "currency :"+ accountDetails.getCurrency() +"\n"+ "accountStatus :"+ accountDetails.getAccountStatus()+"\n"+ "kycStatus :"+ accountDetails.getKycStatus()+"\n"+ "country :"+ accountDetails.getCountry()+"\n"+ "balance :"+ accountDetails.getBalance()+"\n"+ "limit :"+ accountDetails.getLimit()  );
-        model.addAttribute("bankName", bankname);
-        System.out.println("\nTransaction details after go to bankwallet \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
-        model.addAttribute("bankname", trans.getRecepientBank());
-        model.addAttribute("accountDetails", accountDetails);
+
+        model.addAttribute("Account No", session.getAttribute("Account No"));
+        AccountDetailsDto accountDetailsDto = new AccountDetailsDto();
+        Object accountNumberObj = session.getAttribute("Account No");
+
+        if (accountNumberObj instanceof Long) {
+            // Safe cast, proceed as usual
+            Long accountNumber = (Long) accountNumberObj;
+             accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
+        } else if (accountNumberObj instanceof String) {
+            // Attempt conversion, handle exceptions
+            String accountNumberStr = (String) accountNumberObj;
+            try {
+                Long accountNumber = Long.parseLong(accountNumberStr);
+                accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
+            } catch (NumberFormatException e) {
+                // Handle invalid number format (e.g., log an error, display a message to the user)
+                System.err.println("Error parsing account number: " + e.getMessage());
+            }
+        } else {
+            // Unexpected type, handle appropriately (e.g., log an error)
+            System.err.println("Unexpected type for account number: " + accountNumberObj.getClass().getName());
+        }
+
+
+
         boolean hideUIContainer = false;
         model.addAttribute("hideUIContainer", hideUIContainer);
+//        model.addAttribute("page", "bankwallet");
+
+        model.addAttribute("type",accountDetailsDto.getType() );
+        model.addAttribute("balance", accountDetailsDto.getBalance());
+        model.addAttribute("bankname", session.getAttribute("bankname"));
+
+
         return "bankwallet";
     }
+
+    @GetMapping ("/findByAccountName/{accountName}")
+    public  ResponseEntity<AccountDetailsResponseDto> GetuserProfileByAccount(@PathVariable String accountNumber){
+
+
+        AccountDetailsResponseDto accountDetailsResponseDto =addAccountService.getAccountDetails(Long.parseLong(accountNumber));
+
+
+
+
+        return new ResponseEntity<>(accountDetailsResponseDto, HttpStatus.FOUND);
+    }
+
 
 
 

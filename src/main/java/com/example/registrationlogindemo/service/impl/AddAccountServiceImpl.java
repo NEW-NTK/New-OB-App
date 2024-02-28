@@ -100,5 +100,55 @@ public class AddAccountServiceImpl implements AddAccountService {
         return authenticateduser;
     }
 
+    @Override
+    public AccountDetailsResponseDto getAccountDetails(long accNo) {
+        BankAccount account= bankAccountRepo.findByAccNo(accNo);
+        AccountDetailsResponseDto accountDetailsDto = new AccountDetailsResponseDto();
 
+        if (account == null) {
+            AuthenticationStatus status = new AuthenticationStatus(4,"9","Invalid JWT token","","");
+            accountDetailsDto.setStatus(status);
+
+            AccountDetailsData data = new AccountDetailsData();
+
+            accountDetailsDto.setData(data);
+        } else {
+            AuthenticationStatus status = new AuthenticationStatus();
+            status.setCode(0);
+            accountDetailsDto.setStatus(status);
+
+            AccountDetailsData data = new AccountDetailsData();
+            data.setAccountId(account.getAccountId());
+            data.setAccountName(account.getAccountName());
+            data.setName(account.getUser().getName());
+            data.setBankName(account.getBank().getBankName());
+            data.setEmail(null);
+            data.setPhone(account.getUser().getPhoneNo());
+            data.setFrozen(account.isFrozen());
+            data.setKycStatus(account.getKycStatus());
+            data.setAccountStatus(account.getAccountStatus());
+            accountDetailsDto.setData(data);
+        }
+        return accountDetailsDto;
+    }
+
+    @Override
+    public AccountDetailsDto getAccountOverview(long accNo) {
+        BankAccount account= bankAccountRepo.findByAccNo(accNo);
+        AccountDetailsDto data= new AccountDetailsDto();
+
+            data.setAccountNo(String.valueOf(account.getAccNo()));
+            data.setName(account.getUser().getName());
+            data.setPhoneNo(account.getUser().getPhoneNo());
+            data.setType(account.getType());
+            data.setCurrency(account.getCurrency());
+            data.setKycStatus(account.getKycStatus());
+            data.setCountry(account.getCountry());
+            data.setBalance(String.valueOf(account.getBalance()));
+            data.setLimit(account.getAccLimit());
+            data.setAccountStatus(account.getAccountStatus());
+
+
+        return data;
+    }
 }

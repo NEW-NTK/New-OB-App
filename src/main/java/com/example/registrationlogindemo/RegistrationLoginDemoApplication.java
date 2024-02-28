@@ -56,6 +56,10 @@ public class RegistrationLoginDemoApplication implements CommandLineRunner {
 //		bankacc1.setCountry("Cambodia");
 //		bankacc1.setBalance(25000.0F);
 //		bankacc1.setAccLimit("1");
+//		bankacc1.setAccountId("kasuni@xyz");
+//		bankacc1.setAccountName("KasuniD");
+//		bankacc1.setFrozen(true);
+//
 //		bankacc1.setBank(bank1);
 //		bankacc1.setUser(user1);
 //		listBankAcc.add(bankacc1);

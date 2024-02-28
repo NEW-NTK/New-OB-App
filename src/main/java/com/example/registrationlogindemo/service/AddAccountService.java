@@ -1,9 +1,6 @@
 package com.example.registrationlogindemo.service;
 
-import com.example.registrationlogindemo.dto.AccountDto;
-import com.example.registrationlogindemo.dto.AuthenticateResponseDto;
-import com.example.registrationlogindemo.dto.CheckAccountNoResponseDto;
-import com.example.registrationlogindemo.dto.VerifyOtpResponseDto;
+import com.example.registrationlogindemo.dto.*;
 
 public interface AddAccountService {
 
@@ -11,4 +8,8 @@ public interface AddAccountService {
     VerifyOtpResponseDto checkOtp(String otp);
 
     CheckAccountNoResponseDto checkAccountNo(long No);
+
+    AccountDetailsResponseDto getAccountDetails(long AccNo);
+
+    AccountDetailsDto getAccountOverview(long AccNo);
 }
