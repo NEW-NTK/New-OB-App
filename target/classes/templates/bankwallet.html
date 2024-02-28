@@ -248,7 +248,7 @@
                 <p  id="type" class="accname" th:text="${type}"><p>
                 <p id="balance" class="balance"th:text="${balance}"></p>
 <!--                <p id="accountNo" class="accountNo" th:text="${accountDetails.accountNo}" style="display: none;"></p>-->
-                <button class="arrow-btn">&#9654;</button>
+                <button id="arrowBtn" class="arrow-btn">&#9654;</button>
             </div>
 <!--            <div class="card1" style="background-color:orange">-->
 <!--                <p class="accname">Account Name<p>-->
@@ -331,7 +331,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-
+<script>
+    document.getElementById('arrowBtn').addEventListener('click', function() {
+        // Perform the redirection when the button is clicked
+        window.location.href = '/accDetails';
+        });
+</script>
 </body>
 
 </html>

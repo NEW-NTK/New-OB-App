@@ -135,48 +135,92 @@ public class AuthController {
         System.out.println("Account No :"+ AccNo);
         return new ResponseEntity<>(authenticateResponseDto, HttpStatus.FOUND);
     }
+    @GetMapping ("/bankwallet/hasbankaccount")
+    public String bankWalletAfterTransaction(Model model, HttpSession session){
+
+        model.addAttribute("Account No", session.getAttribute("Account No"));
+        AccountDetailsDto accountDetailsDto = new AccountDetailsDto();
+        Object accountNumberObj = session.getAttribute("Account No");
+
+        if (accountNumberObj instanceof Long) {
+
+            Long accountNumber = (Long) accountNumberObj;
+            accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
+        } else if (accountNumberObj instanceof String) {
+
+            String accountNumberStr = (String) accountNumberObj;
+            try {
+                Long accountNumber = Long.parseLong(accountNumberStr);
+                accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
+            } catch (NumberFormatException e) {
+                System.err.println("Error parsing account number: " + e.getMessage());
+            }
+        } else {
+            System.err.println("Unexpected type for account number: " + accountNumberObj.getClass().getName());
+        }
+
+        boolean hideUIContainer = false;
+        model.addAttribute("hideUIContainer", hideUIContainer);
+        model.addAttribute("type",accountDetailsDto.getType() );
+        model.addAttribute("balance", accountDetailsDto.getBalance());
+        model.addAttribute("bankname", session.getAttribute("bankname"));
 
 
+        return "bankwallet";
+    }
+
+    @GetMapping ("/findByAccountName/{accountNumber}")
+    public  ResponseEntity<AccountDetailsResponseDto> GetuserProfileByAccount(@PathVariable String accountNumber){
+
+        System.err.println(accountNumber);
+        AccountDetailsResponseDto accountDetailsResponseDto =addAccountService.getAccountDetails(Long.parseLong(accountNumber));
+
+        return new ResponseEntity<>(accountDetailsResponseDto, HttpStatus.FOUND);
+    }
+    @GetMapping("/accDetails")
+    public String showAccountDetails(Model model, HttpSession session){
+        model.addAttribute("Account No", session.getAttribute("Account No"));
+        AccountDetailsDto accountDetailsDto = new AccountDetailsDto();
+        Object accountNumberObj = session.getAttribute("Account No");
+
+        if (accountNumberObj instanceof Long) {
+
+            Long accountNumber = (Long) accountNumberObj;
+            accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
+        } else if (accountNumberObj instanceof String) {
+
+            String accountNumberStr = (String) accountNumberObj;
+            try {
+                Long accountNumber = Long.parseLong(accountNumberStr);
+                accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
+            } catch (NumberFormatException e) {
+                System.err.println("Error parsing account number: " + e.getMessage());
+            }
+        } else {
+            System.err.println("Unexpected type for account number: " + accountNumberObj.getClass().getName());
+        }
+        model.addAttribute("accountNo",accountDetailsDto.getAccountNo() );
+        model.addAttribute("name", accountDetailsDto.getName());
+        model.addAttribute("phoneNo", accountDetailsDto.getPhoneNo());
+        model.addAttribute("type",accountDetailsDto.getType() );
+        model.addAttribute("currency",accountDetailsDto.getCurrency() );
+        model.addAttribute("accountStatus", accountDetailsDto.getAccountStatus());
+        model.addAttribute("kycStatus",accountDetailsDto.getKycStatus());
+        model.addAttribute("country",accountDetailsDto.getCountry());
+        model.addAttribute("balance", accountDetailsDto.getBalance());
+        model.addAttribute("limit",accountDetailsDto.getLimit());
+        model.addAttribute("bankname", session.getAttribute("bankname"));
+        return "accDetails";
+    }
 //***********************************************************
     @GetMapping("/accOverview")
-    public String showAccountOverview(Model model){
+    public String showAccountOverview(Model model, HttpSession session){
         AccountDto acc = new AccountDto();
         model.addAttribute("user", acc);
 
         return "accOverview";
     }
 
-
-    @GetMapping("/accDetails/{bankname}")
-    public String showAccountDetails(Model model){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
-//        accDetailsObject.setPhoneNo("0719219659");
-//        accDetailsObject.setName("Kim Chan");
-//        accDetailsObject.setCurrency("USD");
-//        accDetailsObject.setAccountStatus("Active");
-//        accDetailsObject.setKycStatus("---");
-//        accDetailsObject.setCountry("Cambodia");
-//        accDetailsObject.setLimit("---");
-//        System.out.println("account details"+ accDetailsObject.getAccountNo());
-        return "accDetails";
-    }
-//    @PostMapping("/accDetails")
-//    public ResponseEntity<Map<String, String>> accDetails(@RequestBody AccountDetailsDto accDetailsObject,@RequestParam String bankname,
-//                                                          BindingResult result,
-//                                                          Model model){
-//
-////        System.out.println("account no :"+accDetailsObject.getAccountNo());
-////        System.out.println("type :"+accDetailsObject.getType());
-////        System.out.println("balance :"+accDetailsObject.getBalance());
-////        System.out.println("bank name from verifyotp page "+accDetailsObject);
-//        model.addAttribute("accountDetails",accDetailsObject);
-//        Map<String, String> response = new HashMap<>();
-//        response.put("page", "accDetails");
-//        response.put("bankname", bankname);
-//        return ResponseEntity.ok(response);
-////          return ResponseEntity.ok("addBankAccount");
-//    }
     @GetMapping("/cashDeposit")
     public String showBankToDeposit(){
         return "cashDeposit";
@@ -273,48 +317,7 @@ public class AuthController {
 //        model.addAttribute("hideUIContainer", hideUIContainer);
 //        return "bankwallet";
 //    }
-    @GetMapping ("/bankwallet/hasbankaccount")
-    public String bankWalletAfterTransaction(Model model, HttpSession session){
 
-        model.addAttribute("Account No", session.getAttribute("Account No"));
-        AccountDetailsDto accountDetailsDto = new AccountDetailsDto();
-        Object accountNumberObj = session.getAttribute("Account No");
-
-        if (accountNumberObj instanceof Long) {
-
-            Long accountNumber = (Long) accountNumberObj;
-             accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
-        } else if (accountNumberObj instanceof String) {
-
-            String accountNumberStr = (String) accountNumberObj;
-            try {
-                Long accountNumber = Long.parseLong(accountNumberStr);
-                accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
-            } catch (NumberFormatException e) {
-                System.err.println("Error parsing account number: " + e.getMessage());
-            }
-        } else {
-            System.err.println("Unexpected type for account number: " + accountNumberObj.getClass().getName());
-        }
-
-        boolean hideUIContainer = false;
-        model.addAttribute("hideUIContainer", hideUIContainer);
-        model.addAttribute("type",accountDetailsDto.getType() );
-        model.addAttribute("balance", accountDetailsDto.getBalance());
-        model.addAttribute("bankname", session.getAttribute("bankname"));
-
-
-        return "bankwallet";
-    }
-
-    @GetMapping ("/findByAccountName/{accountNumber}")
-    public  ResponseEntity<AccountDetailsResponseDto> GetuserProfileByAccount(@PathVariable String accountNumber){
-
-        System.err.println(accountNumber);
-        AccountDetailsResponseDto accountDetailsResponseDto =addAccountService.getAccountDetails(Long.parseLong(accountNumber));
-
-        return new ResponseEntity<>(accountDetailsResponseDto, HttpStatus.FOUND);
-    }
 
 
 
