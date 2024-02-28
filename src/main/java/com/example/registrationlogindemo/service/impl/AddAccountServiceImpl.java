@@ -94,7 +94,7 @@ public class AddAccountServiceImpl implements AddAccountService {
             authenticateduser.setStatus(status);
 
             CheckAccountNoData data = new CheckAccountNoData();
-            data.setRequireChangePassword(true);
+            data.setRequireChangePassword(false);
             authenticateduser.setData(data);
         }
         return authenticateduser;
