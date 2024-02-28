@@ -276,36 +276,29 @@ public class AuthController {
     @GetMapping ("/bankwallet/hasbankaccount")
     public String bankWalletAfterTransaction(Model model, HttpSession session){
 
-
         model.addAttribute("Account No", session.getAttribute("Account No"));
         AccountDetailsDto accountDetailsDto = new AccountDetailsDto();
         Object accountNumberObj = session.getAttribute("Account No");
 
         if (accountNumberObj instanceof Long) {
-            // Safe cast, proceed as usual
+
             Long accountNumber = (Long) accountNumberObj;
              accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
         } else if (accountNumberObj instanceof String) {
-            // Attempt conversion, handle exceptions
+
             String accountNumberStr = (String) accountNumberObj;
             try {
                 Long accountNumber = Long.parseLong(accountNumberStr);
                 accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
             } catch (NumberFormatException e) {
-                // Handle invalid number format (e.g., log an error, display a message to the user)
                 System.err.println("Error parsing account number: " + e.getMessage());
             }
         } else {
-            // Unexpected type, handle appropriately (e.g., log an error)
             System.err.println("Unexpected type for account number: " + accountNumberObj.getClass().getName());
         }
 
-
-
         boolean hideUIContainer = false;
         model.addAttribute("hideUIContainer", hideUIContainer);
-//        model.addAttribute("page", "bankwallet");
-
         model.addAttribute("type",accountDetailsDto.getType() );
         model.addAttribute("balance", accountDetailsDto.getBalance());
         model.addAttribute("bankname", session.getAttribute("bankname"));
@@ -314,14 +307,11 @@ public class AuthController {
         return "bankwallet";
     }
 
-    @GetMapping ("/findByAccountName/{accountName}")
+    @GetMapping ("/findByAccountName/{accountNumber}")
     public  ResponseEntity<AccountDetailsResponseDto> GetuserProfileByAccount(@PathVariable String accountNumber){
 
-
+        System.err.println(accountNumber);
         AccountDetailsResponseDto accountDetailsResponseDto =addAccountService.getAccountDetails(Long.parseLong(accountNumber));
-
-
-
 
         return new ResponseEntity<>(accountDetailsResponseDto, HttpStatus.FOUND);
     }
