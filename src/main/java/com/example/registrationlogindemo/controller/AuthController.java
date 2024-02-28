@@ -91,14 +91,14 @@ public class AuthController {
     }
 
     @PostMapping("/addacc/checkuser")
-    public ResponseEntity<AuthenticateResponseDto> registration(@Valid @RequestBody AccountDto acct, HttpSession session){
+    public ResponseEntity<AuthenticateResponseDto> registration(@Valid @RequestBody AccountDto acct, HttpSession session,Model model){
 
         session.setAttribute("username", acct.getUsername());
         session.setAttribute("password", acct.getPassword());
         System.out.println("login username " +acct.getUsername());
         AuthenticateResponseDto authenticateResponseDto =addAccountService.checkUsernamePassword(acct);
-        // Return ResponseEntity with headers and body
-        return new ResponseEntity<>(authenticateResponseDto, HttpStatus.FOUND);
+
+        return ResponseEntity.ok(authenticateResponseDto);
 
     }
     @GetMapping("/verifyOtp")
@@ -120,7 +120,6 @@ public class AuthController {
     public String showAddBankAccount(Model model,HttpSession session){
 
         AccountDetailsDto accountDetails= new AccountDetailsDto();
-//        transaction.setRecepientBank(bankname);
         model.addAttribute("accountDetails", accountDetails);
 
         model.addAttribute("bankname", session.getAttribute("bankname"));
@@ -133,7 +132,7 @@ public class AuthController {
         session.setAttribute("Account No", AccNo);
         CheckAccountNoResponseDto authenticateResponseDto =addAccountService.checkAccountNo(Long.parseLong(AccNo));
         System.out.println("Account No :"+ AccNo);
-        return new ResponseEntity<>(authenticateResponseDto, HttpStatus.FOUND);
+        return ResponseEntity.ok(authenticateResponseDto);
     }
     @GetMapping ("/bankwallet/hasbankaccount")
     public String bankWalletAfterTransaction(Model model, HttpSession session){
@@ -250,25 +249,17 @@ public class AuthController {
     }
 
     @PostMapping("/cashDeposit")
-    public ResponseEntity<Map<String, String>> selectCashDepositBank(Model model, @RequestBody TransactionDto trans) {
-
-        model.addAttribute("transaction", trans);
-        System.out.println("Received Deposit Bank Object: " + trans.getRecepientBank());
-
+    public ResponseEntity<Map<String, String>>  selectCashDepositBank(Model model, @RequestBody String bankname,HttpSession session) {
+        session.setAttribute("DepositBank", bankname);
         Map<String, String> response = new HashMap<>();
         response.put("page", "addAccNumber");
-        response.put("bankname", trans.getRecepientBank());
-
-        return ResponseEntity.ok(response);
+       return ResponseEntity.ok(response);
     }
-    @GetMapping("/addAccNumber/{bankname}")
-    public String addAccountNumber(@PathVariable String bankname, Model model){
-        TransactionDto transaction= new TransactionDto();
-        transaction.setRecepientBank(bankname);
-        model.addAttribute("transaction", transaction);
+    @GetMapping("/addAccNumber")
+    public String addAccountNumber(Model model,HttpSession session){
 
-        System.out.println("Received Deposit Bank Object in addaccount page: " +bankname);
-        model.addAttribute("bankname", bankname);
+        model.addAttribute("depositbankname", session.getAttribute("DepositBank"));
+
         return "addAccNumber";
     }
 

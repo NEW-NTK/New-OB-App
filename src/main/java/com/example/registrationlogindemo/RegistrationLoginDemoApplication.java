@@ -65,6 +65,34 @@ public class RegistrationLoginDemoApplication implements CommandLineRunner {
 //		listBankAcc.add(bankacc1);
 //		bankAccountRepo.save(bankacc1);
 
+//		Bank bank2 = new Bank();
+//		bank2.setBankName("Wing(Cambodia) Bank");
+//		bankRepo.save(bank2);
+//
+//		User user2 = new User();
+//		user2.setName("Nethmi");
+//		user2.setPhoneNo("0715566521");
+//		user2.setPassword("nethmi123");
+//		userRepo.save(user2);
+//
+//		List<BankAccount> listBankAcc2 = new ArrayList<>();
+//		BankAccount bankacc2 = new BankAccount();
+//		bankacc2.setAccNo(569871235642L);
+//		bankacc2.setType("Dollar");
+//		bankacc2.setCurrency("USD");
+//		bankacc2.setAccountStatus("Activated");
+//		bankacc2.setCountry("Cambodia");
+//		bankacc2.setBalance(15000.0F);
+//		bankacc2.setAccLimit("1");
+//		bankacc2.setAccountId("nethmi@xyz");
+//		bankacc2.setAccountName("NethmiW");
+//		bankacc2.setFrozen(true);
+//
+//		bankacc2.setBank(bank2);
+//		bankacc2.setUser(user2);
+//		listBankAcc2.add(bankacc2);
+//		bankAccountRepo.save(bankacc2);
+
 
 	}
 }

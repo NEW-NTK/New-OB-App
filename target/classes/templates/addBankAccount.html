@@ -250,17 +250,19 @@
             body: accountNumber,
         })
         .then(response => {
-            if (response.ok) {
-            return response.json();
-        } else if (response.status === 302) {
-            // Handle the redirect manually
-             window.location.href = '/bankwallet/hasbankaccount' ;
-        } else {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+           if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
         })
         .then(data => {
+            if (data.status.code == 0) {
 
+                window.location.href = '/bankwallet/hasbankaccount';
+            } else {
+                console.error('Authentication failed:', data);
+            }
         })
         .catch(error => console.error('Error:', error));
     });

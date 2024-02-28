@@ -172,7 +172,7 @@
                                th:field="*{password}"
                                placeholder="Password">
                     </div>
-                    <button type="submit" class="submit-button" onclick="checkAndRedirect">Next</button>
+                    <button type="submit" class="submit-button" >Next</button>
                 </form>
             </div>
         </div>
@@ -204,16 +204,19 @@
         })
         .then(response => {
             if (response.ok) {
-            return response.json();
-        } else if (response.status === 302) {
-            // Handle the redirect manually
-             window.location.href = '/verifyOtp' ;
-        } else {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+                return response.json();
+            } else {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
         })
         .then(data => {
+        console.log(data);
+            if (data.status.code == 0) {
 
+                window.location.href = '/verifyOtp';
+            } else {
+                console.error('Authentication failed:', data);
+            }
         })
         .catch(error => console.error('Error:', error));
     });
