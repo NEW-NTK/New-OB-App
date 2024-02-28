@@ -26,7 +26,7 @@
             position: relative;
             width: 300px;
             height: 600px;
-            background-color: #ffffff;
+            background-color: #eee9e9;
             border: 9px solid #333;
             border-radius: 50px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -59,13 +59,13 @@
         }
 
         .card1 {
-            width: 236px;
+            width: 255px;
             border: 1px solid #ccc;
             border-radius: 11px;
             padding: 15px;
             margin: 2px 1px;
             position: relative;
-            background-color: orange;
+            background-color: #d72614;
             color: white;
         }
 
@@ -142,6 +142,10 @@
         }
         .card-col{
             padding-right:8px;
+
+        }
+        .card{
+            border-radius: 11px;
         }
     </style>
 </head>
@@ -158,8 +162,8 @@
                 <span></span>
             </div>
             <div class="card card1">
-                <p class="accname">Dollar Account</p>
-                <p class="balance">$25,473.25</p>
+                <p class="accname" th:text="${type}"></p>
+                <p class="balance" th:text="${balance}"></p>
                 <button class="arrow-btn">&#9654;</button>
             </div>
 

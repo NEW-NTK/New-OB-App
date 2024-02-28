@@ -212,15 +212,38 @@ public class AuthController {
         model.addAttribute("bankname", session.getAttribute("bankname"));
         return "accDetails";
     }
-//***********************************************************
+
     @GetMapping("/accOverview")
     public String showAccountOverview(Model model, HttpSession session){
-        AccountDto acc = new AccountDto();
-        model.addAttribute("user", acc);
+        model.addAttribute("Account No", session.getAttribute("Account No"));
+        AccountDetailsDto accountDetailsDto = new AccountDetailsDto();
+        Object accountNumberObj = session.getAttribute("Account No");
+
+        if (accountNumberObj instanceof Long) {
+
+            Long accountNumber = (Long) accountNumberObj;
+            accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
+        } else if (accountNumberObj instanceof String) {
+
+            String accountNumberStr = (String) accountNumberObj;
+            try {
+                Long accountNumber = Long.parseLong(accountNumberStr);
+                accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
+            } catch (NumberFormatException e) {
+                System.err.println("Error parsing account number: " + e.getMessage());
+            }
+        } else {
+            System.err.println("Unexpected type for account number: " + accountNumberObj.getClass().getName());
+        }
+
+        model.addAttribute("type",accountDetailsDto.getType() );
+        model.addAttribute("balance", accountDetailsDto.getBalance());
+        model.addAttribute("bankname", session.getAttribute("bankname"));
+
 
         return "accOverview";
     }
-
+    //***********************************************************
     @GetMapping("/cashDeposit")
     public String showBankToDeposit(){
         return "cashDeposit";

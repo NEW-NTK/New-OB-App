@@ -245,8 +245,8 @@
                 <h1 id="bankname" th:text="${bankname}"></h1>
             </div>
             <div class="card1" id="accountCard">
-                <p  id="type" class="accname" th:text="${type}"><p>
-                <p id="balance" class="balance"th:text="${balance}"></p>
+                <p  id="type" class="accname" th:text="${type}" onclick="redirectToAnotherPage()" ><p>
+                <p id="balance" class="balance" th:text="${balance}"></p>
 <!--                <p id="accountNo" class="accountNo" th:text="${accountDetails.accountNo}" style="display: none;"></p>-->
                 <button id="arrowBtn" class="arrow-btn">&#9654;</button>
             </div>
@@ -336,6 +336,11 @@
         // Perform the redirection when the button is clicked
         window.location.href = '/accDetails';
         });
+
+     function redirectToAnotherPage() {
+
+        window.location.href = '/accOverview';
+    }
 </script>
 </body>
 
