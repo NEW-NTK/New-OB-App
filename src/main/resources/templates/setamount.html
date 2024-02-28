@@ -257,7 +257,7 @@
 
             <div class="bankCardContainer">
                 <img th:src="@{/images/banklogo.png}" alt="Centered Image">
-                <h2 th:text="${bankname}"></h2>
+                <h2 th:text="${depositbankname}"></h2>
                 <span></span>
             </div>
 
@@ -277,10 +277,7 @@
         </div>
 
         <div class="card2">
-            <form method="post" role="form" th:action="@{/depositVerifyOTP}" th:object="${transaction}">
-                <input type="hidden" th:name="destinationAccNumber" th:value="${transaction.destinationAccNumber}" />
-                <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />
-                <input type="hidden" th:name="recieverName" th:value="${transaction.recieverName}" />
+            <form method="post" role="form" th:action="@{/setAmount}" >
 
                 <div class="form-group">
                     <p class="amount" >Amount</p>
@@ -289,7 +286,7 @@
                         <input type="number"
                                id="numericInput"
                                name="numericInput"
-                               th:field="*{amount}"
+
                         >
 
                     </div>
@@ -298,7 +295,7 @@
                                id="textInput"
                                name="textInput"
                                placeholder="Add Description"
-                               th:field="*{Description}"
+
                         >
                     </div>
 
@@ -311,7 +308,7 @@
                     <img th:src="@{/images/banklogo.png}" alt="Centered Image">
                     
                     <div class="username">
-                        <p class="name" th:text="${transaction.recieverName}"></p>
+                        <p class="name" th:text="${recieverName}"></p>
                         <a href="" class="detail">details</a>
                     </div>
                 </div>

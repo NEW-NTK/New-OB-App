@@ -1,6 +1,9 @@
 package com.example.registrationlogindemo.controller;
 
 import com.example.registrationlogindemo.dto.*;
+import com.example.registrationlogindemo.entity.BankAccount;
+import com.example.registrationlogindemo.entity.Transaction;
+import com.example.registrationlogindemo.repository.BankAccountRepository;
 import com.example.registrationlogindemo.service.AddAccountService;
 import com.example.registrationlogindemo.service.CheckBakongUserHasBankService;
 import jakarta.servlet.http.HttpSession;
@@ -23,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private AddAccountService addAccountService;
+
+    @Autowired
+    private BankAccountRepository bankAccountRepo;
 
     @Autowired
     private CheckBakongUserHasBankService checkBakongUserHasBankService;
@@ -250,6 +256,7 @@ public class AuthController {
 
     @PostMapping("/cashDeposit")
     public ResponseEntity<Map<String, String>>  selectCashDepositBank(Model model, @RequestBody String bankname,HttpSession session) {
+
         session.setAttribute("DepositBank", bankname);
         Map<String, String> response = new HashMap<>();
         response.put("page", "addAccNumber");
@@ -263,29 +270,50 @@ public class AuthController {
         return "addAccNumber";
     }
 
-    @PostMapping("/setDepositAmount")
-    public String addaccountNumber(@ModelAttribute("transaction") TransactionDto trans,
-                                   BindingResult result,
-                                   Model model){
-        if (123456789101L == trans.getDestinationAccNumber()) {
-            // Set the receiver name as "Kim Chan"
-            trans.setRecieverName("Kim Chan");
-        }
-        System.out.println("\nTransaction details after adding Account Number\n" +
-                "RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+    @PostMapping("/setAccNumber")
+    public ResponseEntity<Map<String, String>>  setaccountNumber(Model model, @RequestBody String AccNumber,HttpSession session){
+        session.setAttribute("depositAccNumber", AccNumber);
 
-        model.addAttribute("bankname", trans.getRecepientBank());
+
+        Map<String, String> response = new HashMap<>();
+        response.put("page", "setAmount");
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/setAmount")
+    public String setAccountNumber(Model model,HttpSession session){
+        BankAccount checkAccount = new BankAccount();
+        Object accountNumberObj = session.getAttribute("depositAccNumber");
+
+        if (accountNumberObj instanceof Long) {
+
+            Long accountNumber = (Long) accountNumberObj;
+            checkAccount = bankAccountRepo.findByAccNo(accountNumber);
+        } else if (accountNumberObj instanceof String) {
+
+            String accountNumberStr = (String) accountNumberObj;
+            try {
+                Long accountNumber = Long.parseLong(accountNumberStr);
+               checkAccount = bankAccountRepo.findByAccNo(accountNumber);
+            } catch (NumberFormatException e) {
+                System.err.println("Error parsing account number: " + e.getMessage());
+            }
+        } else {
+            System.err.println("Unexpected type for account number: " + accountNumberObj.getClass().getName());
+        }
+
+        if(checkAccount != null){
+            model.addAttribute("recieverName",checkAccount.getUser().getName() );
+        }
+        model.addAttribute("depositbankname", session.getAttribute("DepositBank"));
 
         return "setamount";
     }
 
-    @PostMapping("/depositVerifyOTP")
-    public String setDepositAmount(@ModelAttribute("transaction") TransactionDto trans,
-                                   BindingResult result,
-                                   Model model){
-        System.out.println("\nTransaction details after adding amount \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
-        model.addAttribute("transaction", trans );
-        model.addAttribute("bankname", trans.getRecepientBank());
+
+    @PostMapping("/setAmount")
+    public String setDepositAmount(Model model, @RequestBody String amount,HttpSession session){
+        session.setAttribute("depositAmount", amount);
+
         return "DepositVerifyOTP";
     }
 
