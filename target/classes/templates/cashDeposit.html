@@ -146,21 +146,13 @@
             <script>
                 function selectBank(bankName) {
 
-                     var transactionObject = {
-                        recepientBank: bankName,
-                        recieverName: "",
-                        destinationAccNumber: 0,
-                        amount: 0,
-                        Description: ""
-                    };
-
 
                     fetch('/cashDeposit', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
+                            'Content-Type': 'text/plain',
                         },
-                        body: JSON.stringify(transactionObject),
+                        body: bankName,
                     })
                     .then(response => {
                     if (!response.ok) {
@@ -170,7 +162,7 @@
                 })
                     .then(data => {
                         console.log('data',data);
-                        window.location.href = '/' + data.page + '/' + data.bankname;
+                        window.location.href = '/' + data.page ;
                     })
                     .catch(error => console.error('Error:', error));
                 }

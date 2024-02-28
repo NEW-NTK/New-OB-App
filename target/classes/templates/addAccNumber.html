@@ -182,7 +182,7 @@
 
             <div class="bankCardContainer">
                 <img th:src="@{/images/bank.png}" alt="Centered Image">
-                <h2 th:text="${bankname}"></h2>
+                <h2 th:text="${depositbankname}"></h2>
                 <span></span>
             </div>
 
@@ -190,15 +190,14 @@
 
 
         </div>
-        <form method="post" role="form" th:action="@{/setDepositAmount}" th:object="${transaction}">
-            <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />
+        <form method="post" role="form" th:action="@{/setDepositAmount}" >
+<!--            <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />-->
             <div class="account-section">
                 <div class="form-group">
                     <label for="accountNumber">Account Number:</label>
                     <input type="text"
                            class="form-control"
                            id="accountNumber"
-                           th:field="*{destinationAccNumber}"
                            maxlength="12"
                            oninput="handleInput()">
                     <small class="text-danger" id="error-message"></small>
