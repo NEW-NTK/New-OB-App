@@ -272,7 +272,7 @@
 
             <div class="bankCardContainer">
                 <img th:src="@{/images/bank.png}" class="bankImg" alt="Centered Image">
-                <h2 th:text="${bankname}"></h2>
+                <h2 th:text="${recepientBank}"></h2>
                 <span></span>
             </div>
 
@@ -307,13 +307,7 @@
         </div>
 
         <div class="cardDetails-container">
-            <form method="post" role="form" th:action="@{/bankwallet/hasbankaccount}" th:object="${transaction}">
-
-                <input type="hidden" th:name="recieverName" th:value="${transaction.recieverName}" />
-                <input type="hidden" th:name="destinationAccNumber" th:value="${transaction.destinationAccNumber}" />
-                <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />
-                <input type="hidden" th:name="amount" th:value="${transaction.amount}" />
-                <input type="hidden" th:name="Description" th:value="${transaction.Description}" />
+            <form >
 
                 <div class="card cardDetails">
                     <div class="row">
@@ -321,7 +315,7 @@
                             <p class="left">Receiver Name</p>
                         </div>
                         <div class="col">
-                            <p class="right" th:text="${transaction.recieverName}"></p>
+                            <p class="right" th:text="${recieverName}"></p>
                         </div>
                     </div>
                 </div>
@@ -332,7 +326,7 @@
                             <p class="left">Transaction Amount</p>
                         </div>
                         <div class="col">
-                            <p class="right" th:text="${transaction.amount}"></p>
+                            <p class="right" th:text="${amount}"></p>
                         </div>
                     </div>
                 </div>
@@ -343,7 +337,7 @@
                             <p class="left">Account No</p>
                         </div>
                         <div class="col">
-                            <p class="right" th:text="${transaction.destinationAccNumber}"></p>
+                            <p class="right" th:text="${destinationAccNumber}"></p>
                         </div>
                     </div>
                 </div>
@@ -363,7 +357,7 @@
                             <p class="left">Description</p>
                         </div>
                         <div class="col">
-                            <p class="right" th:text="${transaction.Description}"></p>
+                            <p class="right" th:text="${Description}"></p>
                         </div>
                     </div>
                 </div>
@@ -378,7 +372,7 @@
                     </div>
                 </div>
                 <div class="btnConfirm">
-                    <button type="submit" class="submit-button">Done</button>
+                    <button type="submit" id="confirmButton" class="submit-button">Done</button>
                 </div>
 
             </form>
@@ -396,7 +390,33 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <script>
+    document.getElementById('confirmButton').addEventListener('click', function () {
+           fetch('/finishTransaction', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json',
+               },
+               body: JSON.stringify({}),
+           })
+           .then(response => {
+               if (response.ok) {
+                   return response.json();
+               } else {
+                   throw new Error(`HTTP error! Status: ${response.status}`);
+               }
+           })
+           .then(data => {
+                console.log(data);
+               if (data.status && data.status.code === 0) {
+                    window.location.href = '/bakong';
+                } else {
+                    console.error('Authentication failed:', data);
+                    // Handle authentication failure if needed
+                }
 
+           })
+           .catch(error => console.error('Error:', error));
+       });
 </script>
 
 </body>

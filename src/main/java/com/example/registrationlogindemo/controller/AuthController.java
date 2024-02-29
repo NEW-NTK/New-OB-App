@@ -6,6 +6,7 @@ import com.example.registrationlogindemo.entity.Transaction;
 import com.example.registrationlogindemo.repository.BankAccountRepository;
 import com.example.registrationlogindemo.service.AddAccountService;
 import com.example.registrationlogindemo.service.CheckBakongUserHasBankService;
+import com.example.registrationlogindemo.service.TransactionService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -26,6 +27,9 @@ public class AuthController {
 
     @Autowired
     private AddAccountService addAccountService;
+
+    @Autowired
+    private TransactionService transactionService;
 
     @Autowired
     private BankAccountRepository bankAccountRepo;
@@ -116,7 +120,7 @@ public class AuthController {
         return "verifyOTP";
     }
     @PostMapping("/verifyOtp")
-    public ResponseEntity<VerifyOtpResponseDto> checkPhnNo(@RequestBody String otp,HttpSession session){
+    public ResponseEntity<VerifyOtpResponseDto> checkOtp(@RequestBody String otp,HttpSession session){
 
         VerifyOtpResponseDto authenticateResponseDto =addAccountService.checkOtp(otp);
         System.out.println("OTP :"+ otp);
@@ -311,54 +315,140 @@ public class AuthController {
 
 
     @PostMapping("/setAmount")
-    public String setDepositAmount(Model model, @RequestBody String amount,HttpSession session){
-        session.setAttribute("depositAmount", amount);
+    public ResponseEntity<Map<String, String>> setDepositAmount(Model model, @RequestBody Map<String, Object> amountDesc,HttpSession session){
+//        session.setAttribute("depositAmount", amountDesc);
+        Object amountObject = amountDesc.get("amount");
+        Object descriptionObject = amountDesc.get("description");
+        if (amountObject != null && descriptionObject != null) {
+            // Convert to appropriate types if needed
+            float amountValue = Integer.parseInt(amountObject.toString());
+            String descriptionValue = descriptionObject.toString();
+
+            System.out.println("Amount: " + amountValue);
+            System.out.println("Description: " + descriptionValue);
+
+            session.setAttribute("depositAmount", amountValue);
+            session.setAttribute("description", descriptionValue);
+
+
+        }
+
+        Map<String, String> response = new HashMap<>();
+        response.put("page", "DepositVerifyOTP");
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/DepositVerifyOTP")
+    public String GetDepositeVerifyOtpPage(Model model,HttpSession session){
+
+        model.addAttribute("username", session.getAttribute("username"));
 
         return "DepositVerifyOTP";
     }
 
+    @GetMapping("/confirmation")
+    public String doneConfirm(Model model,HttpSession session){
 
-    @PostMapping("/confirmation")
-    public String doneConfirm(@ModelAttribute("transaction") TransactionDto trans,
-                                   BindingResult result,
-                                   Model model){
-        System.out.println("\nTransaction details after done confirmation \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
-        model.addAttribute("transaction", trans );
+        model.addAttribute("recepientBank", session.getAttribute("DepositBank"));
+        BankAccount checkAccount = new BankAccount();
+        Object accountNumberObj = session.getAttribute("depositAccNumber");
+
+        if (accountNumberObj instanceof Long) {
+
+            Long accountNumber = (Long) accountNumberObj;
+            checkAccount = bankAccountRepo.findByAccNo(accountNumber);
+        } else if (accountNumberObj instanceof String) {
+
+            String accountNumberStr = (String) accountNumberObj;
+            try {
+                Long accountNumber = Long.parseLong(accountNumberStr);
+                checkAccount = bankAccountRepo.findByAccNo(accountNumber);
+            } catch (NumberFormatException e) {
+                System.err.println("Error parsing account number: " + e.getMessage());
+            }
+        } else {
+            System.err.println("Unexpected type for account number: " + accountNumberObj.getClass().getName());
+        }
+
+        model.addAttribute("recieverName", checkAccount.getUser().getName());
+        model.addAttribute("destinationAccNumber", session.getAttribute("depositAccNumber"));
+        model.addAttribute("amount", session.getAttribute("depositAmount"));
+        model.addAttribute("Description", session.getAttribute("description"));
+
         return "confirmation";
     }
     @PostMapping("/moneyTransfered")
-    public String moneyTransfered(@ModelAttribute("transaction") TransactionDto trans,
-                              BindingResult result,
+    public String moneyTransfered(HttpSession session,
                               Model model){
-        model.addAttribute("transaction", trans );
-        model.addAttribute("bankname", trans.getRecepientBank());
+        model.addAttribute("recepientBank", session.getAttribute("DepositBank"));
+        BankAccount checkAccount = new BankAccount();
+        Object accountNumberObj = session.getAttribute("depositAccNumber");
 
-        System.out.println("\nTransaction details after moneytranfered \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
+        if (accountNumberObj instanceof Long) {
+
+            Long accountNumber = (Long) accountNumberObj;
+            checkAccount = bankAccountRepo.findByAccNo(accountNumber);
+        } else if (accountNumberObj instanceof String) {
+
+            String accountNumberStr = (String) accountNumberObj;
+            try {
+                Long accountNumber = Long.parseLong(accountNumberStr);
+                checkAccount = bankAccountRepo.findByAccNo(accountNumber);
+            } catch (NumberFormatException e) {
+                System.err.println("Error parsing account number: " + e.getMessage());
+            }
+        } else {
+            System.err.println("Unexpected type for account number: " + accountNumberObj.getClass().getName());
+        }
+
+        model.addAttribute("recieverName", checkAccount.getUser().getName());
+        model.addAttribute("destinationAccNumber", session.getAttribute("depositAccNumber"));
+        model.addAttribute("amount", session.getAttribute("depositAmount"));
+        model.addAttribute("Description", session.getAttribute("description"));
 
         return "moneyTransfered";
     }
+    @PostMapping("/finishTransaction")
+    public ResponseEntity<FinishTransactionResponseDto> finishTransaction(HttpSession session, Model model) {
+        FinishTransactionResponseDto finishTransactionResponseDto = new FinishTransactionResponseDto();
+        Object depositAccNumberObj = session.getAttribute("depositAccNumber");
+        Object accountNumberObj = session.getAttribute("Account No");
+        Object depositAmountObj = session.getAttribute("depositAmount");
 
-//    @PostMapping("/bankwallet/hasbankaccount")
-//    public String bankWalletAfterTransaction(@ModelAttribute("transaction") TransactionDto trans,@ModelAttribute("accountDetails") AccountDetailsDto accountDetails,@RequestParam String bankname,
-//                                             BindingResult result,
-//                                             Model model){
-//        // Assuming you have some logic to retrieve account details from the backend
-////        List<AccountDetailsDto> accountDetailsList = getAccountDetailsList();
-//        accountDetails.setType("Dollar Account");
-//        accountDetails.setBalance("$1,000.00");
-//
-//        addBankAccountService.addBankAccount(accountDetails,bankname);
-//        // Pass the accountDetailsList and bankname to the Thymeleaf template
-////        model.addAttribute("accountDetailsList", accountDetailsList);
-//        System.out.println("\nAccount details after go to bankwallet \n" +"AccountNo:" + accountDetails.getAccountNo() +"\n" +"name :"+ accountDetails.getName() +"\n"+ "phoneNo :"+ accountDetails.getPhoneNo() +"\n"+ "type :"+ accountDetails.getType()  +"\n"+ "currency :"+ accountDetails.getCurrency() +"\n"+ "accountStatus :"+ accountDetails.getAccountStatus()+"\n"+ "kycStatus :"+ accountDetails.getKycStatus()+"\n"+ "country :"+ accountDetails.getCountry()+"\n"+ "balance :"+ accountDetails.getBalance()+"\n"+ "limit :"+ accountDetails.getLimit()  );
-//        model.addAttribute("bankName", bankname);
-//        System.out.println("\nTransaction details after go to bankwallet \n" +"RecepientBank :" + trans.getRecepientBank() +"\n" +"Receiver AccNO :"+ trans.getDestinationAccNumber() +"\n"+ "Receiver Name :"+ trans.getRecieverName() +"\n"+ "Amount:"+ trans.getAmount()  +"\n"+ "Description:"+ trans.getDescription()    );
-//        model.addAttribute("bankname", trans.getRecepientBank());
-//        model.addAttribute("accountDetails", accountDetails);
-//        boolean hideUIContainer = false;
-//        model.addAttribute("hideUIContainer", hideUIContainer);
-//        return "bankwallet";
-//    }
+        Long depositAccNumber = null;
+        Long accountNumber = null;
+        Float depositAmount = null;
+
+        if (depositAccNumberObj != null) {
+            if (depositAccNumberObj instanceof Long) {
+                depositAccNumber = (Long) depositAccNumberObj;
+            } else if (depositAccNumberObj instanceof String) {
+                depositAccNumber = Long.valueOf((String) depositAccNumberObj);
+            }
+        }
+
+        if (accountNumberObj != null) {
+            if (accountNumberObj instanceof Long) {
+                accountNumber = (Long) accountNumberObj;
+            } else if (accountNumberObj instanceof String) {
+                accountNumber = Long.valueOf((String) accountNumberObj);
+            }
+        }
+
+        if (depositAmountObj != null && depositAmountObj instanceof Float) {
+            depositAmount = (Float) depositAmountObj;
+        }
+        // Call service method with session attributes
+        finishTransactionResponseDto = transactionService.UpdateBalance(accountNumber, depositAccNumber, depositAmount);
+
+//        model.addAttribute("recepientBank", session.getAttribute("DepositBank"));
+//        model.addAttribute("destinationAccNumber", session.getAttribute("depositAccNumber"));
+//        model.addAttribute("amount", session.getAttribute("depositAmount"));
+//        model.addAttribute("Description", session.getAttribute("description"));
+
+        return  new ResponseEntity<>(finishTransactionResponseDto,HttpStatus.OK);
+    }
+
+
 
 
 

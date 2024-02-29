@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import jakarta.persistence.*;
@@ -37,7 +38,7 @@ public class Transaction implements Serializable {
     private BankAccount destinationAccount;
 
     @Column(nullable = false)
-    private Date transactionDate;
+    private LocalDate transactionDate;
 
     @Column(nullable = false)
     private float amount;

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -13,6 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class FinishTransactionData {
     private String transactionId;
-    private Date transactionDate;
+    private LocalDate transactionDate;
     private String transactionHash;
 }

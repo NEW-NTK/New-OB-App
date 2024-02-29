@@ -124,13 +124,14 @@
             </div>
 
 
-            <h4>To Verify We've send an sms with code to +855-58 567 8786</h4>
+            <h4>To Verify We've send an sms with code to </h4>
+            <h4 th:text="${username}"></h4>
             <form id="otpForm" method="post" role="form" th:action="@{/confirmation}" th:object="${transaction}">
-                <input type="hidden" th:name="destinationAccNumber" th:value="${transaction.destinationAccNumber}" />
-                <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />
-                <input type="hidden" th:name="recieverName" th:value="${transaction.recieverName}" />
-                <input type="hidden" th:name="amount" th:value="${transaction.amount}" />
-                <input type="hidden" th:name="Description" th:value="${transaction.Description}" />
+<!--                <input type="hidden" th:name="destinationAccNumber" th:value="${transaction.destinationAccNumber}" />-->
+<!--                <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />-->
+<!--                <input type="hidden" th:name="recieverName" th:value="${transaction.recieverName}" />-->
+<!--                <input type="hidden" th:name="amount" th:value="${transaction.amount}" />-->
+<!--                <input type="hidden" th:name="Description" th:value="${transaction.Description}" />-->
 
                 <!-- OTP Input Fields -->
                 <div class="otp-inputs form-group">
@@ -172,17 +173,36 @@
         return otpString;
     }
 
-    function checkAndRedirect(event) {
-        if (event.key === "Enter") {
-            var otpString = getOtpString();
+        function checkAndRedirect(event) {
+    if (event.key === "Enter") {
+        var otpString = getOtpString();
 
-            // Check if all OTP input fields are filled
-            if (otpString.length === 6) {
-                // Redirect to another page (replace "your_destination_page.html" with the actual page URL)
-                document.getElementById("otpForm").submit();
-            }
+        if (otpString.length === 6) {
+            fetch(`/verifyOtp`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+                body: otpString,
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else if (response.status === 302) {
+                    // Handle the redirect manually
+                     window.location.href = '/confirmation' ;
+                } else {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+            })
+            .then(data => {
+
+            })
+            .catch(error => console.error('Error:', error));
         }
     }
+}
+
 
     // Add event listeners to each OTP input
     var otpInputs = document.getElementsByClassName("otp-input");

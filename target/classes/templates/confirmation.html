@@ -222,12 +222,7 @@
         </div>
 
         <div class="cardDetails-container">
-            <form method="post" role="form" th:action="@{/moneyTransfered}" th:object="${transaction}">
-                <input type="hidden" th:name="recieverName" th:value="${transaction.recieverName}" />
-                <input type="hidden" th:name="destinationAccNumber" th:value="${transaction.destinationAccNumber}" />
-                <input type="hidden" th:name="recepientBank" th:value="${transaction.recepientBank}" />
-                <input type="hidden" th:name="amount" th:value="${transaction.amount}" />
-                <input type="hidden" th:name="Description" th:value="${transaction.Description}" />
+            <form method="post" role="form" th:action="@{/moneyTransfered}">
 
                 <div class="card cardDetails">
                     <div class="row">
@@ -235,7 +230,7 @@
                             <p class="left" >Recepient</p>
                         </div>
                         <div class="col">
-                            <p class="right" th:text="${transaction.recepientBank}"></p>
+                            <p class="right" th:text="${recepientBank}"></p>
                         </div>
                     </div>
                 </div>
@@ -246,7 +241,7 @@
                             <p class="left" >Reciever Name</p>
                         </div>
                         <div class="col">
-                            <p class="right"  th:text="${transaction.recieverName}"></p>
+                            <p class="right"  th:text="${recieverName}"></p>
                         </div>
                     </div>
                 </div>
@@ -257,7 +252,7 @@
                             <p class="left" >Account No</p>
                         </div>
                         <div class="col">
-                            <p class="right" th:text="${transaction.destinationAccNumber}"></p>
+                            <p class="right" th:text="${destinationAccNumber}"></p>
                         </div>
                     </div>
                 </div>
@@ -267,7 +262,7 @@
                             <p class="left">Amount</p>
                         </div>
                         <div class="col">
-                            <p class="right" th:text="${transaction.amount}">$</p>
+                            <p class="right" th:text="${amount}">$</p>
                         </div>
                     </div>
                 </div>
@@ -277,7 +272,7 @@
                             <p class="left">Description</p>
                         </div>
                         <div class="col">
-                            <p class="right" th:text="${transaction.Description}"></p>
+                            <p class="right" th:text="${Description}"></p>
                         </div>
                     </div>
                 </div>

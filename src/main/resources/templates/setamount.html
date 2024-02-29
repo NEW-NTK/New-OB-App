@@ -337,7 +337,36 @@
         // Toggle 'selected' class for the clicked icon wrapper
         element.classList.toggle('selected');
     }
+     document.querySelector('form').addEventListener('submit', function (event) {
+    event.preventDefault();
 
+    var amount = document.getElementById("numericInput").value;
+    var description = document.getElementById("textInput").value;
+
+    var requestData = {
+        amount: amount,
+        description: description
+    };
+
+    fetch(`/setAmount`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    })
+    .then(data => {
+        window.location.href = '/' + data.page;
+    })
+    .catch(error => console.error('Error:', error));
+});
 
 
 </script>
