@@ -307,7 +307,7 @@
         </div>
 
         <div class="cardDetails-container">
-            <form >
+            <form>
 
                 <div class="card cardDetails">
                     <div class="row">
@@ -390,7 +390,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 <script>
-    document.getElementById('confirmButton').addEventListener('click', function () {
+    document.getElementById('confirmButton').addEventListener('click', function (event) {
+           event.preventDefault();
            fetch('/finishTransaction', {
                method: 'POST',
                headers: {
@@ -407,11 +408,13 @@
            })
            .then(data => {
                 console.log(data);
-               if (data.status && data.status.code === 0) {
-                    window.location.href = '/bakong';
+               if (data.status && data.status.code == 0) {
+                    window.location.href = '/bankwallet/hasbankaccount';
+<!--                    window.location.href = '/bakong';-->
                 } else {
                     console.error('Authentication failed:', data);
                     // Handle authentication failure if needed
+                    window.location.href = '/bakong';
                 }
 
            })
