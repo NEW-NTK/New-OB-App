@@ -64,7 +64,7 @@ public class RegistrationLoginDemoApplication implements CommandLineRunner {
 //		bankacc1.setUser(user1);
 //		listBankAcc.add(bankacc1);
 //		bankAccountRepo.save(bankacc1);
-
+//
 //		Bank bank2 = new Bank();
 //		bank2.setBankName("Wing(Cambodia) Bank");
 //		bankRepo.save(bank2);

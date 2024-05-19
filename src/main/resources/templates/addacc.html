@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
     <title>Add Account</title>
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +20,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-             min-height: 100vh;
+            min-height: 100vh;
+            position: relative;
         }
 
         .mobile-frame {
@@ -40,21 +39,21 @@
         .ui-container {
             padding: 9px;
         }
+
         .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             color: black;
             padding: 10px;
-
         }
 
         .back-icon {
             font-size: 14px;
             cursor: pointer;
-            color:red;
+            color: red;
         }
+
         .info-icon {
             font-size: 14px;
             color: black;
@@ -64,25 +63,25 @@
         h1 {
             margin: 0;
             font-size: 14px;
-            font-weight:bold;
+            font-weight: bold;
         }
 
-         input,
+        input,
         button {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             box-sizing: border-box;
         }
-       .verification-section {
 
+        .verification-section {
             display: flex;
             flex-direction: row;
             align-items: left;
             justify-content: space-between;
         }
 
-       .progress-circle {
+        .progress-circle {
             position: relative;
             width: 36px;
             height: 36px;
@@ -96,18 +95,19 @@
             border: 2px solid;
         }
 
-         h4 {
+        h4 {
             color: #a8a3a3;
             margin-top: 10px;
             font-size: 12px;
         }
-        h3{
-        margin-top: 10px;
-        font-size: 20px;
-          font-weight: bold;
+
+        h3 {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
         }
-         /* Submit button styling */
-       .submit-button {
+
+        .submit-button {
             width: 100%;
             padding: 8px;
             background-color: #e10909;
@@ -116,16 +116,71 @@
             border-radius: 10px;
             cursor: pointer;
             margin-top: 235px;
+            position: relative;
         }
 
         .form-group input {
             background-color: #f7f4f4;
         }
-        .form{
-        margin-top: 20px;
+
+        .form {
+            margin-top: 20px;
         }
 
+        .statusMessage {
+            display: none;
+            position: absolute;
+            top: 60%;
+            left: 110%;
+            transform: translateY(-50%);
+            background-color: #333;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.5s, left 0.5s;
+            text-align: center;
+            font-size: 14px;
+        }
 
+        .statusMessage.show {
+            display: block;
+            opacity: 1;
+            left: 80%;
+        }
+
+        .statusMessage .spinner {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        .arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid red;
+            transition: all 0.5s;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -144,38 +199,32 @@
             <!-- Bank Account Verification Section -->
             <div class="verification-section">
                 <h3>Bank account verification</h3>
-
-
                 <div class="progress-circle">2<span style="color: grey;">/4</span></div>
             </div>
 
             <h4>Enter the bank account credentials that
                 <span style="font-weight: bold;" th:text="${bankname}">
-                </span> provided you
+                    </span> provided you
             </h4>
 
-
             <div class="form">
-                <form method="post" role="form" th:action="@{/addacc/checkuser}" th:object="${user}">
+                <form id="accountForm" method="post" role="form" th:action="@{/addacc/checkuser}" th:object="${user}">
                     <input type="hidden" th:name="bankname" th:value="${bankname}" />
                     <div class="form-group">
-                        <input type="text"
-                               class="form-control"
-                               id="username"
-                               th:field="*{username}"
-                               placeholder="Username">
+                        <input type="text" class="form-control" id="username" th:field="*{username}" placeholder="Username">
                     </div>
                     <div class="form-group">
-                        <input type="password"
-                               class="form-control"
-                               id="password"
-                               th:field="*{password}"
-                               placeholder="Password">
+                        <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Password">
                     </div>
-                    <button type="submit" class="submit-button" >Next</button>
+                    <button type="submit" class="submit-button">Next</button>
                 </form>
             </div>
         </div>
+    </div>
+    <div class="statusMessage">
+        <div class="arrow"></div>
+        <div class="spinner"></div>
+        <span>Contacting API: /addacc/checkuser</span>
     </div>
 </div>
 
@@ -184,46 +233,65 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script>
-    document.querySelector('form').addEventListener('submit', function (event) {
+    document.getElementById('accountForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
+        var statusMessage = document.querySelector(".statusMessage");
+        var arrow = document.querySelector(".arrow");
+        var submitButton = document.querySelector(".submit-button");
+
+        var buttonRect = submitButton.getBoundingClientRect();
+        var messageRect = statusMessage.getBoundingClientRect();
+
+        // Position the arrow at the right of the "Next" button
+        arrow.style.top = buttonRect.top + window.scrollY + (buttonRect.height / 2) - 10 + 'px';
+        arrow.style.left = buttonRect.left + window.scrollX + buttonRect.width + 'px';
+        arrow.style.display = 'block';
 
         var loginObject = {
             username: username,
             password: password
         };
 
-        fetch(`/addacc/checkuser`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(loginObject),
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-        })
-        .then(data => {
-        console.log(data);
-            if (data.status.code == 0) {
+        statusMessage.classList.add('show'); // Show status message with animation
 
-                window.location.href = '/verifyOtp';
-            } else {
-                console.error('Authentication failed:', data);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+        fetch(`/addacc/checkuser`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginObject),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+            })
+            .then(data => {
+                console.log(data);
+                setTimeout(() => {
+                    if (data.status.code == 0) {
+                        window.location.href = '/verifyOtp';
+                    } else {
+                        console.error('Authentication failed:', data);
+                    }
+                    statusMessage.classList.remove('show'); // Hide status message with animation
+                    arrow.style.display = 'none';
+                }, 3000); // Keep the message visible for 3 seconds before redirecting or hiding
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                setTimeout(() => {
+                    statusMessage.classList.remove('show'); // Hide status message on error with animation
+                    arrow.style.display = 'none';
+                }, 3000); // Keep the message visible for 3 seconds before hiding
+            });
     });
 </script>
-
-
-
 </body>
 
 </html>
