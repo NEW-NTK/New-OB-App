@@ -8,6 +8,7 @@ import com.example.registrationlogindemo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.registrationlogindemo.service.AddAccountService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AddAccountServiceImpl implements AddAccountService {
@@ -150,5 +151,15 @@ public class AddAccountServiceImpl implements AddAccountService {
 
 
         return data;
+    }
+
+    @Transactional
+    @Override
+    public void deleteBankAccount(long accNo) {
+        if (bankAccountRepo.existsById(accNo)) {
+            bankAccountRepo.deleteById(accNo);
+        } else {
+            throw new IllegalArgumentException("Account with id " + accNo + " does not exist.");
+        }
     }
 }

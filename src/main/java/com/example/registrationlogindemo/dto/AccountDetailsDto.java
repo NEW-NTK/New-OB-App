@@ -17,7 +17,7 @@ public class AccountDetailsDto {
     private String phoneNo;
     private String type;
     private String currency;
-    private  String accountStatus;
+    private String accountStatus;
     private String kycStatus;
     private String country;
     private String balance;

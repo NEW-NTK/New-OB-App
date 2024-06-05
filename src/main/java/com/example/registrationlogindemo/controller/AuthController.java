@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -224,7 +225,7 @@ public class AuthController {
 
     @GetMapping("/accOverview")
     public String showAccountOverview(Model model, HttpSession session){
-        model.addAttribute("Account No", session.getAttribute("Account No"));
+        model.addAttribute("AccountNo", session.getAttribute("Account No"));
         AccountDetailsDto accountDetailsDto = new AccountDetailsDto();
         Object accountNumberObj = session.getAttribute("Account No");
 
@@ -235,9 +236,12 @@ public class AuthController {
         } else if (accountNumberObj instanceof String) {
 
             String accountNumberStr = (String) accountNumberObj;
+
             try {
                 Long accountNumber = Long.parseLong(accountNumberStr);
                 accountDetailsDto = addAccountService.getAccountOverview(accountNumber);
+
+
             } catch (NumberFormatException e) {
                 System.err.println("Error parsing account number: " + e.getMessage());
             }
@@ -448,6 +452,13 @@ public class AuthController {
         return  new ResponseEntity<>(finishTransactionResponseDto,HttpStatus.OK);
     }
 
+
+
+    @DeleteMapping("api/accounts/{accNo}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBankAccount(@PathVariable long accNo) {
+        addAccountService.deleteBankAccount(accNo);
+    }
 
 
 

@@ -92,7 +92,71 @@ public class RegistrationLoginDemoApplication implements CommandLineRunner {
 //		bankacc2.setUser(user2);
 //		listBankAcc2.add(bankacc2);
 //		bankAccountRepo.save(bankacc2);
-
-
+//
+//
+//		Bank bank3 = bankRepo.findByBankName("XYZ Bank");
+//		if (bank3 == null) {
+//			// If bank doesn't exist, create a new one
+//			bank3 = new Bank();
+//			bank3.setBankName("ABA Bank");
+//			bankRepo.save(bank3);
+//		}
+//
+//		User user3 = new User();
+//		user3.setName("John Doe");
+//		user3.setPhoneNo("+855 23965741");
+//		user3.setPassword("john123");
+//		userRepo.save(user3);
+//
+//		List<BankAccount> listBankAcc3 = new ArrayList<>();
+//		BankAccount bankacc3 = new BankAccount();
+//		bankacc3.setAccNo(212006653412L);
+//		bankacc3.setType("Dollar");
+//		bankacc3.setCurrency("USD");
+//		bankacc3.setAccountStatus("Activated");
+//		bankacc3.setCountry("Cambodia");
+//		bankacc3.setBalance(15000.0F);
+//		bankacc3.setAccLimit("1");
+//		bankacc3.setAccountId("john@xyz");
+//		bankacc3.setAccountName("JohnD");
+//		bankacc3.setFrozen(true);
+//
+//		bankacc3.setBank(bank3);
+//		bankacc3.setUser(user3);
+//		listBankAcc3.add(bankacc3);
+//		bankAccountRepo.save(bankacc3);
+//
+//
+//		Bank bank4 = bankRepo.findByBankName("XYZ Bank");
+//      if (bank4 == null) {
+//			// If bank doesn't exist, create a new one
+//		  bank4 = new Bank();
+//		  bank4.setBankName("XYZ Bank");
+//			bankRepo.save(bank4);
+//		}
+//		User user4 = new User();
+//		user4.setName("Jane Doe");
+//
+//		user4.setPhoneNo("+855 961234567");
+//		user4.setPassword("jane123");
+//		userRepo.save(user4);
+//
+//		List<BankAccount> listBankAcc4 = new ArrayList<>();
+//		BankAccount bankacc4 = new BankAccount();
+//		bankacc4.setAccNo(215896347512L);
+//		bankacc4.setType("Dollar");
+//		bankacc4.setCurrency("USD");
+//		bankacc4.setAccountStatus("Activated");
+//		bankacc4.setCountry("Cambodia");
+//		bankacc4.setBalance(15000.0F);
+//		bankacc4.setAccLimit("1");
+//		bankacc4.setAccountId("jane@xyz");
+//		bankacc4.setAccountName("JaneD");
+//		bankacc4.setFrozen(true);
+//
+//		bankacc4.setBank(bank4);
+//		bankacc4.setUser(user4);
+//		listBankAcc4.add(bankacc4);
+//		bankAccountRepo.save(bankacc4);
 	}
 }

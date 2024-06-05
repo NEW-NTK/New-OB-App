@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
@@ -32,51 +31,50 @@
             border-radius: 50px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            margin-left: -150px;
         }
 
         .ui-container {
             padding: 20px;
         }
+
         .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             color: black;
             padding: 10px;
-
         }
 
         .back-icon {
             font-size: 14px;
             cursor: pointer;
-            color:red;
+            color: red;
         }
-
 
         h1 {
             margin: 0;
             font-size: 14px;
         }
 
-
-
-
-         h4 {
+        h4 {
             color: #a8a3a3;
             margin-top: 10px;
             font-size: 12px;
         }
-        h3{
-        margin-top: 10px;
-        font-size: 20px;
-          font-weight: bold;
+
+        h3 {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            margin:0;
         }
 
         .form-group input {
             background-color: #f7f4f4;
         }
-        .otp-inputs{
+
+        .otp-inputs {
             margin-top: 20px;
         }
 
@@ -99,8 +97,129 @@
         }
 
         input[type="number"] {
-            -moz-appearance: textfield; /* Firefox */
+            -moz-appearance: textfield;
+            /* Firefox */
         }
+
+        .cardSection {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 200px;
+            width: calc(100% - 200px);
+            max-width: 250px;
+            height: 100%;
+            background-color: #f7f7f7;
+            overflow-y: auto;
+            padding: 12px;
+            margin-right: 50px;
+            scrollbar-width: none; /* For Firefox */
+        }
+        .cardSection::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+
+
+        .api-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top:0;
+        }
+         .containerName {
+            text-align: center;
+        }
+
+       .apicard {
+            display: flex;
+            align-items: flex-start;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+        .api-image {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .api-name {
+            font-size: 10px;
+            font-weight: bold;
+            flex-grow: 1;
+             margin-top:8px;
+        }
+        .special-card {
+            background-color: #ffcccc; /* Change background color to a different color */
+            border: 2px solid #ff0000; /* Add a border to highlight the card */
+        }
+
+        .backendContainer {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: calc(100% - 600px); /* Adjust width based on your requirements */
+            max-width: 180px;
+            height: 100%;
+            background-color: #f7f7f7;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+
+        .backend-card {
+            margin-bottom: 10px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top:70px;
+        }
+        .backend-card img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .backend-card .name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+       .connection-line {
+            position: absolute;
+            background-color: #FF6961;
+            height: 2px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+         .api-group {
+            background-color: #e3f2fd;
+            padding: 10px 10px 5px 10px;
+
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+<!--            margin-bottom: 10px;-->
+        }
+
+         .api-small-card {
+            margin:0 10px 0 10px;
+        }
+
+        .curvy-line {
+            stroke: #FF6961;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .connection-circle {
+            fill: #FF6961;
+        }
+
     </style>
 </head>
 
@@ -112,25 +231,16 @@
 
             <div class="header">
                 <span class="back-icon">&#9665;</span>
-
             </div>
 
             <!-- Bank Account Verification Section -->
             <div class="verification-section">
                 <h3>Enter the Code</h3>
-
-
-
             </div>
-
 
             <h4>To Verify We've send an sms with code to</h4>
             <h4 th:text="${username}"></h4>
-            <form method="post" role="form" th:action="@{/verifyOtp}" th:object="${user}">
-            <!-- OTP Input Fields -->
-<!--                <input type="hidden" id="bankname" th:name="bankname" th:value="${bankname}" />-->
-<!--                <input type="hidden" id="username" th:name="username" th:value="${user.username}" />-->
-<!--                <input type="hidden" id="password" th:name="password" th:value="${user.password}" />-->
+            <form id="otpForm" method="post" role="form" th:action="@{/verifyOtp}" th:object="${user}">
                 <div class="otp-inputs form-group">
                     <input type="number" maxlength="1" class="otp-input" id="otp1" />
                     <input type="number" maxlength="1" class="otp-input" id="otp2" />
@@ -139,24 +249,104 @@
                     <input type="number" maxlength="1" class="otp-input" id="otp5" />
                     <input type="number" maxlength="1" class="otp-input" id="otp6" />
                 </div>
-
             </form>
 
-
-            <h4 >You can request another code in 1.00</h4>
+            <h4>You can request another code in 1.00</h4>
 
         </div>
     </div>
+    <div class="cardSection">
+        <div class="api-container">
+            <h3 class="containerName">APIs</h3>
+            <div class="api-group">
+                <div class="apicard" id="linkAccountInit">
+                    <img th:src="@{/images/api.png}" alt="API 1" class="api-image">
+                    <span class="api-name">Link Account Init API</span>
+                </div>
+                <div class="apicard" id="linkAccountFinish">
+                    <img th:src="@{/images/api.png}" alt="API 3" class="api-image">
+                    <span class="api-name">Link Account Finish API</span>
+                </div>
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 5" class="api-image">
+                    <span class="api-name">Unlink Account API</span>
+                </div>
+            </div>
+
+
+
+
+            <div class="api-group">
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 7" class="api-image">
+                    <span class="api-name">Init Transaction API</span>
+                </div>
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 8" class="api-image">
+                    <span class="api-name">Finish Transaction API</span>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="api-group">
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 6" class="api-image">
+                    <span class="api-name">Get Account Detail API</span>
+                </div>
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 9" class="api-image">
+                    <span class="api-name">Get Account Transactions API</span>
+                </div>
+
+            </div>
+
+            <div class="apicard api-small-card" id="verifyOtp">
+                <img th:src="@{/images/api.png}" alt="API 2" class="api-image">
+                <span class="api-name">Verify OTP API</span>
+            </div>
+
+            <div class="apicard api-small-card">
+                <img th:src="@{/images/api.png}" alt="API 4" class="api-image">
+                <span class="api-name">Authentication API</span>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="backendContainer">
+        <h3 class="containerName">Backend</h3>
+        <div class="backend-card">
+            <img th:src="@{/images/backend.png}"  alt="Backend Card Image">
+            <div class="name">NBC</div>
+        </div>
+        <div class="backend-card">
+            <img th:src="@{/images/backend.png}" alt="Backend Card Image">
+            <div class="name">CBS</div>
+        </div>
+    </div>
+
+    <svg id="polylineSvg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+
+        <path id="curvyPolyline1" class="curvy-line" d="" />
+        <!--        <circle id="connectionCircle1a" class="connection-circle" cx="0" cy="0" r="5" />-->
+        <circle id="connectionCircle1b" class="connection-circle" cx="0" cy="0" r="5" />
+
+
+        <path id="curvyPolyline2" class="curvy-line" d="" />
+        <circle id="connectionCircle2b" class="connection-circle" cx="0" cy="0" r="5" />
+    </svg>
 </div>
 
-<!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-
 <script>
-
     function getOtpString() {
         var otp1 = document.getElementById("otp1").value;
         var otp2 = document.getElementById("otp2").value;
@@ -165,51 +355,123 @@
         var otp5 = document.getElementById("otp5").value;
         var otp6 = document.getElementById("otp6").value;
 
-
         var otpString = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
-        console.log(otpString); // Display the concatenated string in the console
+        console.log(otpString);
 
         return otpString;
     }
 
-    function checkAndRedirect(event) {
-    if (event.key === "Enter") {
+    function checkAndRedirect() {
         var otpString = getOtpString();
+
+        var cardSection = document.querySelector('.cardSection');
+        var backendContainer = document.querySelector('.backendContainer');
+        var mobileFrame = document.querySelector('.mobile-frame');
+        var verifyOtp = document.getElementById('verifyOtp');
+<!--        var backendCard1 = document.getElementById('backendCard1');-->
 
         if (otpString.length === 6) {
             fetch(`/verifyOtp`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain',
-                },
-                body: otpString,
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else if (response.status === 302) {
-                    // Handle the redirect manually
-                     window.location.href = '/addBankAccount' ;
-                } else {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-            })
-            .then(data => {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                    body: otpString,
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else if (response.status === 302) {
+                         cardSection.style.display = 'block';
+                        backendContainer.style.display = 'block';
+<!--                        mobileFrame.style.marginLeft='-350px';-->
+                        var apiCards = document.querySelectorAll('.apicard');
+                        for (var i = 0; i < apiCards.length; i++) {
+                            var apiName = apiCards[i].querySelector('.api-name').innerText;
+                            if (apiName === 'Verify OTP API') {
+                                apiCards[i].classList.add('special-card');
+                                break; // Exit the loop once the API card is found and highlighted
+                                }
 
-            })
-            .catch(error => console.error('Error:', error));
+
+                        }
+                          // Function to position and draw the curvy zigzag polyline
+                        function drawCurvyPolyline(fromElement, toElement, polyline, circle2) {
+                            var fromRect = fromElement.getBoundingClientRect();
+                            var toRect = toElement.getBoundingClientRect();
+
+
+        <!--                    var fromY = fromRect.top + fromRect.height / 2;-->
+                             var fromX = fromRect.right ; // Adjusting fromX closer to the "Next" button
+        <!--                    var fromY = fromRect.bottom -45;-->
+                            var fromY = fromRect.top + fromRect.height / 2;
+                            var toX = toRect.left;
+                            var toY = toRect.top + toRect.height / 2;
+
+                            var midX1 = fromX + (toX - fromX) / 2.5;   // Adjusting midX1
+                            var midY1 = fromY + (toY - fromY) / 3.5;   // Adjusting midY1
+                            var midX2 = toX - (toX - fromX) / 2.5;     // Adjusting midX2
+                            var midY2 = toY - (toY - fromY) / 3.5;
+
+                            var pathData = `M${fromX},${fromY} Q${midX1},${midY1} ${midX2},${midY2} T${toX},${toY}`;
+                            polyline.setAttribute('d', pathData);
+
+        <!--                    circle1.setAttribute('cx', midX1);-->
+        <!--                    circle1.setAttribute('cy', midY1);-->
+
+                            circle2.setAttribute('cx', toX);
+                            circle2.setAttribute('cy', toY);
+                        }
+
+                        var polylineSvg = document.getElementById('polylineSvg');
+                        var curvyPolyline1 = document.getElementById('curvyPolyline1');
+                        var connectionCircle1a = document.getElementById('connectionCircle1a');
+                        var connectionCircle1b = document.getElementById('connectionCircle1b');
+                        var curvyPolyline2 = document.getElementById('curvyPolyline2');
+                        var connectionCircle2a = document.getElementById('connectionCircle2a');
+                        var connectionCircle2b = document.getElementById('connectionCircle2b');
+
+
+                        drawCurvyPolyline(mobileFrame, verifyOtp, curvyPolyline1, connectionCircle1b);
+<!--                        drawCurvyPolyline(verifyOtp, backendCard1, curvyPolyline2, connectionCircle2b);-->
+
+
+
+
+                        setTimeout(() => {
+
+                                window.location.href = '/addBankAccount';
+
+                             cardSection.style.display = 'none';
+                            backendContainer.style.display = 'none';
+<!--                            mobileFrame.style.marginLeft = '0';-->
+
+                        }, 3000);
+
+<!--                        window.location.href = '/addBankAccount';-->
+                    } else {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                })
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => console.error('Error:', error));
         }
     }
-}
 
 
-    // Add event listeners to each OTP input
     var otpInputs = document.getElementsByClassName("otp-input");
     for (var i = 0; i < otpInputs.length; i++) {
-        otpInputs[i].addEventListener("input", getOtpString);
-        otpInputs[i].addEventListener("keydown", checkAndRedirect);
+        otpInputs[i].addEventListener("input", function () {
+            if (this.value.length === 1) {
+                if (this.nextElementSibling) {
+                    this.nextElementSibling.focus();
+                }
+            }
+            checkAndRedirect();
+        });
     }
-
 </script>
 
 </body>

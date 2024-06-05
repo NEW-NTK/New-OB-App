@@ -1,6 +1,7 @@
 package com.example.registrationlogindemo.service;
 
 import com.example.registrationlogindemo.dto.*;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface AddAccountService {
 
@@ -12,4 +13,9 @@ public interface AddAccountService {
     AccountDetailsResponseDto getAccountDetails(long AccNo);
 
     AccountDetailsDto getAccountOverview(long AccNo);
+
+
+
+
+    void deleteBankAccount(long accNo);
 }

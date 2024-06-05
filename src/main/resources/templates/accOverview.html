@@ -31,6 +31,7 @@
             border-radius: 50px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            margin-left: -150px;
         }
 
         .ui-container {
@@ -147,6 +148,127 @@
         .card{
             border-radius: 11px;
         }
+        .cardSection {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 200px;
+            width: calc(100% - 200px);
+            max-width: 250px;
+            height: 100%;
+            background-color: #f7f7f7;
+            overflow-y: auto;
+            padding: 12px;
+            margin-right: 50px;
+            scrollbar-width: none;
+        }
+
+        .cardSection::-webkit-scrollbar {
+            display: none;
+        }
+
+        .api-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 0;
+        }
+         .containerName {
+            text-align: center;
+        }
+        .apicard {
+            display: flex;
+            align-items: flex-start;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+
+        .api-image {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .api-name {
+            font-size: 10px;
+            font-weight: bold;
+            flex-grow: 1;
+            margin-top:8px;
+        }
+
+        .special-card {
+            background-color: #ffcccc;
+            border: 2px solid #ff0000;
+        }
+
+        .backendContainer {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: calc(100% - 600px);
+            max-width: 180px;
+            height: 100%;
+            background-color: #f7f7f7;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .backend-card {
+            margin-bottom: 10px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .backend-card img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .backend-card .name {
+            font-size: 16px;
+            font-weight: bold;
+
+        }
+
+        .connection-line {
+            position: absolute;
+            background-color: #FF6961;
+            height: 2px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .api-group {
+            background-color: #e3f2fd;
+            padding: 10px 10px 5px 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .curvy-line {
+            stroke: #FF6961;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .connection-circle {
+            fill: #FF6961;
+        }
+
+         .api-small-card {
+            margin:0 10px 0 10px;
+        }
     </style>
 </head>
 
@@ -164,6 +286,8 @@
             <div class="card card1">
                 <p class="accname" th:text="${type}"></p>
                 <p class="balance" th:text="${balance}"></p>
+                <input type="hidden" id="accountNo" th:value="${AccountNo}">
+
                 <button class="arrow-btn">&#9654;</button>
             </div>
 
@@ -186,15 +310,196 @@
                 </div>
             </div>
 
+            <div class="transaction-section">
+<!--                <div th:each="transaction : ${transactions}" class="transaction-item">-->
+<!--                    <p><strong>Date:</strong> <span th:text="${transaction.date}"></span></p>-->
+<!--                    <p><strong>Amount:</strong> <span th:text="${transaction.amount}"></span></p>-->
+<!--                    <p><strong>Destination Account:</strong> <span th:text="${transaction.destinationAccountId}"></span></p>-->
+<!--                    <p><strong>Source Account:</strong> <span th:text="${transaction.sourceAccountId}"></span></p>-->
+<!--                </div>-->
+            </div>
+
         </div>
     </div>
+
+    <div class="cardSection">
+        <div class="api-container">
+            <h3 class="containerName">APIs</h3>
+            <div class="api-group">
+                <div class="apicard" id="linkAccountInit">
+                    <img th:src="@{/images/api.png}" alt="API 1" class="api-image">
+                    <span class="api-name">Link Account Init API</span>
+                </div>
+                <div class="apicard" id="linkAccountFinish">
+                    <img th:src="@{/images/api.png}" alt="API 3" class="api-image">
+                    <span class="api-name">Link Account Finish API</span>
+                </div>
+                <div class="apicard" id="unlinkAcc">
+                    <img th:src="@{/images/api.png}" alt="API 5" class="api-image">
+                    <span class="api-name">Unlink Account API</span>
+                </div>
+            </div>
+
+            <div class="api-group">
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 7" class="api-image">
+                    <span class="api-name">Init Transaction API</span>
+                </div>
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 8" class="api-image">
+                    <span class="api-name">Finish Transaction API</span>
+                </div>
+            </div>
+
+            <div class="api-group">
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 6" class="api-image">
+                    <span class="api-name">Get Account Detail API</span>
+                </div>
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 9" class="api-image">
+                    <span class="api-name">Get Account Transactions API</span>
+                </div>
+            </div>
+            <div class="apicard api-small-card" >
+                <img th:src="@{/images/api.png}" alt="API 2" class="api-image">
+                <span class="api-name">Verify OTP API</span>
+            </div>
+            <div class="apicard api-small-card">
+                <img th:src="@{/images/api.png}" alt="API 4" class="api-image">
+                <span class="api-name">Authentication API</span>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+    <div class="backendContainer">
+        <h3 class="containerName">Backend</h3>
+        <div class="backend-card" id="backendCard1">
+            <img th:src="@{/images/backend.png}" alt="Backend Card Image">
+            <div class="name">NBC</div>
+        </div>
+        <div class="backend-card">
+            <img th:src="@{/images/backend.png}" alt="Backend Card Image">
+            <div class="name">CBS</div>
+        </div>
+    </div>
+    <!-- Add the SVG container for the curvy zigzag polyline -->
+    <!--    <svg id="polylineSvg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">-->
+    <!--        <path id="curvyPolyline1" class="curvy-line" d="" />-->
+    <!--        <circle id="connectionCircle1a" class="connection-circle" cx="0" cy="0" r="5" />-->
+    <!--        <circle id="connectionCircle1b" class="connection-circle" cx="0" cy="0" r="5" />-->
+    <!--        <path id="curvyPolyline2" class="curvy-line" d="" />-->
+    <!--        <circle id="connectionCircle2a" class="connection-circle" cx="0" cy="0" r="5" />-->
+    <!--        <circle id="connectionCircle2b" class="connection-circle" cx="0" cy="0" r="5" />-->
+    <!--    </svg>-->
+    <svg id="polylineSvg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+
+        <path id="curvyPolyline1" class="curvy-line" d="" />
+        <!--        <circle id="connectionCircle1a" class="connection-circle" cx="0" cy="0" r="5" />-->
+        <circle id="connectionCircle1b" class="connection-circle" cx="0" cy="0" r="5" />
+
+
+        <path id="curvyPolyline2" class="curvy-line" d="" />
+        <circle id="connectionCircle2b" class="connection-circle" cx="0" cy="0" r="5" />
+    </svg>
 </div>
 
 <!-- Bootstrap JavaScript and dependencies (jQuery and Popper.js) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script>
+    function deleteAccount(accNo) {
 
+        var cardSection = document.querySelector('.cardSection');
+        var backendContainer = document.querySelector('.backendContainer');
+        var mobileFrame = document.querySelector('.mobile-frame');
+        var unlinkAcc = document.getElementById('unlinkAcc');
+<!--        var backendCard1 = document.getElementById('backendCard1');-->
+        fetch(`/api/accounts/${accNo}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Account deleted successfully');
+
+                 cardSection.style.display = 'block';
+                backendContainer.style.display = 'block';
+                // Optionally, refresh the page or redirect to another page
+
+                var apiCards = document.querySelectorAll('.apicard');
+                for (var i = 0; i < apiCards.length; i++) {
+                    var apiName = apiCards[i].querySelector('.api-name').innerText;
+                    if (apiName === 'Unlink Account API') {
+                        apiCards[i].classList.add('special-card');
+                        break;
+                    }
+                }
+
+                // Function to position and draw the curvy zigzag polyline
+                function drawCurvyPolyline(fromElement, toElement, polyline, circle2) {
+                    var fromRect = fromElement.getBoundingClientRect();
+                    var toRect = toElement.getBoundingClientRect();
+
+
+<!--                    var fromY = fromRect.top + fromRect.height / 2;-->
+                     var fromX = fromRect.right ; // Adjusting fromX closer to the "Next" button
+<!--                    var fromY = fromRect.bottom -45;-->
+                    var fromY = fromRect.top + fromRect.height / 2;
+                    var toX = toRect.left;
+                    var toY = toRect.top + toRect.height / 2;
+
+                    var midX1 = fromX + (toX - fromX) / 2.5;   // Adjusting midX1
+                    var midY1 = fromY + (toY - fromY) / 3.5;   // Adjusting midY1
+                    var midX2 = toX - (toX - fromX) / 2.5;     // Adjusting midX2
+                    var midY2 = toY - (toY - fromY) / 3.5;
+
+                    var pathData = `M${fromX},${fromY} Q${midX1},${midY1} ${midX2},${midY2} T${toX},${toY}`;
+                    polyline.setAttribute('d', pathData);
+
+<!--                    circle1.setAttribute('cx', midX1);-->
+<!--                    circle1.setAttribute('cy', midY1);-->
+
+                    circle2.setAttribute('cx', toX);
+                    circle2.setAttribute('cy', toY);
+                }
+
+                var polylineSvg = document.getElementById('polylineSvg');
+                var curvyPolyline1 = document.getElementById('curvyPolyline1');
+                var connectionCircle1a = document.getElementById('connectionCircle1a');
+                var connectionCircle1b = document.getElementById('connectionCircle1b');
+                var curvyPolyline2 = document.getElementById('curvyPolyline2');
+                var connectionCircle2a = document.getElementById('connectionCircle2a');
+                var connectionCircle2b = document.getElementById('connectionCircle2b');
+
+
+                drawCurvyPolyline(mobileFrame, unlinkAcc, curvyPolyline1, connectionCircle1b);
+<!--                drawCurvyPolyline(unlinkAcc, backendCard1, curvyPolyline2, connectionCircle2b);-->
+
+                setTimeout(() => {
+
+                        window.location.href = '/bankwallet/nobankaccount';
+
+                }, 5000);
+
+
+            } else {
+                alert('Failed to delete account');
+            }
+        });
+    }
+
+    document.querySelector('.card3').addEventListener('click', function() {
+        const accNo = document.getElementById('accountNo').value;
+        deleteAccount(accNo);
+    });
+</script>
 </body>
+
+
 
 </html>

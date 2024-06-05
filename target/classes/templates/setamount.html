@@ -2,7 +2,11 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Transaction Set Amount</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body {
             margin: 0;
@@ -16,21 +20,25 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            min-height: 100vh;
+            position: relative;
         }
 
         .mobile-frame {
             position: relative;
             width: 300px;
+            max-width: 400px;
             height: 600px;
             background-color: #eee9e9;
             border: 9px solid #333;
             border-radius: 50px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+             margin-left: -150px;
         }
 
         .ui-container {
-            padding: 9px;
+           padding: 9px;
             background-color: #ffffff;
         }
         .bankNamecontainer{
@@ -86,7 +94,7 @@
        .card1 .row{
             display: flex;
             margin-right: 4px;
-            margin-left: 31px;
+            margin-left: 22px;
         }
 
         .icon-wrapper {
@@ -112,8 +120,8 @@
             font-size: 12px;
             cursor: pointer;
             font-weight: bold;
-            margin: -26px 42px;
-            width: 50px;
+            margin: -28px -60px;
+            width: 150px;
         }
         .selected {
             background-color: white !important;
@@ -192,14 +200,14 @@
             justify-content: space-between;
             background-color: #ffffff;
             width: 303px;
-            margin-top: 57px;
+            margin-top:40px;
             height: 145px;
 
         }
         .nextbtncontainer .row{
             display: flex;
             margin-right: 4px;
-            margin-left: 31px;
+            margin-left: 30px;
 
         }
         .nextcontainer button{
@@ -207,11 +215,17 @@
             padding: 10px 19px;
             border-radius: 51px;
             border: solid;
-            margin: 19px 43px;
+            margin: 19px 22px;
             color: white;
             border-color: #3f3939;
             border-width: thin;
         }
+          h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin:0;
+        }
+
 
         .namecontainer{
             display: flex;
@@ -235,6 +249,129 @@
         }
         .username{
             margin: 4px 33px;
+        }
+
+         .cardSection {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 200px;
+            width: calc(100% - 200px); /* Adjust width based on your requirements */
+            max-width: 250px; /* Set a maximum width if needed */
+            height: 100%;
+            background-color: #f7f7f7;
+            overflow-y: auto;
+            padding: 12px;
+            margin-right: 50px;
+            scrollbar-width: none; /* For Firefox */
+        }
+        .cardSection::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+
+
+        .api-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top:0;
+        }
+         .containerName {
+            text-align: center;
+        }
+
+       .apicard {
+            display: flex;
+            align-items: flex-start;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+        .api-image {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .api-name {
+            font-size: 10px;
+            font-weight: bold;
+            flex-grow: 1;
+            margin-top:8px;
+        }
+        .special-card {
+            background-color: #ffcccc;
+            border: 2px solid #ff0000;
+        }
+
+        .backendContainer {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: calc(100% - 600px);
+            max-width: 180px;
+            height: 100%;
+            background-color: #f7f7f7;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+
+        .backend-card {
+            margin-bottom: 10px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top:70px;
+        }
+        .backend-card img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .backend-card .name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+       .connection-line {
+            position: absolute;
+            background-color: #FF6961;
+            height: 2px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+         .api-group {
+            background-color: #e3f2fd;
+            padding: 10px 10px 5px 10px;
+
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+<!--            margin-bottom: 10px;-->
+        }
+
+        .api-small-card {
+            margin:0 10px 0 10px;
+        }
+        .curvy-line {
+            stroke: #FF6961;
+            stroke-width: 2;
+            fill: none;
+        }
+        .straight-line {
+            stroke: #FF6961;
+            stroke-width: 2;
+        }
+
+
+        .connection-circle {
+            fill: #FF6961;
         }
 
 
@@ -322,6 +459,93 @@
         </form>
     </div>
 </div>
+    <div class="cardSection">
+        <div class="api-container">
+            <h3 class="containerName">APIs</h3>
+            <div class="api-group">
+                <div class="apicard" id="linkAccountInit">
+                    <img th:src="@{/images/api.png}" alt="API 1" class="api-image">
+                    <span class="api-name">Link Account Init API</span>
+                </div>
+                <div class="apicard" id="linkAccountFinish">
+                    <img th:src="@{/images/api.png}" alt="API 3" class="api-image">
+                    <span class="api-name">Link Account Finish API</span>
+                </div>
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 5" class="api-image">
+                    <span class="api-name">Unlink Account API</span>
+                </div>
+            </div>
+
+
+
+
+            <div class="api-group" >
+                <div class="apicard" id="initTransaction">
+                    <img th:src="@{/images/api.png}" alt="API 7" class="api-image">
+                    <span class="api-name">Init Transaction API</span>
+                </div>
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 8" class="api-image">
+                    <span class="api-name">Finish Transaction API</span>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="api-group">
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 6" class="api-image">
+                    <span class="api-name">Get Account Detail API</span>
+                </div>
+                <div class="apicard">
+                    <img th:src="@{/images/api.png}" alt="API 9" class="api-image">
+                    <span class="api-name">Get Account Transactions API</span>
+                </div>
+
+            </div>
+
+            <div class="apicard api-small-card">
+                <img th:src="@{/images/api.png}" alt="API 2" class="api-image">
+                <span class="api-name">Verify OTP API</span>
+            </div>
+
+            <div class="apicard api-small-card">
+                <img th:src="@{/images/api.png}" alt="API 4" class="api-image">
+                <span class="api-name">Authentication API</span>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="backendContainer">
+        <h3 class="containerName">Backend</h3>
+        <div class="backend-card" id="backendCard1">
+            <img th:src="@{/images/backend.png}"  alt="Backend Card Image">
+            <div class="name">NBC</div>
+        </div>
+        <div class="backend-card" id="backendCard2">
+            <img th:src="@{/images/backend.png}" alt="Backend Card Image">
+            <div class="name">CBS</div>
+        </div>
+    </div>
+    <svg id="polylineSvg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+
+        <path id="curvyPolyline1" class="curvy-line" d="" />
+        <!--        <circle id="connectionCircle1a" class="connection-circle" cx="0" cy="0" r="5" />-->
+        <circle id="connectionCircle1b" class="connection-circle" cx="0" cy="0" r="5" />
+
+
+        <path id="curvyPolyline2" class="curvy-line" d="" />
+        <circle id="connectionCircle2b" class="connection-circle" cx="0" cy="0" r="5" />
+
+        <line id="straightLine" class="curvy-line" x1="0" y1="0" x2="0" y2="0" />
+        <circle id="connectionCircle3" class="connection-circle" cx="0" cy="0" r="5" />
+
+    </svg>
 </div>
 
 <script>
@@ -343,6 +567,13 @@
     var amount = document.getElementById("numericInput").value;
     var description = document.getElementById("textInput").value;
 
+     var cardSection = document.querySelector('.cardSection');
+     var backendContainer = document.querySelector('.backendContainer');
+     var mobileFrame = document.querySelector('.mobile-frame');
+     var initTransaction = document.getElementById('initTransaction');
+     var backendCard1 = document.getElementById('backendCard1');
+     var backendCard2 = document.getElementById('backendCard2');
+
     var requestData = {
         amount: amount,
         description: description
@@ -363,7 +594,92 @@
         }
     })
     .then(data => {
-        window.location.href = '/' + data.page;
+         cardSection.style.display = 'block';
+                backendContainer.style.display = 'block';
+<!--                mobileFrame.style.marginLeft='-350px';-->
+
+                var apiCards = document.querySelectorAll('.apicard');
+                    for (var i = 0; i < apiCards.length; i++) {
+                        var apiName = apiCards[i].querySelector('.api-name').innerText;
+                        if (apiName === 'Init Transaction API') {
+                            apiCards[i].classList.add('special-card');
+                            break; // Exit the loop once the API card is found and highlighted
+                        }
+                    }
+
+                    // Function to position and draw the curvy zigzag polyline
+                function drawCurvyPolyline(fromElement, toElement, polyline, circle2) {
+                    var fromRect = fromElement.getBoundingClientRect();
+                    var toRect = toElement.getBoundingClientRect();
+
+
+<!--                    var fromY = fromRect.top + fromRect.height / 2;-->
+                     var fromX = fromRect.right ; // Adjusting fromX closer to the "Next" button
+<!--                    var fromY = fromRect.bottom -45;-->
+                    var fromY = fromRect.top + fromRect.height / 2;
+                    var toX = toRect.left;
+                    var toY = toRect.top + toRect.height / 2;
+
+                    var midX1 = fromX + (toX - fromX) / 2.5;   // Adjusting midX1
+                    var midY1 = fromY + (toY - fromY) / 3.5;   // Adjusting midY1
+                    var midX2 = toX - (toX - fromX) / 2.5;     // Adjusting midX2
+                    var midY2 = toY - (toY - fromY) / 3.5;
+
+                    var pathData = `M${fromX},${fromY} Q${midX1},${midY1} ${midX2},${midY2} T${toX},${toY}`;
+                    polyline.setAttribute('d', pathData);
+
+<!--                    circle1.setAttribute('cx', midX1);-->
+<!--                    circle1.setAttribute('cy', midY1);-->
+
+                    circle2.setAttribute('cx', toX);
+                    circle2.setAttribute('cy', toY);
+                }
+
+                function drawStraightLine(fromElement, toElement, line, circle) {
+                    var fromRect = fromElement.getBoundingClientRect();
+                    var toRect = toElement.getBoundingClientRect();
+
+                    var fromX = fromRect.left + fromRect.width / 2;
+                    var fromY = fromRect.bottom;
+                    var toX = toRect.left + toRect.width / 2;
+                    var toY = toRect.top;
+
+                    line.setAttribute('x1', fromX);
+                    line.setAttribute('y1', fromY);
+                    line.setAttribute('x2', toX);
+                    line.setAttribute('y2', toY);
+
+                    circle.setAttribute('cx', toX);
+                    circle.setAttribute('cy', toY);
+                }
+
+                var polylineSvg = document.getElementById('polylineSvg');
+                var curvyPolyline1 = document.getElementById('curvyPolyline1');
+<!--                var connectionCircle1a = document.getElementById('connectionCircle1a');-->
+                var connectionCircle1b = document.getElementById('connectionCircle1b');
+                var curvyPolyline2 = document.getElementById('curvyPolyline2');
+<!--                var connectionCircle2a = document.getElementById('connectionCircle2a');-->
+                var connectionCircle2b = document.getElementById('connectionCircle2b');
+                var straightLine = document.getElementById('straightLine');
+                var connectionCircle3 = document.getElementById('connectionCircle3');
+
+                drawCurvyPolyline(mobileFrame, initTransaction, curvyPolyline1, connectionCircle1b);
+                drawCurvyPolyline(initTransaction, backendCard1, curvyPolyline2, connectionCircle2b);
+                drawStraightLine(backendCard1, backendCard2, straightLine, connectionCircle3);
+
+
+
+                setTimeout(() => {
+
+                            window.location.href = '/' + data.page;
+
+                             cardSection.style.display = 'none';
+                            backendContainer.style.display = 'none';
+<!--                            mobileFrame.style.marginLeft = '0';-->
+<!--                             connectionLine.style.top = cardSectionCenterY + 'px';-->
+<!--                            connectionLine.style.height = '0';-->
+                        }, 3000);
+<!--        window.location.href = '/' + data.page;-->
     })
     .catch(error => console.error('Error:', error));
 });
