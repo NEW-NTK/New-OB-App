@@ -98,7 +98,7 @@ public class RegistrationLoginDemoApplication implements CommandLineRunner {
 //		if (bank3 == null) {
 //			// If bank doesn't exist, create a new one
 //			bank3 = new Bank();
-//			bank3.setBankName("ABA Bank");
+//			bank3.setBankName("XYZ Bank");
 //			bankRepo.save(bank3);
 //		}
 //
