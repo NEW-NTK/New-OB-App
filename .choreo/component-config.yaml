@@ -1,0 +1,6 @@
+name: my-spring-boot-service
+endpoints:
+  - name: default
+    context: /my-service
+    port: 8081
+visibility: PUBLIC
