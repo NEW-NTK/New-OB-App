@@ -1,6 +1,15 @@
-name: my-spring-boot-service
-endpoints:
-  - name: default
-    context: /my-service
-    port: 8081
-visibility: PUBLIC
+apiVersion: core.choreo.dev/v1beta1
+kind: ComponentConfig
+spec:
+  inbound:
+    # +required Unique name for the endpoint. (This name will be used when generating the managed API)
+    - name: Demo Service
+      # +required Numeric port value that gets exposed via the endpoint
+      port: 8081
+      # +required Type of traffic that the endpoint is accepting. For example: REST, GraphQL, etc.
+      # Allowed values: REST, GraphQL, GRPC, TCP, UDP.
+      type: REST
+      # +optional Network level visibility of the endpoint. Defaults to Public
+      # Accepted values: Project|Organization|Public.
+      networkVisibility: Public
+
