@@ -140,7 +140,6 @@ public class RegistrationLoginDemoApplication implements CommandLineRunner {
 		user4.setPhoneNo("+855 961234567");
 		user4.setPassword("jane123");
 		userRepo.save(user4);
-
 		List<BankAccount> listBankAcc4 = new ArrayList<>();
 		BankAccount bankacc4 = new BankAccount();
 		bankacc4.setAccNo(215896347512L);
